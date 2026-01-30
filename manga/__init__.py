@@ -27,7 +27,7 @@ def create_app(test_config=None):
     from . import db
     db.init_app(app)
 
-    @app.route('/')
+    @app.route('/home')
     def manga():
         mangas = db.execute("SELECT * ...").fetchall()
        
@@ -47,9 +47,6 @@ def create_app(test_config=None):
 
     from . import orders
     app.register_blueprint(orders.bp, url_prefix='/orders')
-
-    from . import exercices
-    app.register_blueprint(exercices.bp, url_prefix='/exercices')
 
     app.add_url_rule('/', endpoint='index')
 

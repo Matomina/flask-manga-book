@@ -2,10 +2,12 @@ DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS articles;
 DROP TABLE IF EXISTS orders_articles;
+DROP TABLE IF EXISTS home;
+DROP TABLE IF EXISTS mangas;
 DROP TABLE IF EXISTS contact;
 
 CREATE TABLE user (
-  id INT PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
   first_name VARCHAR(30) NOT NULL,
   last_name VARCHAR(30) NOT NULL,
   email VARCHAR(50) NOT NULL UNIQUE,  
@@ -29,8 +31,8 @@ INSERT INTO user (first_name, last_name, email, password, phone, address, city, 
 /* ======================================================================================= */
 
 CREATE TABLE orders (
-  id INT PRIMARY KEY AUTOINCREMENT,
-  users_id INT NOT NULL,
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  users_id INTEGER NOT NULL,
   total_amount FLOAT,  
   order_date DATE NOT NULL,
   status VARCHAR(15) NOT NULL CHECK (status IN ('en attente', 'payée', 'expédiée','livrée', 'annulée')),
@@ -49,10 +51,10 @@ INSERT INTO orders (users_id, total_amount, order_date, status) VALUES
 /* ======================================================================================= */
 
 CREATE TABLE articles (
-  id INT PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
   name VARCHAR(30) NOT NULL,
   genres VARCHAR(15) NOT NULL CHECK (genres IN ('manga', 'figurine', 'textile','vaiselle', 'goodies')),
-  volume INT,
+  volume INTEGER,
   expected_date DATE,  
   price FLOAT NOT NULL
 );
@@ -66,9 +68,9 @@ INSERT INTO articles (name, genres, volume, expected_date, price) VALUES
 /* ======================================================================================= */
 
 CREATE TABLE orders_articles (
-  id INT PRIMARY KEY AUTOINCREMENT,
-  orders_id INT NOT NULL,
-  articles_id INT NOT NULL,
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  orders_id INTEGER NOT NULL,
+  articles_id INTEGER NOT NULL,
   
   FOREIGN KEY (orders_id) REFERENCES orders(id),
   FOREIGN KEY (articles_id) REFERENCES articles(id)
@@ -83,9 +85,80 @@ INSERT INTO orders_articles( orders_id, articles_id) VALUES
 /* ======================================================================================= */
 /* ======================================================================================= */
 
+/* Base : products (mangas + goodies) */
+
+CREATE TABLE IF NOT EXISTS products (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    author TEXT,
+    price REAL NOT NULL,
+    image TEXT,
+    category TEXT CHECK (category IN ('Historiques', 'Classiques', 'Pépites', 'Goodies')),
+    description TEXT
+);
+
+/* Tous les items présents dans mon HTML */
+
+INSERT INTO products (title, author, price, image, category) VALUES
+('Black Clover - Tome 1', NULL, 7.90, 'Black-Clover-Tome.jpeg', 'Historiques'),
+('Demon Slayer Vol. 1', NULL, 12.00, 'Demon-Slayer-Tome.jpeg', 'Historiques'),
+('One Piece - Tome 1', NULL, 7.90, 'One-Piece-Tome.jpeg', 'Historiques'),
+('Naruto Shippuden - Tome 1', NULL, 7.90, 'Naruto-Shippuden.jpeg', 'Historiques'),
+('Dandadan - Tome 1', NULL, 7.90, 'Dandadan-Tome.jpeg', 'Historiques'),
+('Solo Leveling - Tome 1', NULL, 8.50, 'Solo-Leveling-Tome.jpeg', 'Historiques'),
+('Jujutsu Kaisen - Tome 1', NULL, 7.90, 'Jujutsu-Kaisen-Tome.jpeg', 'Historiques'),
+('Death Note - Tome 1', NULL, 6.90, 'Death-Note-Tome.jpeg', 'Historiques'),
+('Edens Zero - Tome 1', NULL, 7.90, 'Edens-Zero-Tome.jpeg', 'Historiques'),
+('One Punch Man - Tome 1', NULL, 7.90, 'One-Punch-Man-Tome.jpeg', 'Historiques'),
+('Sakamoto Days - Tome 1', NULL, 7.90, 'Sakamoto-Days-Tome.jpeg', 'Historiques'),
+('Full Metal Alchemist - Tome 1', NULL, 7.90, 'Full-Metal-Tome.jpeg', 'Historiques'),
+
+-- Classiques
+('Dragon Ball - Tome 1', NULL, 6.90, 'Dragon-Ball-Tome.jpeg', 'Classiques'),
+('Dragon Ball Z - Tome 1', NULL, 7.10, 'Dragon-Ball-Z-Tome.jpeg', 'Classiques'),
+('One Piece - Tome 1', NULL, 6.90, 'One-Piece-Tome.jpeg', 'Classiques'),
+('Naruto - Tome 1', NULL, 7.50, 'Naruto-Tome.jpeg', 'Classiques'),
+('Naruto Shippuden - Tome 1', NULL, 7.90, 'Naruto-Shippuden.jpeg', 'Classiques'),
+('Bleach - Tome 1', NULL, 7.30, 'Bleach-Tome.jpeg', 'Classiques'),
+('Pokémon - Tome 1', NULL, 6.50, 'Pokemon-Tome.jpeg', 'Classiques'),
+('Sailor Moon - Tome 1', NULL, 8.00, 'Sailor-Moon-Tome.jpeg', 'Classiques'),
+('Ranma ½ - Tome 1', NULL, 7.40, 'Ranma-1-2-Tome.jpeg', 'Classiques'),
+('Détective Conan - Tome 1', NULL, 7.60, 'Détective-Conan-Tome.jpeg', 'Classiques'),
+('Yu-Gi-Oh - Tome 1', NULL, 7.00, 'Yu-Gi-Oh-Tome.jpeg', 'Classiques'),
+('Great Teacher Onizuka - Tome 1', NULL, 8.20, 'Great-Teacger-Onizuka-Tome.jpeg', 'Classiques'),
+
+-- Pépites
+('Hajime No Ippo - Tome 1', NULL, 8.90, 'Hajime-No-Ippo-Tome.jpeg', 'Pépites'),
+('Saint Seiya - Tome 1', NULL, 7.20, 'Saint-Seya-Tome.jpeg', 'Pépites'),
+('Ken le Survivant - Tome 1', NULL, 8.50, 'Ken-Le-Survivant-Tome.jpeg', 'Pépites'),
+('City Hunter - Tome 1', NULL, 7.60, 'City-Hunter-Tome.jpeg', 'Pépites'),
+('Gundam Wing - Tome 1', NULL, 8.00, 'Gundam-Wing-Tome.jpeg', 'Pépites'),
+('Fairy Tail - Tome 1', NULL, 7.50, 'Fairy-Tail-Tome.jpeg', 'Pépites'),
+('Afro Samouraï - Tome 1', NULL, 9.10, 'Afro-Samourai-Tome.jpeg', 'Pépites'),
+('99 Renforced Wooden Stick', NULL, 10.00, '99-Renforced-Wooden-Stick.jpeg', 'Pépites'),
+('Moi Slime - Tome 1', NULL, 7.80, 'Moi-Slime-Tome.jpeg', 'Pépites'),
+
+-- Goodies (images et items visibles dans ta section Goodies)
+('Figurine Aokiji', NULL, 25.00, 'Gif-figurine-Aokiji.gif', 'Goodies'),
+('Mug Dragon Ball Z', NULL, 12.00, 'Gif-Mug-Bdz.webp', 'Goodies'),
+('Lot de figurine', NULL, 180.00, 'Gif-Figurine.webp', 'Goodies'),
+('Mug Sasuke', NULL, 12.50, 'Gif-Mug-Sasuke.webp', 'Goodies'),
+('Figurine Alma Feri', NULL, 20.00, 'Gif-Figurine2.gif', 'Goodies'),
+('Mug Yu-Gi-Oh', NULL, 14.00, 'Mug-YuGiOh-thermo-actif.gif', 'Goodies'),
+('Figurine Terrece', NULL, 22.00, 'Gif-Figurine-3.webp', 'Goodies'),
+('Produit Naruto (banner)', NULL, 0.00, 'Produit-Naruto.jpeg', 'Goodies'),
+('Produit Jujutsu-Kaisen (banner)', NULL, 0.00, 'Produit-Jujutsu-Kaisen.jpeg', 'Goodies'),
+('Produit One Piece (banner)', NULL, 0.00, 'Produit-One-Piece.jpeg', 'Goodies'),
+('Produit Demon Slayer (banner)', NULL, 0.00, 'Produit-Demon-Slayer.jpeg', 'Goodies'),
+('Produit DBZ (banner)', NULL, 0.00, 'Produit-DBZ.jpeg', 'Goodies');
+
+
+/* ======================================================================================= */
+/* ======================================================================================= */
+
 CREATE TABLE contact (
-  id INT PRIMARY KEY AUTOINCREMENT,
-  users_id INT NOT NULL,
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  users_id INTEGER NOT NULL,
   sujet VARCHAR(20) NOT NULL,  
   message TEXT NOT NULL,
   message_date DATE NOT NULL,
