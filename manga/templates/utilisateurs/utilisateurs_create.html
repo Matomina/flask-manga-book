@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <title>Utilisateurs</title>
+</head>
+
+<body>
+    <h1>Nouveau Utilisateurs</h1>
+
+    <a href="/utilisateurs">Retour à la liste</a>
+
+    <form method="POST" action="/utilisateurs/create">
+
+        <div>
+            <label>Nom</label>
+            <input name="nom_utilisateur" type="text">
+        </div>
+        <div>
+            <label>Prenom</label>
+            <input name="prenom_utilisateur" type="text">
+        </div>
+        <div>
+            <label>Email</label>
+            <input name="email_utilisateur" type="text">
+        </div>
+        <div>
+            <label>Role</label>
+            <input name="role_utilisateur" type="text">
+        </div>
+
+        <input type="submit" value="creer" />
+
+    </form>
+</body>
+
+</html>

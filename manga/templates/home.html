@@ -1,0 +1,30 @@
+<html>
+
+<head>
+    <title>Liste des utilisateurs</title>
+</head>
+
+<body>
+    <h1>Utilisateurs</h1>
+    <a href="/home/create">Ajouter</a>
+    <ul>
+        {% for home in home %}
+
+        <li>
+            <a href="/home/{{ home.id }}">
+                {{home.id}}
+                {{ home.first_name }}
+                {{ home.last_name }}
+                {{ home.email}}
+                {{ home.password }}
+                {{ home.phone }}
+                {{ home.address }}
+                {{ home.role }}
+            </a>
+        </li>
+
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
