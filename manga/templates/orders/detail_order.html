@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <title>Commande</title>
+</head>
+
+<body>
+    <h1>Détail</h1>
+
+    <a href="/orders">Retour à la liste</a>
+
+    <p>
+        {{ detail_order.id}}
+        {{ detail_order.users_id }}
+        {{ detail_order.total_amount }}
+        {{ detail_order.order_date}}
+        {{ detail_order.status }}
+
+    </p>
+
+    <a href="/orders/{{ detail_order.id }}/update">Modifier</a>
+
+    <a href="/orders/{{ detail_order.id }}/delete">Supprimer</a>
+
+</body>
+
+</html>

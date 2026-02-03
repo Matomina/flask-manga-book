@@ -1,0 +1,19 @@
+<html>
+
+<head>
+    <title>Livre</title>
+</head>
+
+<body>
+    <h1>Détail</h1>
+    <a href="/books">Retour à la liste</a>
+    <p>
+        {{ livre.id }}
+        {{ livre.name }}
+        {{ livre.author_name }}
+    </p>
+    <a href="/books/{{ livre.id }}/update">Modifier</a>
+    <a href="/books/{{ livre.id }}/delete">Supprimer</a>
+</body>
+
+</html>

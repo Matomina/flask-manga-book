@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <title>Liste des commandes</title>
+</head>
+
+<body>
+    <h1>Commandes</h1>
+    <a href="/orders/create">Ajouter</a>
+    <ul>
+        {% for order in orders %}
+
+        <li>
+            <a href="/orders/{{ order.id }}">
+
+                {{ order.id }}
+                {{ order.users_id }}
+                {{ order.total_amount }}
+                {{ order.order_date}}
+                {{ order.status }}
+            </a>
+        </li>
+
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
