@@ -1,0 +1,9 @@
+<h1>{{ article['name'] }}</h1>
+
+<p>Prix : {{ article['price'] }} €</p>
+<p>Stock : {{ article['stock'] }}</p>
+<p>Genre : {{ article['genres'] }}</p>
+
+<a href="{{ url_for('articles.articles') }}">
+    Retour
+</a>

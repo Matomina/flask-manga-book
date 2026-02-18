@@ -24,7 +24,7 @@ def detail_orders(id):
     # Remarque ! on transmet jamais l'id directement, on utilise le système des ? pour éviter 
     # l'injection SQL. 
     detail_order = db.execute(
-        'SELECT id, total_amount, order_date, status'
+        'SELECT id, total_amount, created_at, status'
         ' FROM orders'
         ' WHERE id=?',
         (id,)

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Détail utilisateur</title>
+</head>
+
+<body>
+
+    <h1>Détail utilisateur</h1>
+
+    <a href="{{ url_for('users.users') }}">Retour à la liste</a>
+
+    <p>
+        <strong>ID :</strong> {{ user['id'] }} <br>
+        <strong>Prénom :</strong> {{ user['first_name'] }} <br>
+        <strong>Nom :</strong> {{ user['last_name'] }} <br>
+        <strong>Email :</strong> {{ user['email'] }} <br>
+        <strong>Téléphone :</strong> {{ user['phone'] }} <br>
+        <strong>Adresse :</strong> {{ user['address'] }} <br>
+        <strong>Rôle :</strong> {{ user['role'] }}
+    </p>
+
+    <a href="{{ url_for('users.user_update', id=user['id']) }}">
+        Modifier
+    </a>
+
+    <a href="{{ url_for('users.user_delete', id=user['id']) }}">
+        Supprimer
+    </a>
+
+</body>
+
+</html>

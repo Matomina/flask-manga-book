@@ -1,0 +1,11 @@
+<h1>Liste des articles</h1>
+
+{% for article in articles %}
+<div>
+    <h3>{{ article['name'] }}</h3>
+    <p>{{ article['price'] }} €</p>
+    <a href="{{ url_for('articles.detail_article', id=article['id']) }}">
+        Voir le détail
+    </a>
+</div>
+{% endfor %}
