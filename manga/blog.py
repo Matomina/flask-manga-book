@@ -4,7 +4,7 @@ from flask import (
 from werkzeug.exceptions import abort
 
 from manga.auth import login_required
-from manga.db import get_db
+from manga.extensions.db import get_db
 
 bp = Blueprint('blog', __name__)
 

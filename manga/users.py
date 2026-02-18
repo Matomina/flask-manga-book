@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, render_template, request, url_for
 from werkzeug.security import generate_password_hash
-from manga.db import get_db
+from manga.extensions.db import get_db
 
 bp = Blueprint('users', __name__, url_prefix='/users')
 

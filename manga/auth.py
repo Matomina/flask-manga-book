@@ -6,7 +6,7 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from manga.db import get_db
+from manga.extensions.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 

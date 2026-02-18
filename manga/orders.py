@@ -2,7 +2,7 @@ from flask import (
     Blueprint, redirect, render_template, request
 )
 
-from manga.db import get_db
+from manga.extensions.db import get_db
 
 bp = Blueprint('orders', __name__)
 
