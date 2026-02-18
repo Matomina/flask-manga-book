@@ -39,14 +39,18 @@ def create_app(test_config=None):
     from . import blog
     app.register_blueprint(blog.bp)
 
-    from . import utilisateurs
-    app.register_blueprint(utilisateurs.bp, url_prefix='/utilisateurs')
+    from . import users
+    app.register_blueprint(users.bp, url_prefix='/utilisateurs')
 
     from . import books
     app.register_blueprint(books.bp, url_prefix='/books')
 
     from . import orders
     app.register_blueprint(orders.bp, url_prefix='/orders')
+
+    from . import articles
+    app.register_blueprint(articles.bp)
+
 
     app.add_url_rule('/', endpoint='index')
 
