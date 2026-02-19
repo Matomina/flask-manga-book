@@ -1,74 +1,125 @@
-from flask import Blueprint, redirect, render_template, request, url_for
+"""
+========================================================
+USERS – BACK OFFICE
+--------------------------------------------------------
+Gestion complète des utilisateurs :
+✔ Liste
+✔ Détail
+✔ Création
+✔ Modification
+✔ Suppression
+========================================================
+"""
+
+from flask import Blueprint, render_template, request, redirect, url_for, abort
 from werkzeug.security import generate_password_hash
 from manga.extensions.db import get_db
+from manga.auth import admin_required
 
-bp = Blueprint('users', __name__, url_prefix='/users')
 
-# Liste des users
-@bp.route('/')
-def users():
+# ====================================================
+# 🔹 Déclaration du Blueprint
+# ====================================================
+# Toutes les routes commenceront par /users
+bp = Blueprint("users", __name__, url_prefix="/users")
+
+
+# ====================================================
+# 🔹 LISTE DES UTILISATEURS
+# ====================================================
+@bp.route("/")
+@admin_required
+def list_users():
+
     db = get_db()
-    users = db.execute('SELECT * FROM user').fetchall()
-    return render_template('users/users.html', users=users)
+
+    users = db.execute(
+        """
+        SELECT id, first_name, last_name, email, role, created_at
+        FROM user
+        ORDER BY id ASC
+        """
+    ).fetchall()
+
+    return render_template(
+        "users/users.html",
+        users=users
+    )
 
 
-# Détail d'un user
-@bp.route('/<int:id>')
+# ====================================================
+# 🔹 DÉTAIL UTILISATEUR
+# ====================================================
+@bp.route("/<int:id>")
 def detail_user(id):
+
     db = get_db()
 
     user = db.execute(
-        '''
-        SELECT id, first_name, last_name, email, phone, address, role
+        """
+        SELECT id, first_name, last_name, email, phone, address, city, role, created_at
         FROM user
         WHERE id = ?
-        ''',
-        (id,)
+        """,
+        (id,),
     ).fetchone()
 
-    return render_template('users/detail_user.html', user=user)
+    if user is None:
+        abort(404)
+
+    return render_template(
+        "users/detail_user.html",
+        user=user
+    )
 
 
-# =========================
-# CREATE
-# =========================
-@bp.route('/create', methods=("GET", "POST"))
-def user_create():
+# ====================================================
+# 🔹 CREATE UTILISATEUR
+# ====================================================
+@bp.route("/create", methods=("GET", "POST"))
+def create_user():
+    """
+    Création d’un nouvel utilisateur.
+    """
+
     if request.method == "GET":
         return render_template("users/user_create.html")
 
-    if request.method == "POST":
-        first_name = request.form['prenom_utilisateur']
-        last_name = request.form['nom_utilisateur']
-        email = request.form['email_utilisateur']
-        password = request.form['password_utilisateur']
-        role = request.form['role_utilisateur']
+    # Récupération formulaire
+    first_name = request.form.get("prenom_utilisateur")
+    last_name = request.form.get("nom_utilisateur")
+    email = request.form.get("email_utilisateur")
+    password = request.form.get("password_utilisateur")
+    role = request.form.get("role_utilisateur")
 
-        db = get_db()
+    db = get_db()
 
-        db.execute(
-            """
-            INSERT INTO user (first_name, last_name, email, password, role)
-            VALUES (?, ?, ?, ?, ?)
-            """,
-            (
-                first_name,
-                last_name,
-                email,
-                generate_password_hash(password),
-                role
-            ),
-        )
-        db.commit()
+    db.execute(
+        """
+        INSERT INTO user (first_name, last_name, email, password, role)
+        VALUES (?, ?, ?, ?, ?)
+        """,
+        (
+            first_name,
+            last_name,
+            email,
+            generate_password_hash(password),
+            role,
+        ),
+    )
+    db.commit()
 
-        return redirect(url_for("users.users"))
+    return redirect(url_for("users.list_users"))
 
 
-# =========================
-# UPDATE
-# =========================
-@bp.route('/<int:id>/update', methods=("GET", "POST"))
-def user_update(id):
+# ====================================================
+# 🔹 UPDATE UTILISATEUR
+# ====================================================
+@bp.route("/<int:id>/update", methods=("GET", "POST"))
+def update_user(id):
+    """
+    Modification d’un utilisateur existant.
+    """
     db = get_db()
 
     user = db.execute(
@@ -80,34 +131,49 @@ def user_update(id):
         (id,),
     ).fetchone()
 
+    if user is None:
+        abort(404)
+
     if request.method == "GET":
         return render_template("users/user_update.html", user=user)
 
-    if request.method == "POST":
-        first_name = request.form['prenom_utilisateur']
-        last_name = request.form['nom_utilisateur']
-        email = request.form['email_utilisateur']
-        role = request.form['role_utilisateur']
+    # Récupération formulaire
+    first_name = request.form.get("prenom_utilisateur")
+    last_name = request.form.get("nom_utilisateur")
+    email = request.form.get("email_utilisateur")
+    role = request.form.get("role_utilisateur")
 
-        db.execute(
-            """
-            UPDATE user
-            SET first_name = ?, last_name = ?, email = ?, role = ?
-            WHERE id = ?
-            """,
-            (first_name, last_name, email, role, id),
-        )
-        db.commit()
+    db.execute(
+        """
+        UPDATE user
+        SET first_name = ?, last_name = ?, email = ?, role = ?
+        WHERE id = ?
+        """,
+        (first_name, last_name, email, role, id),
+    )
+    db.commit()
 
-        return redirect(url_for("users.users"))
+    return redirect(url_for("users.list_users"))
 
 
-# =========================
-# DELETE
-# =========================
-@bp.route('/<int:id>/delete')
-def user_delete(id):
+# ====================================================
+# 🔹 DELETE UTILISATEUR
+# ====================================================
+@bp.route("/<int:id>/delete", methods=("POST",))
+def delete_user(id):
+    """
+    Suppression d’un utilisateur.
+    Utilise POST pour éviter les suppressions accidentelles via GET.
+    """
     db = get_db()
+
+    user = db.execute(
+        "SELECT id FROM user WHERE id = ?",
+        (id,),
+    ).fetchone()
+
+    if user is None:
+        abort(404)
 
     db.execute(
         "DELETE FROM user WHERE id = ?",
@@ -115,5 +181,4 @@ def user_delete(id):
     )
     db.commit()
 
-    return redirect(url_for("users.users"))
-    
+    return redirect(url_for("users.list_users"))

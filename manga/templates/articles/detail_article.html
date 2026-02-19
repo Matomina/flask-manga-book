@@ -1,9 +1,49 @@
-<h1>{{ article['name'] }}</h1>
+<!DOCTYPE html>
+<html>
 
-<p>Prix : {{ article['price'] }} €</p>
-<p>Stock : {{ article['stock'] }}</p>
-<p>Genre : {{ article['genres'] }}</p>
+<head>
+    <title>Détail article</title>
+</head>
 
-<a href="{{ url_for('articles.articles') }}">
-    Retour
-</a>
+<body>
+
+    <h1>Détail article</h1>
+
+    <p>
+        <a href="{{ url_for('articles.list_articles') }}">
+            ← Retour au catalogue
+        </a>
+    </p>
+
+    {% if article %}
+
+    <p>
+        <strong>ID :</strong> {{ article['id'] }} <br>
+        <strong>Nom :</strong> {{ article['name'] }} <br>
+        <strong>Genre :</strong> {{ article['genres'] }} <br>
+        <strong>Prix :</strong> {{ article['price'] }} € <br>
+        <strong>Stock :</strong> {{ article['stock'] }} <br>
+        <strong>Image :</strong> <br>
+        <img src="{{ url_for('static', filename=article['image']) }}" width="200">
+
+    </p>
+
+    <p>
+        <a href="{{ url_for('articles.update_article', id=article['id']) }}">
+            Modifier
+        </a>
+    </p>
+
+    <form action="{{ url_for('articles.delete_article', id=article['id']) }}" method="POST">
+        <button type="submit" onclick="return confirm('Confirmer la suppression ?')">
+            Supprimer
+        </button>
+    </form>
+
+    {% else %}
+    <p>Article introuvable.</p>
+    {% endif %}
+
+</body>
+
+</html>

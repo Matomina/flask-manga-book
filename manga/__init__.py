@@ -9,11 +9,14 @@ Responsabilités :
 ✔ Charger la configuration
 ✔ Initialiser les extensions (base de données)
 ✔ Enregistrer les blueprints
+✔ Déclarer les filtres Jinja
 ========================================================
 """
 
 import os
-from flask import Flask
+import locale
+from datetime import datetime
+from flask import Flask, app
 
 
 def create_app(test_config=None):
@@ -31,13 +34,12 @@ def create_app(test_config=None):
     # 2️⃣ Configuration principale
     # ====================================================
     app.config.from_mapping(
-        SECRET_KEY='dev',  # ⚠️ À sécuriser en production
-        DATABASE=os.path.join(app.instance_path, 'manga.sqlite'),
+        SECRET_KEY="dev",  # ⚠️ À sécuriser en production
+        DATABASE=os.path.join(app.instance_path, "manga.sqlite"),
     )
 
-    # Configuration alternative (tests ou config locale)
     if test_config is None:
-        app.config.from_pyfile('config.py', silent=True)
+        app.config.from_pyfile("config.py", silent=True)
     else:
         app.config.from_mapping(test_config)
 
@@ -55,47 +57,67 @@ def create_app(test_config=None):
     from .extensions import db
     db.init_app(app)
 
-    #=====================================================
-    # 5️⃣ Enregistrement des Blueprints
     # ====================================================
+    # 5️⃣ Filtre Jinja – Format date française
+    # ====================================================
+    @app.template_filter("format_datetime_fr")
+    def format_datetime_fr(value):
+        """
+        Convertit une date SQLite en format français.
+        Exemple :
+        2026-02-19 15:42:18
+        -> 19 février 2026 à 15h42
+        """
+        if not value:
+            return ""
 
-    # 🔹 Front-office (page d'accueil)
+        dt = datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
+
+        # Tentative locale française
+        try:
+            locale.setlocale(locale.LC_TIME, "fr_FR.UTF-8")
+        except:
+            try:
+                locale.setlocale(locale.LC_TIME, "French_France")
+            except:
+                pass
+
+        return dt.strftime("%d %B %Y à %Hh%M")
+
+    # ====================================================
+    # 6️⃣ Enregistrement des Blueprints
+    # ====================================================
+    
+    # 🔹 Admin (dashboard)
+    from .admin.admin import bp as admin_bp
+    app.register_blueprint(admin_bp)
+
+    # 🔹 Front-office (homepage)
     from .public.routes import bp as public_bp
     app.register_blueprint(public_bp)
 
-    # 🔹 Catalogue Articles
+    # 🔹 Catalogue articles
     from . import articles
     app.register_blueprint(articles.bp)
+
+    # 🔹 Gestion utilisateurs (CRUD)
+    from . import users
+    app.register_blueprint(users.bp)
+
+    # 🔹 Gestion commandes
+    from . import orders
+    app.register_blueprint(orders.bp)
 
     # 🔹 Authentification
     from . import auth
     app.register_blueprint(auth.bp)
 
-
-    # ----------------------------------------------------
-    # 🔹 Modules temporairement désactivés (refactor)
-    # ----------------------------------------------------
-    # from . import blog
-    # app.register_blueprint(blog.bp)
-
-    # from . import users
-    # app.register_blueprint(users.bp, url_prefix='/utilisateurs')
-
-    # from . import books
-    # app.register_blueprint(books.bp, url_prefix='/books')
-
-    # from . import orders
-    # app.register_blueprint(orders.bp, url_prefix='/orders')
-
-    # from . import articles
-    # app.register_blueprint(articles.bp)
+    # ====================================================
+    # 7️⃣ Route racine explicite (optionnelle)
+    # ====================================================
+    app.add_url_rule("/", endpoint="index")
 
     # ====================================================
-    # 6️⃣ Route racine
-    # ====================================================
-    app.add_url_rule('/', endpoint='index')
-
-    # ====================================================
-    # 7️⃣ Retour de l'application
+    # 8️⃣ Retour de l'application
     # ====================================================
     return app

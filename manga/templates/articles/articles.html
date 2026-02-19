@@ -1,11 +1,59 @@
-<h1>Liste des articles</h1>
+<!DOCTYPE html>
+<html>
 
-{% for article in articles %}
-<div>
-    <h3>{{ article['name'] }}</h3>
-    <p>{{ article['price'] }} €</p>
-    <a href="{{ url_for('articles.detail_article', id=article['id']) }}">
-        Voir le détail
-    </a>
-</div>
-{% endfor %}
+<head>
+    <title>Catalogue des articles</title>
+</head>
+
+<body>
+
+    <h1>Catalogue des articles</h1>
+
+    <p>
+        <a href="{{ url_for('articles.create_article') }}">
+            + Ajouter un article
+        </a>
+    </p>
+
+    {% if articles %}
+
+    <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Genre</th>
+                <th>Prix</th>
+                <th>Stock</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for article in articles %}
+            <tr>
+                <td>{{ article['id'] }}</td>
+                <td>{{ article['name'] }}</td>
+                <td>{{ article['genres'] }}</td>
+                <td>{{ article['price'] }} €</td>
+                <td>{{ article['stock'] }}</td>
+                <td>
+                    <a href="{{ url_for('articles.detail_article', id=article['id']) }}">
+                        Voir
+                    </a> |
+                    <a href="{{ url_for('articles.update_article', id=article['id']) }}">
+                        Modifier
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+    <p>Aucun article disponible.</p>
+    {% endif %}
+
+</body>
+
+</html>

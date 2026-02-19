@@ -9,25 +9,56 @@
 
     <h1>Détail utilisateur</h1>
 
-    <a href="{{ url_for('users.users') }}">Retour à la liste</a>
-
     <p>
-        <strong>ID :</strong> {{ user['id'] }} <br>
-        <strong>Prénom :</strong> {{ user['first_name'] }} <br>
-        <strong>Nom :</strong> {{ user['last_name'] }} <br>
-        <strong>Email :</strong> {{ user['email'] }} <br>
-        <strong>Téléphone :</strong> {{ user['phone'] }} <br>
-        <strong>Adresse :</strong> {{ user['address'] }} <br>
-        <strong>Rôle :</strong> {{ user['role'] }}
+        <a href="{{ url_for('users.list_users') }}">
+            ← Retour à la liste
+        </a>
     </p>
 
-    <a href="{{ url_for('users.user_update', id=user['id']) }}">
-        Modifier
-    </a>
+    {% if user %}
 
-    <a href="{{ url_for('users.user_delete', id=user['id']) }}">
-        Supprimer
-    </a>
+    <table border="1" cellpadding="8" cellspacing="0">
+        <tr>
+            <th>ID</th>
+            <td>{{ user['id'] }}</td>
+        </tr>
+        <tr>
+            <th>Prénom</th>
+            <td>{{ user['first_name'] }}</td>
+        </tr>
+        <tr>
+            <th>Nom</th>
+            <td>{{ user['last_name'] }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ user['email'] }}</td>
+        </tr>
+        <tr>
+            <th>Téléphone</th>
+            <td>{{ user['phone'] or 'Non renseigné' }}</td>
+        </tr>
+        <tr>
+            <th>Adresse</th>
+            <td>{{ user['address'] or 'Non renseignée' }}</td>
+        </tr>
+        <tr>
+            <th>Ville</th>
+            <td>{{ user['city'] or 'Non renseignée' }}</td>
+        </tr>
+        <tr>
+            <th>Rôle</th>
+            <td>{{ user['role'] }}</td>
+        </tr>
+        <tr>
+            <th>Date de création</th>
+            <td>{{ user['created_at'] | format_datetime_fr }}</td>
+        </tr>
+    </table>
+
+    {% else %}
+    <p>Utilisateur introuvable.</p>
+    {% endif %}
 
 </body>
 

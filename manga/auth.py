@@ -120,3 +120,21 @@ def login_required(view):
         return view(**kwargs)
 
     return wrapped_view
+
+
+# ==========================
+# ADMIN DECORATOR
+# ==========================
+def admin_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('auth.login'))
+
+        if g.user['role'] != 'admin':
+            return redirect(url_for('index'))
+
+        return view(**kwargs)
+
+    return wrapped_view
+
