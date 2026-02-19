@@ -1,0 +1,116 @@
+@use "variables" as *;
+@use "sass:map";
+
+/* ======================================================
+   MIXINS – GRADIENTS
+   ====================================================== */
+
+@mixin gradient-primary {
+    background: linear-gradient(135deg,
+            $color-primary,
+            $color-secondary );
+}
+
+@mixin gradient-reverse {
+    background: linear-gradient(135deg,
+            $color-secondary,
+            $color-primary );
+}
+
+
+/* ======================================================
+   MIXIN – RESPONSIVE (Mobile-first)
+   Utilise la map $breakpoints
+   ====================================================== */
+
+@mixin respond-to($breakpoint) {
+
+    @if not map.has-key($breakpoints, $breakpoint) {
+        @error "Breakpoint `#{$breakpoint}` does not exist in $breakpoints map.";
+    }
+
+    @media (min-width: map.get($breakpoints, $breakpoint)) {
+        @content;
+    }
+}
+
+
+/* ======================================================
+   MIXINS – FLEX UTILITIES
+   ====================================================== */
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* ======================================================
+   MIXIN – TRANSITION
+   ====================================================== */
+
+@mixin transition($property: all,
+    $duration: 0.3s,
+    $ease: ease) {
+    transition: $property $duration $ease;
+}
+
+
+/* ======================================================
+   MIXIN – SHADOW
+   ====================================================== */
+
+@mixin shadow-sm {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+@mixin shadow-md {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+@mixin shadow-lg {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ======================================================
+   MIXIN – CONTAINER (Ultra-wide safe)
+   Évite l’étirement sur écrans 2000px+
+   ====================================================== */
+
+@mixin container {
+
+    @if not map.has-key($container-max-width, default) {
+        @error "`default` key missing in $container-max-width map.";
+    }
+
+    width: 100%;
+    max-width: map.get($container-max-width, default);
+    margin: 0 auto;
+    padding: 0 $spacing-md;
+
+    @if map.has-key($container-max-width, large) {
+        @include respond-to(large) {
+            max-width: map.get($container-max-width, large);
+        }
+    }
+
+    @if map.has-key($container-max-width, xl) {
+        @include respond-to(xl) {
+            max-width: map.get($container-max-width, xl);
+        }
+    }
+
+    @if map.has-key($container-max-width, ultra) {
+        @include respond-to(ultra) {
+            max-width: map.get($container-max-width, ultra);
+        }
+    }
+}

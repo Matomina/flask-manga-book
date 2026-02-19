@@ -1,0 +1,29 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ======================================================
+   PAGE – ACCUEIL
+   Styles spécifiques à la page Home
+   ====================================================== */
+
+
+/* ------------------------------------------------------
+   TITRES DANS LE CONTENU PRINCIPAL
+   ------------------------------------------------------ */
+
+.content {
+    h2 {
+        margin-bottom: 15px;
+        color: $color-light;
+    }
+}
+
+
+/* ------------------------------------------------------
+   TEXTE MISE EN AVANT
+   ------------------------------------------------------ */
+
+.text {
+    color: $color-primary;
+    font-weight: bold;
+}

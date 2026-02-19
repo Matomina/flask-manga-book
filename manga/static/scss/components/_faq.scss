@@ -1,0 +1,57 @@
+@use "../abstracts/variables" as *;
+
+/* ======================================================
+   COMPONENT – FAQ
+   Section Foire Aux Questions avec ouverture / fermeture
+   ====================================================== */
+
+.faq {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md; // 16px
+
+
+    /* ----------------------------------------------------
+       ITEM FAQ (question + réponse)
+       ---------------------------------------------------- */
+
+    &-item {
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    /* ----------------------------------------------------
+       QUESTION FAQ (zone cliquable)
+       ---------------------------------------------------- */
+
+    &-question {
+        cursor: pointer;
+        padding: $spacing-sm; // 12px ou 14px selon ta scale
+        font-weight: bold;
+        border-radius: $radius-md;
+
+        transition: background 0.2s ease;
+
+        &:hover {
+            background: rgba($color-primary, 0.08);
+        }
+    }
+
+
+    /* ----------------------------------------------------
+       RÉPONSE FAQ (contenu masqué par défaut)
+       ---------------------------------------------------- */
+
+    &-answer {
+        display: none;
+        padding: $spacing-sm;
+        margin-top: $spacing-xs;
+
+        border-left: 4px solid $color-primary;
+
+        &.active {
+            display: flex;
+        }
+    }
+}

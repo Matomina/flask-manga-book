@@ -1,0 +1,58 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ======================================================
+   COMPONENT – BOUTON SCROLL TOP
+   Bouton de retour en haut de page
+   ====================================================== */
+
+
+/* ------------------------------------------------------
+   BOUTON SCROLL TOP
+   ------------------------------------------------------ */
+
+#scrollTopBtn {
+   position: fixed !important;
+   bottom: 10px;
+   right: 20px;
+
+   width: 50px;
+   height: 50px;
+
+   background: $color-primary;
+   border: none;
+   border-radius: 50%;
+
+   cursor: pointer;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   font-size: 24px;
+   color: $color-light;
+
+   z-index: $z-header;
+
+   box-shadow: 0 4px 20px $color-primary;
+   animation: pulse 2s infinite;
+}
+
+
+/* ------------------------------------------------------
+   ÉTAT VISIBLE DU BOUTON
+   ------------------------------------------------------ */
+
+#scrollTopBtn.show {
+   opacity: 1;
+   pointer-events: auto;
+}
+
+
+/* ------------------------------------------------------
+   EFFET HOVER
+   ------------------------------------------------------ */
+
+#scrollTopBtn:hover {
+   @include gradient-primary;
+}

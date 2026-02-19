@@ -1,0 +1,468 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ======================================================
+   COMPONENT – PANIER FLOTTANT
+   Bouton flottant, overlay et popup panier
+   ====================================================== */
+
+
+/* ------------------------------------------------------
+   BOUTON PANIER FLOTTANT
+   ------------------------------------------------------ */
+
+.floating-cart-btn {
+    position: fixed;
+    bottom: 10px;
+    left: 20px;
+
+    width: 50px;
+    height: 50px;
+
+    background: $color-primary;
+    border: none;
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+    color: $color-light;
+
+    z-index: $z-header;
+
+    box-shadow: 0 4px 20px $color-primary;
+    animation: pulse 2s infinite;
+
+    &:hover {
+        @include gradient-primary;
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+}
+
+/* ------------------------------------------------------
+   COMPTEUR D’ARTICLES PANIER
+   ------------------------------------------------------ */
+
+#floatingCartCount {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+
+    background: $color-primary;
+    color: $color-light;
+
+    border-radius: 50%;
+    min-width: 22px;
+    height: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    border: 2px solid $color-light;
+    animation: bounce 0.5s ease;
+}
+
+
+/* ------------------------------------------------------
+   OVERLAY PANIER
+   ------------------------------------------------------ */
+
+.cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: $z-header ;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: all 0.3s ease;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+
+/* ------------------------------------------------------
+   POPUP PANIER
+   ------------------------------------------------------ */
+
+.cart-popup {
+    position: fixed;
+    bottom: 0;
+    width: 450px;
+    left: calc(50% - 225px);
+    max-height: 80vh;
+    border-radius: 20px 20px 0 0;
+    background: $color-primary;
+
+    z-index: $z-overlay;
+
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: 0 -4px 20px $color-dark;
+
+
+    &.active {
+        transform: translateY(0);
+    }
+
+}
+
+
+/* ------------------------------------------------------
+   EN-TÊTE PANIER
+   ------------------------------------------------------ */
+
+.cart-header {
+    padding: 20px;
+    border-bottom: 1px solid $color-secondary;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+
+    background: $color-primary;
+    color: $color-secondary;
+
+    border-radius: 20px 20px 0 0;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        width: 40px;
+        height: 4px;
+
+        background: $color-secondary;
+        border-radius: 2px;
+    }
+}
+
+.cart-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: $color-secondary;
+}
+
+/* ------------------------------------------------------
+   PIED DE PANIER (BOUTONS / ACTIONS)
+   ------------------------------------------------------ */
+
+.cart-footer {
+    padding: 20px;
+    border-top: 1px solid $color-secondary;
+    background: $color-primary;
+
+    display: flex;
+    gap: $spacing-sm;
+}
+
+
+/* ------------------------------------------------------
+   BOUTON FERMETURE PANIER
+   ------------------------------------------------------ */
+
+.close-btn {
+    background: none;
+    border: none;
+
+    font-size: 40px;
+    cursor: pointer;
+
+    color: $color-secondary;
+
+    padding: 4px;
+    border-radius: 50%;
+
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    bottom: 5px;
+    left: 40px;
+
+    transition: background 0.2s;
+}
+
+
+/* ------------------------------------------------------
+   CONTENU PANIER
+   ------------------------------------------------------ */
+
+.cart-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 20px 20px;
+    max-height: calc(85vh - 200px);
+    color: $color-secondary;
+}
+
+
+/* ------------------------------------------------------
+   ITEM PANIER
+   ------------------------------------------------------ */
+
+.cart-item {
+    display: grid;
+    align-items: space-around;
+    justify-items: center;
+
+    padding: 16px 0;
+    border-bottom: 1px solid $color-secondary;
+    gap: 12px;
+}
+
+
+/* ------------------------------------------------------
+   VISUEL MANGA
+   ------------------------------------------------------ */
+
+.manga-cover {
+    width: 50px;
+    height: 70px;
+
+    @include gradient-primary;
+    border-radius: 6px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: $color-light;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* ------------------------------------------------------
+   DÉTAILS ITEM
+   ------------------------------------------------------ */
+
+.item-details {
+    display: grid;
+    justify-items: center;
+    min-width: 0;
+}
+
+.item-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: $color-secondary;
+    margin-bottom: 4px;
+}
+
+.item-subtitle {
+    font-size: 12px;
+    color: $color-primary;
+    margin-bottom: 8px;
+}
+
+
+/* ------------------------------------------------------
+   CONTRÔLES QUANTITÉ
+   ------------------------------------------------------ */
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.qty-btn {
+    @include gradient-primary;
+    border: none;
+    color: $color-light;
+
+    width: 28px;
+    height: 28px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    transition: background 0.2s;
+
+    &:hover {
+        @include gradient-primary;
+    }
+}
+
+.qty-input {
+    width: 40px;
+    text-align: center;
+
+    border: 1px solid $color-light;
+    border-radius: $radius-sm;
+
+    padding: 4px 2px;
+    font-size: 12px;
+}
+
+
+/* ------------------------------------------------------
+   PRIX
+   ------------------------------------------------------ */
+
+.price {
+    color: $color-primary;
+    font-weight: bold;
+}
+
+.item-price {
+    font-weight: 600;
+    color: $color-secondary;
+    font-size: 14px;
+    text-align: right;
+}
+
+
+/* ------------------------------------------------------
+   BOUTON AJOUT PANIER
+   ------------------------------------------------------ */
+
+.add-to-cart-btn {
+    background-color: $color-secondary;
+    color: $color-primary;
+
+    padding: 6px 12px;
+    font-size: 13px;
+
+    cursor: pointer;
+    margin-top: 5px;
+
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    border-radius: 30px;
+    border: 2px solid $color-primary;
+
+    &:hover {
+        transform: scale(1.05);
+        border: 2px solid $color-secondary;
+        background: $color-primary;
+        color: $color-secondary;
+    }
+}
+
+
+/* ======================================================
+   SECTION TOTAL PANIER
+   ====================================================== */
+
+.total-section {
+    position: relative; // nécessaire pour le pseudo-élément
+    padding: 16px 0;
+    margin-top: 16px;
+
+    /* Ligne gradient supérieure */
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 2px;
+
+        @include gradient-primary;
+    }
+}
+
+
+/* ======================================================
+   LIGNES DU TOTAL
+   ====================================================== */
+
+.total-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+
+    font-size: 14px;
+    color: $color-primary;
+
+    &.final {
+        font-weight: bold;
+        font-size: 18px;
+        padding-top: 8px;
+
+        border-top: 1px solid $color-light;
+    }
+}
+
+/* ------------------------------------------------------
+   BOUTON – VOIR LE PANIER ET VALIDATION COMMANDE
+   ------------------------------------------------------ */
+
+.btn-view-cart,
+.btn-checkout {
+    flex: 1;
+
+    background: $color-secondary;
+    color: $color-primary;
+
+    border: 2px solid $color-primary;
+    border-radius: 8px;
+
+    padding: 14px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: all 0.2s;
+
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Effet hover */
+    &:hover {
+        background: $color-primary;
+        color: $color-secondary;
+        transform: translateY(-2px);
+        border: 2px solid $color-secondary;
+        border-radius: 8px;
+    }
+}

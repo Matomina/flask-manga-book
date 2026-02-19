@@ -1,0 +1,2124 @@
+@charset "UTF-8";
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   DESIGN SYSTEM – GLOBAL VARIABLES
+   Mobile-first architecture
+   Scalable up to 2000px+
+   ====================================================== */
+/* ======================================================
+   TYPOGRAPHY
+   ====================================================== */
+/* Fluid typography base */
+/* ======================================================
+   COLOR PALETTE
+   ====================================================== */
+/* ======================================================
+   BORDER RADIUS SCALE
+   ====================================================== */
+/* ======================================================
+   SPACING SCALE (8px system)
+   Consistent vertical rhythm
+   ====================================================== */
+/* ======================================================
+   Z-INDEX SCALE
+   Layer hierarchy system
+   ====================================================== */
+/* ======================================================
+   BREAKPOINT SYSTEM
+   Mobile-first (min-width only)
+   Supports ultra-wide displays up to 2000px+
+   ====================================================== */
+/* ======================================================
+   CONTAINER WIDTH SYSTEM
+   Prevents stretched layout on 2000px+
+   ====================================================== */
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   MIXINS – GRADIENTS
+   ====================================================== */
+/* ======================================================
+   MIXIN – RESPONSIVE (Mobile-first)
+   Utilise la map $breakpoints
+   ====================================================== */
+/* ======================================================
+   MIXINS – FLEX UTILITIES
+   ====================================================== */
+/* ======================================================
+   MIXIN – TRANSITION
+   ====================================================== */
+/* ======================================================
+   MIXIN – SHADOW
+   ====================================================== */
+/* ======================================================
+   MIXIN – CONTAINER (Ultra-wide safe)
+   Évite l’étirement sur écrans 2000px+
+   ====================================================== */
+/* ======================================================
+   BASE – FONDATIONS DU SITE
+   ====================================================== */
+/* ======================================================
+   RESET GLOBAL – NORMALISATION NAVIGATEUR
+   ====================================================== */
+/* ------------------------------------------------------
+   RESET UNIVERSEL
+   ------------------------------------------------------ */
+/*
+   - Supprime marges/paddings par défaut
+   - Active box-sizing border-box
+*/
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ------------------------------------------------------
+   IMAGES
+   ------------------------------------------------------ */
+/*
+   - Empêche les images de dépasser
+*/
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ------------------------------------------------------
+   LISTES
+   ------------------------------------------------------ */
+ul,
+ol {
+  list-style: none;
+}
+
+/* ------------------------------------------------------
+   LIENS
+   ------------------------------------------------------ */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   BASE – FONDATIONS DU SITE
+   Règles globales communes à toutes les pages
+   ====================================================== */
+/* ======================================================
+   HTML – COMPORTEMENT GLOBAL
+   ====================================================== */
+/*
+   - Hauteur pleine page
+   - Scroll fluide
+   - Sécurité anti-scroll horizontal
+*/
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* ======================================================
+   BODY – STRUCTURE PRINCIPALE
+   ====================================================== */
+/*
+   - Layout en colonne
+   - Footer poussé en bas
+   - Styles globaux
+*/
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background: #fff;
+  color: #000;
+}
+
+body.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* ======================================================
+   CONTENEUR PRINCIPAL (MAIN)
+   ====================================================== */
+/*
+   - Zone centrale du contenu
+   - Largeur contrôlée
+   - Centrage automatique
+*/
+main {
+  flex: 1;
+  max-width: 2000px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+/* ======================================================
+   CONTENEUR DE CONTENU STANDARD
+   ====================================================== */
+/*
+   - Bloc principal utilisé dans plusieurs pages
+*/
+.content {
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 10px #000;
+}
+
+/* ======================================================
+   SÉCURITÉ ANTI-DÉBORDEMENT PAGES
+   ====================================================== */
+/*
+   - Empêche tout overflow horizontal
+   - Protection globale
+*/
+.home-page,
+.catalogue-page,
+.planning-page,
+.profil-page,
+.forum-page,
+.help-page {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   TYPOGRAPHIE GLOBALE
+   Gestion des titres, textes et éléments typographiques
+   ====================================================== */
+/* ------------------------------------------------------
+   TITRES
+   ------------------------------------------------------ */
+h1 {
+  color: #dc1ef7;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+
+h2 {
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+h3 {
+  color: #fff;
+}
+
+/* ------------------------------------------------------
+   TEXTE COURANT
+   ------------------------------------------------------ */
+p {
+  margin-bottom: 1rem;
+}
+
+/* ------------------------------------------------------
+   SÉPARATEUR
+   ------------------------------------------------------ */
+hr {
+  border: 0;
+  height: 1px;
+  background: #fff;
+  margin: 1.5rem 0;
+}
+
+/* ======================================================
+   LAYOUT
+   ====================================================== */
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   HEADER PRINCIPAL
+   ====================================================== */
+/*
+   - Conteneur global du header
+   - Organisation en colonne (mobile-first)
+   - Fond blanc par défaut
+*/
+.site-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 15px 20px;
+  background: #fff;
+  color: #000;
+  position: relative;
+  z-index: 300;
+}
+
+/*
+   État menu ouvert
+   - Change la couleur de fond
+*/
+.site-header.menu-open {
+  background: #9135ff;
+}
+
+/*
+   - Quand le menu est ouvert
+   - On pousse la croix complètement à droite
+*/
+.site-header.menu-open .header-top {
+  justify-content: flex-end;
+}
+
+/* ======================================================
+   LIGNE SUPÉRIEURE (LOGO + BURGER)
+   ====================================================== */
+/*
+   - Logo à gauche
+   - Burger à droite
+   - Alignement horizontal
+*/
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* ======================================================
+   NAVIGATION (DESKTOP UNIQUEMENT – STYLE)
+   ====================================================== */
+/*
+   - Nav prend toute la largeur
+   - Affichage réel activé en desktop (media query)
+*/
+nav {
+  display: none;
+  width: 100%;
+}
+
+/*
+   Liste des liens
+*/
+nav ul {
+  list-style: none;
+  gap: 20px;
+}
+
+/*
+   Liens de navigation
+*/
+nav ul li a {
+  text-decoration: none;
+  color: #9135ff;
+  transition: color 0.3s ease;
+}
+
+/*
+   Hover lien
+*/
+nav ul li a:hover {
+  color: #dc1ef7;
+}
+
+/* ======================================================
+   ÉTAT MENU OUVERT – HEADER MINIMAL
+   ====================================================== */
+/*
+   - On garde uniquement la croix
+   - On masque logo + recherche
+*/
+/* Masquer le logo */
+.site-header.menu-open .logo-title {
+  display: none;
+}
+
+/* Masquer la barre de recherche */
+.site-header.menu-open .search-bar {
+  display: none;
+}
+
+/* Sécuriser l’affichage du burger */
+.site-header.menu-open .burger-menu {
+  display: flex;
+}
+
+/* ======================================================
+   RESPONSIVE – DESKTOP (≥ 1024px)
+   Mobile-first architecture
+   ====================================================== */
+@media (min-width: 1024px) {
+  /* STRUCTURE HEADER EN GRID */
+  .site-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    row-gap: 12px;
+    padding: 15px 20px;
+  }
+  /* LOGO */
+  .header-top {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    padding: 0;
+  }
+  /* NAV */
+  nav {
+    display: block;
+    grid-column: 2/3;
+    grid-row: 1/2;
+    width: auto;
+  }
+  .site-header nav ul {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  /* SEARCH BAR */
+  .search-bar {
+    grid-column: 1/-1;
+    grid-row: 2/3;
+    justify-content: center;
+    padding: 0;
+  }
+  /* BURGER MASQUÉ */
+  .burger-menu {
+    display: none;
+  }
+}
+/* ======================================================
+   LAYOUT – BANNIÈRE
+   Image de bannière principale du site
+   ====================================================== */
+/* ------------------------------------------------------
+   IMAGE DE BANNIÈRE
+   ------------------------------------------------------ */
+.banner img {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   LAYOUT – PIED DE PAGE
+   Footer global du site
+   ====================================================== */
+/* ------------------------------------------------------
+   CONTENEUR FOOTER
+   ------------------------------------------------------ */
+footer {
+  background: #fff;
+  color: #dc1ef7;
+  text-align: center;
+  padding: 15px;
+  margin-top: 30px;
+  position: relative;
+  /* ----------------------------------------------------
+   LIENS DU FOOTER
+   ---------------------------------------------------- */
+}
+footer .footer-links a {
+  color: #9135ff;
+  text-decoration: none;
+  /* Effet hover lien */
+}
+footer .footer-links a:hover {
+  color: #dc1ef7;
+}
+
+/* ======================================================
+   COMPONENTS
+   ====================================================== */
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   COMPONENT – LOGO & TITRE DU SITE
+   Logo principal + nom du site (header)
+   ====================================================== */
+/* ------------------------------------------------------
+   LIEN LOGO + TITRE
+   ------------------------------------------------------ */
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+/* ------------------------------------------------------
+   IMAGE LOGO
+   ------------------------------------------------------ */
+.logo {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
+
+/* ------------------------------------------------------
+   TITRE DU SITE
+   ------------------------------------------------------ */
+.site-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #9135ff;
+  /* Effet hover titre */
+}
+.site-title:hover {
+  color: #dc1ef7;
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   COMPONENT – BURGER MENU
+   Mobile-first
+   ====================================================== */
+/* ======================================================
+   CONTENEUR BURGER
+   ====================================================== */
+.burger-menu {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 400;
+  cursor: pointer;
+}
+
+/* ======================================================
+   ICÔNE BURGER
+   ====================================================== */
+.burger-icon {
+  width: 26px;
+  height: 20px;
+  position: relative;
+  z-index: 400;
+  cursor: pointer;
+}
+
+/* ======================================================
+   BARRES
+   ====================================================== */
+.burger-icon span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  background: #9135ff;
+  transition: transform 0.3s ease, opacity 0.3s ease, top 0.3s ease, background 0.2s ease;
+}
+
+/* Positions initiales */
+.burger-icon span:nth-child(1) {
+  top: 0;
+}
+
+.burger-icon span:nth-child(2) {
+  top: 8.5px;
+}
+
+.burger-icon span:nth-child(3) {
+  top: 17px;
+}
+
+/* ======================================================
+   ÉTAT OUVERT
+   ====================================================== */
+.burger-icon.open span {
+  background: #fff;
+}
+
+.burger-icon.open span:nth-child(1) {
+  top: 8.5px;
+  transform: rotate(45deg);
+}
+
+.burger-icon.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-icon.open span:nth-child(3) {
+  top: 8.5px;
+  transform: rotate(-45deg);
+}
+
+/* ======================================================
+   HOVER
+   ====================================================== */
+.burger-icon:hover span {
+  background: #dc1ef7;
+}
+
+/* ======================================================
+   RESPONSIVE – DESKTOP
+   ====================================================== */
+@media (min-width: 1024px) {
+  .burger-menu {
+    display: none;
+  }
+}
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   COMPONENT – NAVIGATION MOBILE
+   Menu déroulant plein écran (mobile)
+   ====================================================== */
+/* ------------------------------------------------------
+   CONTENEUR MENU MOBILE
+   ------------------------------------------------------ */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #9135ff;
+  z-index: 200;
+  padding: 80px 20px 20px 20px;
+  overflow-y: auto;
+  /* ----------------------------------------------------
+   ÉTAT ACTIF (MENU VISIBLE)
+   ---------------------------------------------------- */
+}
+.mobile-nav.active {
+  display: block;
+}
+
+  /* ----------------------------------------------------
+   LISTE DES LIENS
+   ---------------------------------------------------- */
+.mobile-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.mobile-nav {
+  /* ----------------------------------------------------
+   LIENS DE NAVIGATION
+   (sélecteur simplifié)
+   ---------------------------------------------------- */
+}
+.mobile-nav a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+  display: block;
+  padding: 12px;
+  border-radius: 5px;
+  text-align: center;
+  transition: background 0.3s ease, color 0.2s ease, transform 0.2s ease;
+  /* Hover */
+}
+.mobile-nav a:hover {
+  color: #dc1ef7;
+  transform: scale(1.03);
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   COMPONENT – BARRE DE RECHERCHE
+   Champ de recherche centré
+   ====================================================== */
+/* ------------------------------------------------------
+   CONTENEUR BARRE DE RECHERCHE
+   ------------------------------------------------------ */
+.search-bar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* Champ de recherche */
+}
+.search-bar input {
+  width: 90%;
+  max-width: 400px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid #9135ff;
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   COMPONENT – BOUTONS PANIER / ACTIONS
+   Boutons principaux liés au panier et à la commande
+   ====================================================== */
+/* ------------------------------------------------------
+   BOUTON – COMMANDER
+   ------------------------------------------------------ */
+.btn-commander {
+  background: #9135ff;
+  color: #dc1ef7;
+  border: 2px solid #dc1ef7;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  /* Effet hover */
+}
+.btn-commander:hover {
+  transform: translateY(-2px);
+  color: #9135ff;
+  background: #dc1ef7;
+  border: 2px solid #9135ff;
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   COMPONENT – FORMULAIRES
+   Structure des champs + boutons
+   Mobile-first architecture
+   ====================================================== */
+/* ------------------------------------------------------
+   GROUPE CHAMP (LABEL + INPUT)
+   ------------------------------------------------------ */
+.form-group {
+  margin-bottom: 1rem;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: inherit;
+}
+.form-group textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+/* ------------------------------------------------------
+   BOUTON DE SOUMISSION
+   ------------------------------------------------------ */
+.btn-submit {
+  padding: 0.75rem 1.25rem;
+  background: #9135ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.btn-submit:hover {
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+}
+
+/* ------------------------------------------------------
+   BOUTONS ONGLET – CONNEXION / INSCRIPTION
+   ------------------------------------------------------ */
+.tab-btn-inscription,
+.tab-btn-connexion {
+  border-radius: 8px;
+  letter-spacing: 3px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.tab-btn-inscription {
+  background: #9135ff;
+  box-shadow: 0 4px 20px #9135ff;
+  border: 1px solid #dc1ef7;
+}
+.tab-btn-inscription:hover {
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+}
+
+.tab-btn-connexion {
+  background: #dc1ef7;
+  box-shadow: 0 4px 20px #dc1ef7;
+  border: 1px solid #9135ff;
+}
+.tab-btn-connexion:hover {
+  background: linear-gradient(135deg, #dc1ef7, #9135ff);
+}
+
+/* ======================================================
+   RESPONSIVE – FORUM FORM
+   ====================================================== */
+.forum-form {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .forum-form {
+    width: 50%;
+  }
+}
+@media (min-width: 1024px) {
+  .forum-form {
+    width: 40%;
+  }
+}
+@media (min-width: 1600px) {
+  .forum-form {
+    width: 35%;
+  }
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   COMPONENT – PRODUCT / CONTENT CARDS
+   Cartes utilisées pour :
+   - Catalogue
+   - Profils
+   - Listes horizontales
+   - Grilles multi-lignes
+   Architecture mobile-first
+   ====================================================== */
+/* ======================================================
+   CARTE INDIVIDUELLE
+   ====================================================== */
+.card {
+  display: flex;
+  flex-direction: column;
+  /* Mobile par défaut */
+  flex: 0 0 150px;
+  max-width: 160px;
+  background: #dc1ef7;
+  border: 1px solid #9135ff;
+  border-radius: 5px;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+  text-align: center;
+  font-size: 14px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  /* Transition texte */
+}
+.card .text,
+.card .price {
+  transition: color 0.3s ease;
+}
+.card {
+  /* Hover */
+}
+.card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #dc1ef7, #9135ff);
+}
+.card:hover .card-info h3.text, .card:hover .card-info p.price {
+  color: #dc1ef7;
+}
+.card {
+  /* --------------------------------------------------
+     IMAGE PRODUIT
+     Ratio vertical type manga (2:3)
+     -------------------------------------------------- */
+}
+.card img {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.card {
+  /* --------------------------------------------------
+     RESPONSIVE BREAKPOINTS
+     -------------------------------------------------- */
+  /* TABLET */
+}
+@media (min-width: 768px) {
+  .card {
+    flex: 0 0 170px;
+    max-width: 180px;
+    font-size: 15px;
+  }
+}
+.card {
+  /* DESKTOP */
+}
+@media (min-width: 1024px) {
+  .card {
+    flex: 0 0 200px;
+    max-width: 220px;
+    font-size: 16px;
+  }
+}
+.card {
+  /* LARGE SCREENS */
+}
+@media (min-width: 1600px) {
+  .card {
+    flex: 0 0 230px;
+    max-width: 250px;
+  }
+}
+.card {
+  /* ULTRA-WIDE */
+}
+@media (min-width: 2000px) {
+  .card {
+    flex: 0 0 260px;
+    max-width: 280px;
+  }
+}
+
+/* ======================================================
+   LISTE DE CARTES – SCROLL HORIZONTAL
+   Mobile-first (idéal catalogue section)
+   ====================================================== */
+.card-list {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 0.75rem;
+  scrollbar-width: none;
+}
+.card-list::-webkit-scrollbar {
+  display: none;
+}
+
+/* ======================================================
+   GRILLE DE CARTES – MULTI-LIGNES
+   Version propre pour page catalogue complète
+   ====================================================== */
+.card-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+.card-row .card {
+  flex: 1 1 150px;
+}
+@media (min-width: 768px) {
+  .card-row .card {
+    flex: 1 1 170px;
+  }
+}
+@media (min-width: 1024px) {
+  .card-row .card {
+    flex: 1 1 200px;
+  }
+}
+@media (min-width: 1600px) {
+  .card-row .card {
+    flex: 1 1 230px;
+  }
+}
+@media (min-width: 2000px) {
+  .card-row .card {
+    flex: 1 1 260px;
+  }
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   COMPONENT – FAQ
+   Section Foire Aux Questions avec ouverture / fermeture
+   ====================================================== */
+.faq {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  /* ----------------------------------------------------
+     ITEM FAQ (question + réponse)
+     ---------------------------------------------------- */
+}
+.faq-item {
+  display: flex;
+  flex-direction: column;
+}
+.faq {
+  /* ----------------------------------------------------
+     QUESTION FAQ (zone cliquable)
+     ---------------------------------------------------- */
+}
+.faq-question {
+  cursor: pointer;
+  padding: 0.75rem;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background 0.2s ease;
+}
+.faq-question:hover {
+  background: rgba(145, 53, 255, 0.08);
+}
+.faq {
+  /* ----------------------------------------------------
+     RÉPONSE FAQ (contenu masqué par défaut)
+     ---------------------------------------------------- */
+}
+.faq-answer {
+  display: none;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border-left: 4px solid #9135ff;
+}
+.faq-answer.active {
+  display: flex;
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   COMPONENT – PANIER FLOTTANT
+   Bouton flottant, overlay et popup panier
+   ====================================================== */
+/* ------------------------------------------------------
+   BOUTON PANIER FLOTTANT
+   ------------------------------------------------------ */
+.floating-cart-btn {
+  position: fixed;
+  bottom: 10px;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  background: #9135ff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #fff;
+  z-index: 100;
+  box-shadow: 0 4px 20px #9135ff;
+  animation: pulse 2s infinite;
+}
+.floating-cart-btn:hover {
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+}
+.floating-cart-btn:active {
+  transform: scale(0.95);
+}
+
+/* ------------------------------------------------------
+   COMPTEUR D’ARTICLES PANIER
+   ------------------------------------------------------ */
+#floatingCartCount {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #9135ff;
+  color: #fff;
+  border-radius: 50%;
+  min-width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  border: 2px solid #fff;
+  animation: bounce 0.5s ease;
+}
+
+/* ------------------------------------------------------
+   OVERLAY PANIER
+   ------------------------------------------------------ */
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+.cart-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ------------------------------------------------------
+   POPUP PANIER
+   ------------------------------------------------------ */
+.cart-popup {
+  position: fixed;
+  bottom: 0;
+  width: 450px;
+  left: calc(50% - 225px);
+  max-height: 80vh;
+  border-radius: 20px 20px 0 0;
+  background: #9135ff;
+  z-index: 300;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 -4px 20px #000;
+}
+.cart-popup.active {
+  transform: translateY(0);
+}
+
+/* ------------------------------------------------------
+   EN-TÊTE PANIER
+   ------------------------------------------------------ */
+.cart-header {
+  padding: 20px;
+  border-bottom: 1px solid #dc1ef7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: #9135ff;
+  color: #dc1ef7;
+  border-radius: 20px 20px 0 0;
+}
+.cart-header::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 4px;
+  background: #dc1ef7;
+  border-radius: 2px;
+}
+
+.cart-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #dc1ef7;
+}
+
+/* ------------------------------------------------------
+   PIED DE PANIER (BOUTONS / ACTIONS)
+   ------------------------------------------------------ */
+.cart-footer {
+  padding: 20px;
+  border-top: 1px solid #dc1ef7;
+  background: #9135ff;
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* ------------------------------------------------------
+   BOUTON FERMETURE PANIER
+   ------------------------------------------------------ */
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 40px;
+  cursor: pointer;
+  color: #dc1ef7;
+  padding: 4px;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  bottom: 5px;
+  left: 40px;
+  transition: background 0.2s;
+}
+
+/* ------------------------------------------------------
+   CONTENU PANIER
+   ------------------------------------------------------ */
+.cart-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 20px 20px;
+  max-height: calc(85vh - 200px);
+  color: #dc1ef7;
+}
+
+/* ------------------------------------------------------
+   ITEM PANIER
+   ------------------------------------------------------ */
+.cart-item {
+  display: grid;
+  align-items: space-around;
+  justify-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #dc1ef7;
+  gap: 12px;
+}
+
+/* ------------------------------------------------------
+   VISUEL MANGA
+   ------------------------------------------------------ */
+.manga-cover {
+  width: 50px;
+  height: 70px;
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* ------------------------------------------------------
+   DÉTAILS ITEM
+   ------------------------------------------------------ */
+.item-details {
+  display: grid;
+  justify-items: center;
+  min-width: 0;
+}
+
+.item-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #dc1ef7;
+  margin-bottom: 4px;
+}
+
+.item-subtitle {
+  font-size: 12px;
+  color: #9135ff;
+  margin-bottom: 8px;
+}
+
+/* ------------------------------------------------------
+   CONTRÔLES QUANTITÉ
+   ------------------------------------------------------ */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.qty-btn {
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+  border: none;
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+.qty-btn:hover {
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+}
+
+.qty-input {
+  width: 40px;
+  text-align: center;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  padding: 4px 2px;
+  font-size: 12px;
+}
+
+/* ------------------------------------------------------
+   PRIX
+   ------------------------------------------------------ */
+.price {
+  color: #9135ff;
+  font-weight: bold;
+}
+
+.item-price {
+  font-weight: 600;
+  color: #dc1ef7;
+  font-size: 14px;
+  text-align: right;
+}
+
+/* ------------------------------------------------------
+   BOUTON AJOUT PANIER
+   ------------------------------------------------------ */
+.add-to-cart-btn {
+  background-color: #dc1ef7;
+  color: #9135ff;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border-radius: 30px;
+  border: 2px solid #9135ff;
+}
+.add-to-cart-btn:hover {
+  transform: scale(1.05);
+  border: 2px solid #dc1ef7;
+  background: #9135ff;
+  color: #dc1ef7;
+}
+
+/* ======================================================
+   SECTION TOTAL PANIER
+   ====================================================== */
+.total-section {
+  position: relative;
+  padding: 16px 0;
+  margin-top: 16px;
+  /* Ligne gradient supérieure */
+}
+.total-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+}
+
+/* ======================================================
+   LIGNES DU TOTAL
+   ====================================================== */
+.total-line {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #9135ff;
+}
+.total-line.final {
+  font-weight: bold;
+  font-size: 18px;
+  padding-top: 8px;
+  border-top: 1px solid #fff;
+}
+
+/* ------------------------------------------------------
+   BOUTON – VOIR LE PANIER ET VALIDATION COMMANDE
+   ------------------------------------------------------ */
+.btn-view-cart,
+.btn-checkout {
+  flex: 1;
+  background: #dc1ef7;
+  color: #9135ff;
+  border: 2px solid #9135ff;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Effet hover */
+}
+.btn-view-cart:hover,
+.btn-checkout:hover {
+  background: #9135ff;
+  color: #dc1ef7;
+  transform: translateY(-2px);
+  border: 2px solid #dc1ef7;
+  border-radius: 8px;
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   COMPONENT – PANIER VIDE
+   Message affiché lorsque le panier est vide
+   ====================================================== */
+/* ------------------------------------------------------
+   CONTENEUR PANIER VIDE
+   ------------------------------------------------------ */
+.empty-cart {
+  text-align: center;
+  padding: 2.5rem 1.25rem;
+  color: #dc1ef7;
+}
+
+/* ------------------------------------------------------
+   ICÔNE PANIER VIDE
+   ------------------------------------------------------ */
+.empty-cart-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   COMPONENT – SCROLL HORIZONTAL
+   Mobile-first architecture
+   ====================================================== */
+/* ------------------------------------------------------
+   CONTENEUR DE SCROLL
+   ------------------------------------------------------ */
+.scroll-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+.scroll-container .scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+  color: #fff;
+  border: none;
+  font-size: 18px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  opacity: 0.9;
+  transition: 0.3s;
+}
+.scroll-container .scroll-btn.left {
+  left: 0;
+}
+.scroll-container .scroll-btn.right {
+  right: 0;
+}
+.scroll-container .scroll-btn:hover {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------
+   WRAPPER
+   ------------------------------------------------------ */
+.scroll-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* ------------------------------------------------------
+   LISTE SCROLLABLE
+   ------------------------------------------------------ */
+.scroll-list {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 0.75rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.scroll-list::-webkit-scrollbar {
+  display: none;
+}
+.scroll-list img {
+  width: 120px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+.scroll-list img:hover {
+  transform: scale(1.05);
+}
+.scroll-list img {
+  /* ======================================================
+  RESPONSIVE – Mobile-first progression
+  ====================================================== */
+}
+@media (min-width: 768px) {
+  .scroll-list img {
+    width: 150px;
+    height: 200px;
+  }
+}
+@media (min-width: 1024px) {
+  .scroll-list img {
+    width: 180px;
+    height: 240px;
+  }
+}
+@media (min-width: 1600px) {
+  .scroll-list img {
+    width: 200px;
+    height: 270px;
+  }
+}
+@media (min-width: 1920px) {
+  .scroll-list img {
+    width: 220px;
+    height: 300px;
+  }
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   COMPONENT – BOUTON SCROLL TOP
+   Bouton de retour en haut de page
+   ====================================================== */
+/* ------------------------------------------------------
+   BOUTON SCROLL TOP
+   ------------------------------------------------------ */
+#scrollTopBtn {
+  position: fixed !important;
+  bottom: 10px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: #9135ff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #fff;
+  z-index: 100;
+  box-shadow: 0 4px 20px #9135ff;
+  animation: pulse 2s infinite;
+}
+
+/* ------------------------------------------------------
+   ÉTAT VISIBLE DU BOUTON
+   ------------------------------------------------------ */
+#scrollTopBtn.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ------------------------------------------------------
+   EFFET HOVER
+   ------------------------------------------------------ */
+#scrollTopBtn:hover {
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+}
+
+/* ======================================================
+   PAGES
+   ====================================================== */
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   PAGE – ACCUEIL
+   Styles spécifiques à la page Home
+   ====================================================== */
+/* ------------------------------------------------------
+   TITRES DANS LE CONTENU PRINCIPAL
+   ------------------------------------------------------ */
+.content h2 {
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+/* ------------------------------------------------------
+   TEXTE MISE EN AVANT
+   ------------------------------------------------------ */
+.text {
+  color: #9135ff;
+  font-weight: bold;
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   PAGE – CATALOGUE
+   Mise en page et styles spécifiques au catalogue produits
+   ====================================================== */
+/* ------------------------------------------------------
+   CONTENEUR PRINCIPAL PAGE CATALOGUE
+   ------------------------------------------------------ */
+.catalogue-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 1rem 2rem;
+}
+
+/* ------------------------------------------------------
+   FILTRES CATALOGUE
+   ------------------------------------------------------ */
+.filters {
+  flex: 0 0 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.filters h2 {
+  margin-bottom: 10px;
+}
+.filters button {
+  padding: 10px;
+  background: #9135ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  border: 1px solid #dc1ef7;
+  cursor: pointer;
+}
+.filters button:hover {
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+}
+
+/* ------------------------------------------------------
+   CONTENU CATALOGUE
+   ------------------------------------------------------ */
+.catalogue-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: #9135ff;
+}
+
+/* ------------------------------------------------------
+   BANNIÈRE CATALOGUE
+   ------------------------------------------------------ */
+.catalogue-banner img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+/* ------------------------------------------------------
+   RECHERCHE CATALOGUE
+   ------------------------------------------------------ */
+.catalogue-search {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 20px;
+}
+.catalogue-search .search-bar1 {
+  width: 100%;
+}
+.catalogue-search .search-bar1 input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #f5f5f5;
+}
+
+/* ------------------------------------------------------
+   BOUTONS DE RECHERCHE
+   ------------------------------------------------------ */
+.catalogue-search-buttons {
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+}
+.catalogue-search-buttons > button:nth-child(1),
+.catalogue-search-buttons > button:nth-child(2) {
+  border-radius: 5px;
+  border: 1px solid #dc1ef7;
+  background: #9135ff;
+  color: #fff;
+  cursor: pointer;
+}
+.catalogue-search-buttons > button:nth-child(1):hover,
+.catalogue-search-buttons > button:nth-child(2):hover {
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+}
+
+/* ------------------------------------------------------
+   GRILLE PRODUITS
+   ------------------------------------------------------ */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* ------------------------------------------------------
+   CARTE PRODUIT
+   ------------------------------------------------------ */
+.product-card {
+  background: #9135ff;
+  padding: 10px;
+  border-radius: 8px;
+  justify-content: center;
+  display: flex;
+  text-align: center;
+}
+
+/* ------------------------------------------------------
+   IMAGE PRODUIT
+   ------------------------------------------------------ */
+.product-img {
+  width: 100%;
+  height: 150px;
+  background: #fff;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ======================================================
+   PAGE – FORUM
+   Mise en page spécifique à la page forum
+   ====================================================== */
+/* ------------------------------------------------------
+   CONTENEUR PRINCIPAL DU FORUM
+   ------------------------------------------------------ */
+#forumContent {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   PAGE – PANIER
+   Styles spécifiques à la page panier
+   ====================================================== */
+/* ------------------------------------------------------
+   CONTENEUR PANIER
+   ------------------------------------------------------ */
+.panier {
+  width: 100%;
+  margin: 30px auto;
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 10px #000;
+}
+
+/* ------------------------------------------------------
+   ITEM PANIER
+   ------------------------------------------------------ */
+.panier-item {
+  display: grid;
+  grid-template-columns: 1fr 100px 100px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #fff;
+}
+.panier-item.special {
+  font-style: italic;
+  color: #f5f5f5;
+}
+
+/* ------------------------------------------------------
+   TOTAL PANIER
+   ------------------------------------------------------ */
+.panier-total {
+  display: grid;
+  grid-template-columns: 1fr 100px 100px;
+  font-weight: bold;
+  font-size: 18px;
+  padding-top: 15px;
+}
+
+/* ------------------------------------------------------
+   CHAMPS DE SAISIE PANIER
+   ------------------------------------------------------ */
+.panier input[type=number],
+.panier input[type=text] {
+  width: 80px;
+  padding: 5px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+}
+
+/* ------------------------------------------------------
+   PRIX
+   ------------------------------------------------------ */
+.prix {
+  text-align: right;
+}
+
+/* ------------------------------------------------------
+   CONTENEUR BOUTONS
+   ------------------------------------------------------ */
+.btn-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* ------------------------------------------------------
+   CONTENU PAGE PANIER (ID)
+   ------------------------------------------------------ */
+/* pour le panier */
+#cartPageContent {
+  background: #9135ff;
+  color: #dc1ef7;
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   PAGE – PLANNING
+   Mise en page et organisation du planning hebdomadaire
+   ====================================================== */
+/* ------------------------------------------------------
+   CONTENEUR PRINCIPAL PAGE PLANNING
+   ------------------------------------------------------ */
+.planning-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+.planning-page h1 {
+  margin-bottom: 10px;
+}
+
+/* ------------------------------------------------------
+   TEXTE D’INTRODUCTION
+   ------------------------------------------------------ */
+.intro {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #000;
+}
+
+/* ------------------------------------------------------
+   GRILLE DU PLANNING (7 JOURS)
+   ------------------------------------------------------ */
+.planning-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+/* ------------------------------------------------------
+   COLONNE JOUR
+   ------------------------------------------------------ */
+.day-column {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 10px;
+}
+.day-column h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px 0;
+}
+
+/* ------------------------------------------------------
+   SECTION SANS JOUR FIXE
+   ------------------------------------------------------ */
+.no-fixed-day {
+  margin-top: 20px;
+}
+.no-fixed-day h2 {
+  margin-bottom: 15px;
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   PAGE – PROFIL / CONNEXION / INSCRIPTION
+   Styles spécifiques aux formulaires utilisateur
+   ====================================================== */
+/* ------------------------------------------------------
+   TITRES DE SECTIONS
+   ------------------------------------------------------ */
+.section-title {
+  font-size: 26px;
+  font-weight: bold;
+  color: #000;
+  padding: 8px 15px;
+  border-radius: 5px;
+  margin: 20px 0;
+  margin-left: 14px;
+}
+
+/* ------------------------------------------------------
+   SOUS-TITRES – INSCRIPTION
+   ------------------------------------------------------ */
+.section-subtitle-inscription {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #dc1ef7;
+}
+
+/* ------------------------------------------------------
+   SOUS-TITRES – CONNEXION
+   ------------------------------------------------------ */
+.section-subtitle-connexion {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #9135ff;
+}
+
+/* ------------------------------------------------------
+   FORMULAIRES INSCRIPTION / CONNEXION (ID)
+   ------------------------------------------------------ */
+#form-inscription {
+  color: #dc1ef7;
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+}
+
+#form-connexion {
+  color: #9135ff;
+  background: linear-gradient(135deg, #dc1ef7, #9135ff);
+}
+
+/* ------------------------------------------------------
+   BOÎTE FORMULAIRE (ONGLETS)
+   ------------------------------------------------------ */
+.form-box {
+  display: none;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px #000;
+  position: relative;
+}
+.form-box.active {
+  display: block;
+}
+
+/* ------------------------------------------------------
+   CONTENEUR FORMULAIRE CONNEXION
+   ------------------------------------------------------ */
+.form-connexion {
+  margin: 50px auto;
+  padding: 30px;
+  width: 90%;
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px #000;
+  text-align: left;
+}
+.form-connexion h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* ------------------------------------------------------
+   ONGLET FORMULAIRES
+   ------------------------------------------------------ */
+.form-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
+/* ------------------------------------------------------
+   MESSAGE D’ERREUR
+   ------------------------------------------------------ */
+.error-message {
+  color: #000;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  display: none;
+}
+
+/* ------------------------------------------------------
+   FORMULAIRE NOUVEAU SUJET (FORUM)
+   ------------------------------------------------------ */
+#new-topic-form {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 10px;
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   PAGE – AIDE / FAQ / CONTACT
+   Styles spécifiques à la page d’aide
+   ====================================================== */
+/* ------------------------------------------------------
+   FAQ – ITEM
+   ------------------------------------------------------ */
+.faq-item {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 1rem;
+}
+
+/* ------------------------------------------------------
+   FAQ – QUESTION
+   ------------------------------------------------------ */
+.faq-question {
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ------------------------------------------------------
+   FAQ – RÉPONSE
+   ------------------------------------------------------ */
+.faq-answer {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+.faq-answer.active {
+  display: flex;
+  border-left: 4px solid #9135ff;
+  color: #fff;
+}
+
+/* ------------------------------------------------------
+   FORMULAIRE DE CONTACT
+   ------------------------------------------------------ */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ------------------------------------------------------
+   BOUTON ENVOI FORMULAIRE
+   ------------------------------------------------------ */
+.submit-btn {
+  background-color: #9135ff;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+.submit-btn:hover {
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+}
+
+/* ======================================================
+   UTILS – TOUJOURS EN DERNIER
+   ====================================================== */
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+/* ======================================================
+   UTILS – ANIMATIONS
+   Animations globales réutilisables dans le site
+   ====================================================== *
+
+/* ------------------------------------------------------
+   ANIMATION – SLIDE IN LEFT
+   ------------------------------------------------------ */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+/* ------------------------------------------------------
+   ANIMATION – SLIDE IN RIGHT
+   ------------------------------------------------------ */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+/* ------------------------------------------------------
+   CLASSES UTILITAIRES – SLIDE
+   ------------------------------------------------------ */
+.slide-in-left {
+  animation: slideInLeft 0.4s ease;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.4s ease;
+}
+
+/* ------------------------------------------------------
+   ANIMATION – PULSE
+   ------------------------------------------------------ */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 4px 20px #9135ff;
+  }
+  50% {
+    box-shadow: 0 4px 20px #dc1ef7 0 0 0 10px #dc1ef7;
+  }
+  100% {
+    box-shadow: 0 4px 20px #dc1ef7;
+  }
+}
+/* ------------------------------------------------------
+   ANIMATION – BOUNCE
+   ------------------------------------------------------ */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

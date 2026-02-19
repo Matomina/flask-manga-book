@@ -1,0 +1,165 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ======================================================
+   COMPONENT – PRODUCT / CONTENT CARDS
+   Cartes utilisées pour :
+   - Catalogue
+   - Profils
+   - Listes horizontales
+   - Grilles multi-lignes
+   Architecture mobile-first
+   ====================================================== */
+
+
+/* ======================================================
+   CARTE INDIVIDUELLE
+   ====================================================== */
+
+.card {
+  display: flex;
+  flex-direction: column;
+
+  /* Mobile par défaut */
+  flex: 0 0 150px;
+  max-width: 160px;
+
+  background: $color-secondary;
+  border: 1px solid $color-primary;
+  border-radius: $radius-md;
+
+  padding: $spacing-sm;
+  margin-bottom: $spacing-xs;
+
+  align-items: center;
+  justify-content: space-between;
+
+  font-weight: bold;
+  text-align: center;
+  font-size: 14px;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  /* Transition texte */
+  .text,
+  .price {
+    transition: color 0.3s ease;
+  }
+
+  /* Hover */
+  &:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    @include gradient-reverse;
+  }
+
+  &:hover .card-info h3.text,
+  &:hover .card-info p.price {
+    color: $color-secondary;
+  }
+
+  /* --------------------------------------------------
+     IMAGE PRODUIT
+     Ratio vertical type manga (2:3)
+     -------------------------------------------------- */
+
+  img {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: $radius-sm;
+  }
+
+  /* --------------------------------------------------
+     RESPONSIVE BREAKPOINTS
+     -------------------------------------------------- */
+
+  /* TABLET */
+  @include respond-to(tablet) {
+    flex: 0 0 170px;
+    max-width: 180px;
+    font-size: 15px;
+  }
+
+  /* DESKTOP */
+  @include respond-to(desktop) {
+    flex: 0 0 200px;
+    max-width: 220px;
+    font-size: 16px;
+  }
+
+  /* LARGE SCREENS */
+  @include respond-to(xl) {
+    flex: 0 0 230px;
+    max-width: 250px;
+  }
+
+  /* ULTRA-WIDE */
+  @include respond-to(ultra-wide) {
+    flex: 0 0 260px;
+    max-width: 280px;
+  }
+}
+
+
+
+/* ======================================================
+   LISTE DE CARTES – SCROLL HORIZONTAL
+   Mobile-first (idéal catalogue section)
+   ====================================================== */
+
+.card-list {
+  display: flex;
+  gap: $spacing-md;
+
+  overflow-x: auto;
+  scroll-behavior: smooth;
+
+  padding: $spacing-sm;
+
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+
+
+/* ======================================================
+   GRILLE DE CARTES – MULTI-LIGNES
+   Version propre pour page catalogue complète
+   ====================================================== */
+
+.card-row {
+  display: flex;
+  gap: $spacing-md;
+  justify-content: center;
+
+  .card {
+    flex: 1 1 150px;
+  }
+
+  @include respond-to(tablet) {
+    .card {
+      flex: 1 1 170px;
+    }
+  }
+
+  @include respond-to(desktop) {
+    .card {
+      flex: 1 1 200px;
+    }
+  }
+
+  @include respond-to(xl) {
+    .card {
+      flex: 1 1 230px;
+    }
+  }
+
+  @include respond-to(ultra-wide) {
+    .card {
+      flex: 1 1 260px;
+    }
+  }
+}

@@ -2,25 +2,26 @@
 ========================================================
 ADMIN – DASHBOARD
 --------------------------------------------------------
-Vue globale du back-office.
-Affiche statistiques + accès aux modules.
+Back-office principal de l'application MangaBook.
 ========================================================
 """
 
 from flask import Blueprint, render_template
 from manga.extensions.db import get_db
-from manga.auth import admin_required
-
-bp = Blueprint("admin", __name__, url_prefix="/admin")
+from .auth import admin_required
 
 
-# ====================================================
-# 🔹 Dashboard principal
-# ====================================================
+bp = Blueprint(
+    "admin",
+    __name__,
+    url_prefix="/admin",
+    template_folder="templates",
+)
+
+
 @bp.route("/")
 @admin_required
 def dashboard():
-
     db = get_db()
 
     stats = {

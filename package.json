@@ -1,0 +1,25 @@
+{
+  "name": "moi",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000E\u0000c\u0000o\u0000l\u0000e\u00004\u00002\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "dev": "sass --watch scss:css",
+    "build": "sass scss:css --style=compressed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matomina/Ecole42.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Matomina/Ecole42/issues"
+  },
+  "homepage": "https://github.com/Matomina/Ecole42#readme",
+  "devDependencies": {
+    "sass": "^1.97.3"
+  }
+}

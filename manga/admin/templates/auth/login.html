@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+
+<h1>Connexion</h1>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li style="color:red;">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+<form method="POST">
+
+    <div>
+        <label>Email</label>
+        <input type="email" name="email" required>
+    </div>
+
+    <div>
+        <label>Mot de passe</label>
+        <input type="password" name="password" required>
+    </div>
+
+    <br>
+
+    <input type="submit" value="Se connecter">
+
+</form>
+
+<p>
+    Pas encore inscrit ?
+    <a href="{{ url_for('auth.register') }}">
+        Créer un compte
+    </a>
+</p>
+
+{% endblock %}

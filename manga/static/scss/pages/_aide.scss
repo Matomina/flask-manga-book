@@ -1,0 +1,87 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ======================================================
+   PAGE – AIDE / FAQ / CONTACT
+   Styles spécifiques à la page d’aide
+   ====================================================== */
+
+
+/* ------------------------------------------------------
+   FAQ – ITEM
+   ------------------------------------------------------ */
+
+.faq-item {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid $color-light;
+    padding-bottom: 1rem;
+}
+
+
+/* ------------------------------------------------------
+   FAQ – QUESTION
+   ------------------------------------------------------ */
+
+.faq-question {
+    font-weight: bold;
+    color: $color-dark;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* ------------------------------------------------------
+   FAQ – RÉPONSE
+   ------------------------------------------------------ */
+
+.faq-answer {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: $radius-sm;
+
+    &.active {
+        display: flex;
+        border-left: 4px solid $color-primary;
+        color: $color-light;
+    }
+}
+
+
+/* ------------------------------------------------------
+   FORMULAIRE DE CONTACT
+   ------------------------------------------------------ */
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+
+
+
+
+/* ------------------------------------------------------
+   BOUTON ENVOI FORMULAIRE
+   ------------------------------------------------------ */
+
+.submit-btn {
+    background-color: $color-primary;
+    color: $color-light;
+
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: $radius-sm;
+
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 1rem;
+
+    &:hover {
+        @include gradient-primary;
+    }
+}

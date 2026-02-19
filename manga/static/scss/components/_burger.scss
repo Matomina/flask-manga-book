@@ -1,0 +1,120 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ======================================================
+   COMPONENT – BURGER MENU
+   Mobile-first
+   ====================================================== */
+
+
+/* ======================================================
+   CONTENEUR BURGER
+   ====================================================== */
+
+.burger-menu {
+   width: 32px;
+   height: 32px;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   position: relative;
+   z-index: $z-floating;
+
+   cursor: pointer;
+}
+
+
+/* ======================================================
+   ICÔNE BURGER
+   ====================================================== */
+
+.burger-icon {
+   width: 26px;
+   height: 20px;
+
+   position: relative;
+   z-index: $z-floating;
+
+   cursor: pointer;
+}
+
+
+/* ======================================================
+   BARRES
+   ====================================================== */
+
+.burger-icon span {
+   position: absolute;
+   left: 0;
+   width: 100%;
+   height: 3px;
+
+   border-radius: $radius-xs;
+   background: $color-primary;
+
+   transition:
+      transform 0.3s ease,
+      opacity 0.3s ease,
+      top 0.3s ease,
+      background 0.2s ease;
+}
+
+
+/* Positions initiales */
+
+.burger-icon span:nth-child(1) {
+   top: 0;
+}
+
+.burger-icon span:nth-child(2) {
+   top: 8.5px;
+}
+
+.burger-icon span:nth-child(3) {
+   top: 17px;
+}
+
+
+/* ======================================================
+   ÉTAT OUVERT
+   ====================================================== */
+
+.burger-icon.open span {
+   background: $color-light;
+}
+
+.burger-icon.open span:nth-child(1) {
+   top: 8.5px;
+   transform: rotate(45deg);
+}
+
+.burger-icon.open span:nth-child(2) {
+   opacity: 0;
+}
+
+.burger-icon.open span:nth-child(3) {
+   top: 8.5px;
+   transform: rotate(-45deg);
+}
+
+
+/* ======================================================
+   HOVER
+   ====================================================== */
+
+.burger-icon:hover span {
+   background: $color-secondary;
+}
+
+
+/* ======================================================
+   RESPONSIVE – DESKTOP
+   ====================================================== */
+
+@include respond-to(desktop) {
+   .burger-menu {
+      display: none;
+   }
+}

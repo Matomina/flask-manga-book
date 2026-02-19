@@ -1,0 +1,15 @@
+/* ======================================================
+   PAGE – FORUM
+   Mise en page spécifique à la page forum
+   ====================================================== */
+
+
+/* ------------------------------------------------------
+   CONTENEUR PRINCIPAL DU FORUM
+   ------------------------------------------------------ */
+
+#forumContent {
+   display: flex;
+   justify-content: space-around;
+   gap: 10px;
+}

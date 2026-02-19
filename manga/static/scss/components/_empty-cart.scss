@@ -1,0 +1,29 @@
+@use "../abstracts/variables" as *;
+
+/* ======================================================
+   COMPONENT – PANIER VIDE
+   Message affiché lorsque le panier est vide
+   ====================================================== */
+
+
+/* ------------------------------------------------------
+   CONTENEUR PANIER VIDE
+   ------------------------------------------------------ */
+
+.empty-cart {
+   text-align: center;
+   padding: $spacing-2xl $spacing-lg;
+
+   color: $color-secondary;
+}
+
+
+/* ------------------------------------------------------
+   ICÔNE PANIER VIDE
+   ------------------------------------------------------ */
+
+.empty-cart-icon {
+   font-size: 48px;
+   margin-bottom: 16px;
+   opacity: 0.9;
+}

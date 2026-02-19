@@ -1,0 +1,100 @@
+/* ======================================================
+   DESIGN SYSTEM – GLOBAL VARIABLES
+   Mobile-first architecture
+   Scalable up to 2000px+
+   ====================================================== */
+
+
+/* ======================================================
+   TYPOGRAPHY
+   ====================================================== */
+
+$font-main: "Arial", sans-serif;
+
+/* Fluid typography base */
+$font-size-base: 16px;
+$font-size-lg: 18px; // Large screens
+$font-size-xl: 20px; // Ultra-wide screens
+
+
+/* ======================================================
+   COLOR PALETTE
+   ====================================================== */
+
+$color-primary: #9135ff; // Main branding color
+$color-secondary: #dc1ef7; // Accent color
+$color-dark: #000; // Dark text
+$color-light: #fff; // Light text
+$color-gray: #f5f5f5; // Neutral background
+
+
+/* ======================================================
+   BORDER RADIUS SCALE
+   ====================================================== */
+
+$radius-xs: 3px;
+$radius-sm: 4px;
+$radius-md: 5px;
+$radius-lg: 8px;
+$radius-xl: 12px; // Large UI elements
+
+
+/* ======================================================
+   SPACING SCALE (8px system)
+   Consistent vertical rhythm
+   ====================================================== */
+
+$spacing-2xs: 0.25rem; // 4px
+$spacing-xs: 0.5rem; // 8px
+$spacing-sm: 0.75rem; // 12px
+$spacing-md: 1rem; // 16px
+$spacing-lg: 1.25rem; // 20px
+$spacing-xl: 2rem; // 32px
+$spacing-2xl: 2.5rem; // 40px
+$spacing-3xl: 3rem; // 48px
+$spacing-4xl: 4rem; // 64px
+
+
+/* ======================================================
+   Z-INDEX SCALE
+   Layer hierarchy system
+   ====================================================== */
+
+$z-header: 100;
+$z-dropdown: 200;
+$z-overlay: 300;
+$z-floating: 400;
+
+
+/* ======================================================
+   BREAKPOINT SYSTEM
+   Mobile-first (min-width only)
+   Supports ultra-wide displays up to 2000px+
+   ====================================================== */
+
+$breakpoints: (
+   tablet: 768px,
+   // Small tablets
+   desktop: 1024px,
+   // Standard laptops
+   large: 1280px,
+   // Large desktop
+   xl: 1600px,
+   // Wide monitors
+   ultra: 1920px,
+   // Full HD large screens
+   ultra-wide: 2000px // Ultra-wide displays
+);
+
+
+/* ======================================================
+   CONTAINER WIDTH SYSTEM
+   Prevents stretched layout on 2000px+
+   ====================================================== */
+
+$container-max-width: (
+   default: 1200px,
+   large: 1400px,
+   xl: 1600px,
+   ultra: 1800px
+);

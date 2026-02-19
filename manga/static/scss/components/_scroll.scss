@@ -1,0 +1,125 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ======================================================
+   COMPONENT – SCROLL HORIZONTAL
+   Mobile-first architecture
+   ====================================================== */
+
+
+/* ------------------------------------------------------
+   CONTENEUR DE SCROLL
+   ------------------------------------------------------ */
+
+.scroll-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+
+    .scroll-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+
+        @include gradient-primary;
+        color: $color-light;
+        border: none;
+
+        font-size: 18px;
+        padding: 10px;
+
+        cursor: pointer;
+        border-radius: 50%;
+
+        opacity: 0.9;
+        transition: 0.3s;
+
+        &.left {
+            left: 0;
+        }
+
+        &.right {
+            right: 0;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+
+/* ------------------------------------------------------
+   WRAPPER
+   ------------------------------------------------------ */
+
+.scroll-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+
+/* ------------------------------------------------------
+   LISTE SCROLLABLE
+   ------------------------------------------------------ */
+
+.scroll-list {
+    display: flex;
+    gap: $spacing-sm;
+
+    overflow-x: auto;
+    scroll-behavior: smooth;
+
+    padding: $spacing-sm;
+
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    img {
+        width: 120px;
+        height: 160px;
+
+        object-fit: cover;
+        border-radius: $radius-lg;
+
+        flex-shrink: 0;
+
+        background: $color-light;
+        transition: transform 0.2s ease;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+
+        /* ======================================================
+       RESPONSIVE – Mobile-first progression
+       ====================================================== */
+
+        @include respond-to(tablet) {
+            width: 150px;
+            height: 200px;
+        }
+
+        @include respond-to(desktop) {
+            width: 180px;
+            height: 240px;
+        }
+
+        @include respond-to(xl) {
+            width: 200px;
+            height: 270px;
+        }
+
+        @include respond-to(ultra) {
+            width: 220px;
+            height: 300px;
+        }
+    }
+}

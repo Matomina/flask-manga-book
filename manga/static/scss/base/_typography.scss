@@ -1,0 +1,47 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ======================================================
+   TYPOGRAPHIE GLOBALE
+   Gestion des titres, textes et éléments typographiques
+   ====================================================== */
+
+/* ------------------------------------------------------
+   TITRES
+   ------------------------------------------------------ */
+
+h1 {
+   color: $color-secondary;
+   margin-bottom: 1.5rem;
+   font-size: 2rem;
+}
+
+h2 {
+   color: $color-light;
+   font-size: 1.5rem;
+}
+
+h3 {
+   color: $color-light;
+}
+
+
+/* ------------------------------------------------------
+   TEXTE COURANT
+   ------------------------------------------------------ */
+
+p {
+   margin-bottom: 1rem;
+}
+
+
+/* ------------------------------------------------------
+   SÉPARATEUR
+   ------------------------------------------------------ */
+
+hr {
+   border: 0;
+   height: 1px;
+   background: $color-light;
+   margin: 1.5rem 0;
+}

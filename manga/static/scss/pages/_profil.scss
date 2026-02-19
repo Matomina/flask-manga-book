@@ -1,0 +1,156 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ======================================================
+   PAGE – PROFIL / CONNEXION / INSCRIPTION
+   Styles spécifiques aux formulaires utilisateur
+   ====================================================== */
+
+
+/* ------------------------------------------------------
+   TITRES DE SECTIONS
+   ------------------------------------------------------ */
+
+.section-title {
+    font-size: 26px;
+    font-weight: bold;
+    color: $color-dark;
+
+    padding: 8px 15px;
+    border-radius: $radius-md;
+
+    margin: 20px 0;
+    margin-left: 14px;
+}
+
+
+/* ------------------------------------------------------
+   SOUS-TITRES – INSCRIPTION
+   ------------------------------------------------------ */
+
+.section-subtitle-inscription {
+    font-size: 20px;
+    font-weight: bold;
+
+    margin: 15px 0 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: $color-secondary;
+}
+
+
+/* ------------------------------------------------------
+   SOUS-TITRES – CONNEXION
+   ------------------------------------------------------ */
+
+.section-subtitle-connexion {
+    font-size: 20px;
+    font-weight: bold;
+
+    margin: 15px 0 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: $color-primary;
+}
+
+
+/* ------------------------------------------------------
+   FORMULAIRES INSCRIPTION / CONNEXION (ID)
+   ------------------------------------------------------ */
+
+#form-inscription {
+    color: $color-secondary;
+    @include gradient-primary;
+}
+
+#form-connexion {
+    color: $color-primary;
+    @include gradient-reverse;
+}
+
+
+/* ------------------------------------------------------
+   BOÎTE FORMULAIRE (ONGLETS)
+   ------------------------------------------------------ */
+
+.form-box {
+    display: none;
+
+    background: $color-light;
+    padding: 20px;
+    border-radius: $radius-lg;
+
+    box-shadow: 0px 4px 12px $color-dark;
+    position: relative;
+
+    &.active {
+        display: block;
+    }
+}
+
+
+/* ------------------------------------------------------
+   CONTENEUR FORMULAIRE CONNEXION
+   ------------------------------------------------------ */
+
+.form-connexion {
+    margin: 50px auto;
+    padding: 30px;
+
+    width: 90%;
+
+    @include gradient-primary;
+    border-radius: $radius-lg;
+
+    box-shadow: 0px 4px 12px $color-dark;
+    text-align: left;
+
+    h2 {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+}
+
+
+/* ------------------------------------------------------
+   ONGLET FORMULAIRES
+   ------------------------------------------------------ */
+
+.form-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+
+    margin-bottom: 20px;
+}
+
+
+/* ------------------------------------------------------
+   MESSAGE D’ERREUR
+   ------------------------------------------------------ */
+
+.error-message {
+    color: $color-dark;
+    font-size: 0.9rem;
+
+    margin-top: 5px;
+    display: none;
+}
+
+
+/* ------------------------------------------------------
+   FORMULAIRE NOUVEAU SUJET (FORUM)
+   ------------------------------------------------------ */
+
+#new-topic-form {
+    display: grid;
+    gap: $spacing-sm;
+
+    margin-bottom: 10px;
+}

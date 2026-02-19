@@ -1,0 +1,103 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ======================================================
+   PAGE – PANIER
+   Styles spécifiques à la page panier
+   ====================================================== */
+
+/* ------------------------------------------------------
+   CONTENEUR PANIER
+   ------------------------------------------------------ */
+
+.panier {
+    width: 100%;
+    margin: 30px auto;
+
+    @include gradient-primary;
+    padding: 20px;
+    border-radius: $radius-lg;
+
+    box-shadow: 0px 3px 10px $color-dark;
+}
+
+
+/* ------------------------------------------------------
+   ITEM PANIER
+   ------------------------------------------------------ */
+
+.panier-item {
+    display: grid;
+    grid-template-columns: 1fr 100px 100px;
+    align-items: center;
+
+    padding: 10px 0;
+    border-bottom: 1px solid $color-light;
+
+    &.special {
+        font-style: italic;
+        color: $color-gray;
+    }
+}
+
+
+/* ------------------------------------------------------
+   TOTAL PANIER
+   ------------------------------------------------------ */
+
+.panier-total {
+    display: grid;
+    grid-template-columns: 1fr 100px 100px;
+
+    font-weight: bold;
+    font-size: 18px;
+
+    padding-top: 15px;
+}
+
+
+/* ------------------------------------------------------
+   CHAMPS DE SAISIE PANIER
+   ------------------------------------------------------ */
+
+.panier {
+
+    input[type="number"],
+    input[type="text"] {
+        width: 80px;
+        padding: 5px;
+
+        border: 1px solid $color-light;
+        border-radius: $radius-sm;
+    }
+}
+
+
+/* ------------------------------------------------------
+   PRIX
+   ------------------------------------------------------ */
+
+.prix {
+    text-align: right;
+}
+
+
+/* ------------------------------------------------------
+   CONTENEUR BOUTONS
+   ------------------------------------------------------ */
+
+.btn-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+/* ------------------------------------------------------
+   CONTENU PAGE PANIER (ID)
+   ------------------------------------------------------ */
+/* pour le panier */
+
+#cartPageContent {
+    background: $color-primary;
+    color: $color-secondary;
+}

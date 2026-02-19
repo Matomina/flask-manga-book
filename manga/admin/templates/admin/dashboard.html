@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard Admin{% endblock %}
+
+{% block content %}
+
+<h1>Dashboard Administration</h1>
+
+<!-- ============================= -->
+<!-- 🔹 Tableau des statistiques  -->
+<!-- ============================= -->
+<h2>Statistiques globales</h2>
+
+<table border="1" cellpadding="10" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Module</th>
+            <th>Total</th>
+            <th>Accès</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>Utilisateurs</td>
+            <td>{{ stats.total_users }}</td>
+            <td>
+                <a href="{{ url_for('users.list_users') }}">
+                    Voir les utilisateurs
+                </a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Commandes</td>
+            <td>{{ stats.total_orders }}</td>
+            <td>
+                <a href="{{ url_for('admin_orders.list_orders') }}">
+                    Voir les commandes
+                </a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Articles</td>
+            <td>{{ stats.total_articles }}</td>
+            <td>
+                <a href="{{ url_for('admin_articles.list_articles') }}">
+                    Voir les articles
+                </a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Messages (Contact)</td>
+            <td>{{ stats.total_messages }}</td>
+            <td>
+                <!-- À adapter si tu crées un blueprint contact -->
+                <a href="#">
+                    Voir les messages
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

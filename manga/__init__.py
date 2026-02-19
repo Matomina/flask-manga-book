@@ -2,36 +2,32 @@
 ========================================================
 MANGABOOK – APPLICATION FACTORY
 --------------------------------------------------------
-Point d’entrée principal de l’application Flask.
+Initialisation principale de l'application Flask.
 
 Responsabilités :
-✔ Créer l’application Flask
-✔ Charger la configuration
-✔ Initialiser les extensions (base de données)
-✔ Enregistrer les blueprints
-✔ Déclarer les filtres Jinja
+✔ Création de l'application
+✔ Chargement configuration
+✔ Initialisation extensions
+✔ Enregistrement blueprints
+✔ Déclaration filtres Jinja
 ========================================================
 """
 
 import os
 import locale
 from datetime import datetime
-from flask import Flask, app
+from flask import Flask
 
 
 def create_app(test_config=None):
-    """
-    Application Factory Pattern.
-    Permet de créer une instance configurable de l’application.
-    """
 
     # ====================================================
-    # 1️⃣ Création de l'application Flask
+    # 1️⃣ Création application
     # ====================================================
     app = Flask(__name__, instance_relative_config=True)
 
     # ====================================================
-    # 2️⃣ Configuration principale
+    # 2️⃣ Configuration
     # ====================================================
     app.config.from_mapping(
         SECRET_KEY="dev",  # ⚠️ À sécuriser en production
@@ -44,80 +40,59 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
 
     # ====================================================
-    # 3️⃣ Création du dossier instance si nécessaire
+    # 3️⃣ Instance folder
     # ====================================================
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
+    os.makedirs(app.instance_path, exist_ok=True)
 
     # ====================================================
-    # 4️⃣ Initialisation des extensions
+    # 4️⃣ Extensions
     # ====================================================
     from .extensions import db
     db.init_app(app)
 
     # ====================================================
-    # 5️⃣ Filtre Jinja – Format date française
+    # 5️⃣ Filtre Jinja
     # ====================================================
     @app.template_filter("format_datetime_fr")
     def format_datetime_fr(value):
-        """
-        Convertit une date SQLite en format français.
-        Exemple :
-        2026-02-19 15:42:18
-        -> 19 février 2026 à 15h42
-        """
         if not value:
             return ""
 
         dt = datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
 
-        # Tentative locale française
         try:
             locale.setlocale(locale.LC_TIME, "fr_FR.UTF-8")
         except:
-            try:
-                locale.setlocale(locale.LC_TIME, "French_France")
-            except:
-                pass
+            pass
 
         return dt.strftime("%d %B %Y à %Hh%M")
 
     # ====================================================
-    # 6️⃣ Enregistrement des Blueprints
+    # 6️⃣ ENREGISTREMENT DES BLUEPRINTS
     # ====================================================
-    
-    # 🔹 Admin (dashboard)
-    from .admin.admin import bp as admin_bp
-    app.register_blueprint(admin_bp)
 
-    # 🔹 Front-office (homepage)
+    # 🔹 PUBLIC
     from .public.routes import bp as public_bp
     app.register_blueprint(public_bp)
 
-    # 🔹 Catalogue articles
-    from . import articles
-    app.register_blueprint(articles.bp)
+    # 🔹 ADMIN – Dashboard
+    from .admin.admin import bp as admin_bp
+    app.register_blueprint(admin_bp)
 
-    # 🔹 Gestion utilisateurs (CRUD)
-    from . import users
-    app.register_blueprint(users.bp)
+    # 🔹 ADMIN – Modules
+    from .admin.users import bp as users_bp
+    app.register_blueprint(users_bp)
 
-    # 🔹 Gestion commandes
-    from . import orders
-    app.register_blueprint(orders.bp)
+    from .admin.orders import bp as orders_bp
+    app.register_blueprint(orders_bp)
 
-    # 🔹 Authentification
-    from . import auth
-    app.register_blueprint(auth.bp)
+    from .admin.articles import bp as articles_bp
+    app.register_blueprint(articles_bp)
 
-    # ====================================================
-    # 7️⃣ Route racine explicite (optionnelle)
-    # ====================================================
-    app.add_url_rule("/", endpoint="index")
+    from .admin.auth import bp as auth_bp
+    app.register_blueprint(auth_bp)
 
     # ====================================================
-    # 8️⃣ Retour de l'application
+    # 7️⃣ Retour application
     # ====================================================
     return app

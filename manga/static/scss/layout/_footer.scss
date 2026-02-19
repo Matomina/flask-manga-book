@@ -1,0 +1,40 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ======================================================
+   LAYOUT – PIED DE PAGE
+   Footer global du site
+   ====================================================== */
+
+
+/* ------------------------------------------------------
+   CONTENEUR FOOTER
+   ------------------------------------------------------ */
+
+footer {
+    background: $color-light;
+    color: $color-secondary;
+
+    text-align: center;
+
+    padding: 15px;
+    margin-top: 30px;
+
+    position: relative;
+
+    /* ----------------------------------------------------
+     LIENS DU FOOTER
+     ---------------------------------------------------- */
+
+    .footer-links {
+        a {
+            color: $color-primary;
+            text-decoration: none;
+
+            /* Effet hover lien */
+            &:hover {
+                color: $color-secondary;
+            }
+        }
+    }
+}

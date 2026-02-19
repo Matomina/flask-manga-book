@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Créer un utilisateur{% endblock %}
+
+{% block content %}
+
+<h1>Créer un utilisateur</h1>
+
+<p>
+    <a href="{{ url_for('users.list_users') }}">
+        ← Retour à la liste
+    </a>
+</p>
+
+<form method="POST" action="{{ url_for('users.create_user') }}">
+
+    <div>
+        <label>Nom</label>
+        <input name="nom_utilisateur" type="text" required>
+    </div>
+
+    <div>
+        <label>Prénom</label>
+        <input name="prenom_utilisateur" type="text" required>
+    </div>
+
+    <div>
+        <label>Email</label>
+        <input name="email_utilisateur" type="email" required>
+    </div>
+
+    <div>
+        <label>Mot de passe</label>
+        <input name="password_utilisateur" type="password" required>
+    </div>
+
+    <div>
+        <label>Rôle</label>
+        <select name="role_utilisateur">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+        </select>
+    </div>
+
+    <br>
+
+    <button type="submit">
+        Créer
+    </button>
+
+</form>
+
+{% endblock %}

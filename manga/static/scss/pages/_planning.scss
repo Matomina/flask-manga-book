@@ -1,0 +1,84 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ======================================================
+   PAGE – PLANNING
+   Mise en page et organisation du planning hebdomadaire
+   ====================================================== */
+
+
+/* ------------------------------------------------------
+   CONTENEUR PRINCIPAL PAGE PLANNING
+   ------------------------------------------------------ */
+
+.planning-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  padding: 1rem;
+
+  h1 {
+    margin-bottom: 10px;
+  }
+}
+
+
+/* ------------------------------------------------------
+   TEXTE D’INTRODUCTION
+   ------------------------------------------------------ */
+
+.intro {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: $color-dark;
+}
+
+
+/* ------------------------------------------------------
+   GRILLE DU PLANNING (7 JOURS)
+   ------------------------------------------------------ */
+
+.planning-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 15px;
+
+  margin-bottom: 40px;
+}
+
+
+/* ------------------------------------------------------
+   COLONNE JOUR
+   ------------------------------------------------------ */
+
+.day-column {
+  background: $color-gray;
+  ;
+  border-radius: $radius-lg;
+  padding: 10px;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 10px;
+
+    @include gradient-primary;
+    color: $color-light;
+
+    border-radius: $radius-md;
+    padding: 5px 0;
+  }
+}
+
+
+/* ------------------------------------------------------
+   SECTION SANS JOUR FIXE
+   ------------------------------------------------------ */
+
+.no-fixed-day {
+  margin-top: 20px;
+
+  h2 {
+    margin-bottom: 15px;
+  }
+}

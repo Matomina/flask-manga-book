@@ -1,0 +1,35 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ======================================================
+   COMPONENT – BOUTONS PANIER / ACTIONS
+   Boutons principaux liés au panier et à la commande
+   ====================================================== */
+
+/* ------------------------------------------------------
+   BOUTON – COMMANDER
+   ------------------------------------------------------ */
+
+.btn-commander {
+    background: $color-primary;
+    color: $color-secondary;
+
+    border: 2px solid $color-secondary;
+    border-radius: 8px;
+
+    padding: 14px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    /* Effet hover */
+    &:hover {
+        transform: translateY(-2px);
+        color: $color-primary;
+        background: $color-secondary;
+        border: 2px solid $color-primary;
+    }
+}

@@ -1,0 +1,116 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ======================================================
+   COMPONENT – FORMULAIRES
+   Structure des champs + boutons
+   Mobile-first architecture
+   ====================================================== */
+
+
+/* ------------------------------------------------------
+   GROUPE CHAMP (LABEL + INPUT)
+   ------------------------------------------------------ */
+
+.form-group {
+    margin-bottom: 1rem;
+
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+    }
+
+    input,
+    textarea,
+    select {
+        width: 100%;
+        padding: 0.75rem;
+
+        border: 1px solid #ccc;
+        border-radius: $radius-md;
+
+        font-family: inherit;
+    }
+
+    textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+}
+
+
+/* ------------------------------------------------------
+   BOUTON DE SOUMISSION
+   ------------------------------------------------------ */
+
+.btn-submit {
+    padding: 0.75rem 1.25rem;
+    background: $color-primary;
+    color: $color-light;
+
+    border: none;
+    border-radius: $radius-md;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+
+    &:hover {
+        @include gradient-primary;
+    }
+}
+
+
+/* ------------------------------------------------------
+   BOUTONS ONGLET – CONNEXION / INSCRIPTION
+   ------------------------------------------------------ */
+
+.tab-btn-inscription,
+.tab-btn-connexion {
+    border-radius: $radius-lg;
+    letter-spacing: 3px;
+    color: $color-light;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.tab-btn-inscription {
+    background: $color-primary;
+    box-shadow: 0 4px 20px $color-primary;
+    border: 1px solid $color-secondary;
+
+    &:hover {
+        @include gradient-primary;
+    }
+}
+
+.tab-btn-connexion {
+    background: $color-secondary;
+    box-shadow: 0 4px 20px $color-secondary;
+    border: 1px solid $color-primary;
+
+    &:hover {
+        @include gradient-reverse;
+    }
+}
+
+
+/* ======================================================
+   RESPONSIVE – FORUM FORM
+   ====================================================== */
+
+.forum-form {
+    width: 100%;
+
+    @include respond-to(tablet) {
+        width: 50%;
+    }
+
+    @include respond-to(desktop) {
+        width: 40%;
+    }
+
+    @include respond-to(xl) {
+        width: 35%;
+    }
+}

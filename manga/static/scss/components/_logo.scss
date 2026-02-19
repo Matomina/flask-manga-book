@@ -1,0 +1,46 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ======================================================
+   COMPONENT – LOGO & TITRE DU SITE
+   Logo principal + nom du site (header)
+   ====================================================== */
+
+
+/* ------------------------------------------------------
+   LIEN LOGO + TITRE
+   ------------------------------------------------------ */
+
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  text-decoration: none;
+}
+
+
+/* ------------------------------------------------------
+   IMAGE LOGO
+   ------------------------------------------------------ */
+
+.logo {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
+
+
+/* ------------------------------------------------------
+   TITRE DU SITE
+   ------------------------------------------------------ */
+
+.site-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: $color-primary;
+
+  /* Effet hover titre */
+  &:hover {
+    color: $color-secondary;
+  }
+}

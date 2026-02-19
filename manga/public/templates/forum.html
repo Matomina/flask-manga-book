@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manga-Book-Style - Forum</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" type="image/png" href="Image/favicon one piece.png" />
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header">
+
+        <!-- LIGNE DU HAUT : LOGO + TITRE / BURGER -->
+        <div class="header-top">
+
+            <!-- Logo + titre -->
+            <a href="index.html" class="logo-title">
+                <img src="Image/favicon one piece.png" alt="Manga Book Logo" class="logo" />
+                <span class="site-title">Manga Book</span>
+            </a>
+
+            <!-- Menu burger -->
+            <div class="burger-menu">
+                <div class="burger-icon" id="burger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- BARRE DE RECHERCHE (centrée en dessous) -->
+        <div class="search-bar">
+            <input type="text" placeholder="🔍 Rechercher un manga" />
+        </div>
+
+        <!-- MENU DESKTOP -->
+        <nav>
+            <ul>
+                <li><a href="index.html">🏠 Accueil</a></li>
+                <li><a href="catalogue.html">📖 Catalogue</a></li>
+                <li><a href="planning.html">🗓 Planning</a></li>
+                <li><a href="profil.html">👤 Votre Profil</a></li>
+                <li><a href="forum.html">💬 Forum</a></li>
+                <li><a href="goodies.html">🎁 Goodies</a></li>
+                <li><a href="panier.html">🛒 Panier</a></li>
+                <li><a href="aide.html">❓ Aide</a></li>
+            </ul>
+        </nav>
+
+    </header>
+    <!-- Menu de navigation mobile (caché par défaut) -->
+    <div class="mobile-nav" id="mobile-nav">
+        <ul>
+            <li><a href="index.html">🏠 Accueil</a></li>
+            <li><a href="catalogue.html">📖 Catalogue</a></li>
+            <li><a href="planning.html">🗓 Planning</a></li>
+            <li><a href="profil.html">👤 Votre Profil</a></li>
+            <li><a href="forum.html">💬 Forum</a></li>
+            <li><a href="goodies.html">🎁 Goodies</a></li>
+            <li><a href="panier.html">🛒 Panier</a></li>
+            <li><a href="aide.html">❓ Aide</a></li>
+        </ul>
+    </div>
+
+    <!-- BANNIÈRE -->
+    <section class="banner">
+        <img src="Image/Luffy Gear 5.jpeg" alt="Bannière Forum">
+    </section>
+
+    <main class="forum-page">
+
+        <section class="content">
+            <h1 class="page-title">💬 Forum</h1>
+            <p class="intro-1">
+                Bienvenue sur le forum, l’espace d’échange et de discussion de la communauté.
+                Ici, chacun peut partager ses idées, poser des questions, donner son avis et échanger autour des sujets
+                qui
+                rassemblent.
+
+                Le forum est pensé comme un lieu ouvert et respectueux, où les discussions prennent vie et où chaque
+                contribution a sa place. Que vous soyez là pour demander conseil, débattre ou simplement lire les
+                échanges,
+                vous êtes au bon endroit.
+
+                Participez aux discussions, découvrez de nouveaux points de vue et faites vivre la communauté à travers
+                vos
+                messages. </p>
+        </section>
+
+        <section class="content" id="forumContent">
+
+
+            <!-- FORMULAIRE -->
+            <div class="forum-form">
+                <h3>Créer un nouveau sujet</h3>
+
+                <form id="new-topic-form">
+                    <label for="topic-title">Titre du sujet :</label>
+                    <input type="text" id="topic-title" required>
+
+                    <label for="topic-message">Message :</label>
+                    <textarea id="topic-message" rows="5" required></textarea>
+
+                    <button type="submit" class="btn-submit">📢 Publier le sujet</button>
+                </form>
+            </div>
+
+            <!-- SUJETS -->
+            <div class="forum-topics">
+                <h3>📚 Sujets récents</h3>
+
+                <div class="topic-card">
+                    <h4>🔥 Solo Leveling : vos avis ?</h4>
+                    <p>Publié par <strong>Aya</strong> — Dernier message : 2h</p>
+                    <a href="#" class="btn-view">Voir le sujet</a>
+                </div>
+
+                <div class="topic-card">
+                    <h4>💭 Le meilleur arc de One Piece selon vous ?</h4>
+                    <p>Publié par <strong>Max</strong> — Dernier message : 5h</p>
+                    <a href="#" class="btn-view">Voir le sujet</a>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-links">
+            <h3><a href="index.html">MANGA BOOK © 2025 - Tous droits réservés</a></h3>
+            <a href="aide.html#Conditions générales">Conditions générales</a> |
+            <a href="aide.html#Politique de confidentialité">Politique de confidentialité</a> |
+            <a href="aide.html#contact-form">Contact</a>
+        </div>
+    </footer>
+
+    <!-- BOUTON PANIER FLOTTANT -->
+    <button class="floating-cart-btn" onclick="openCartPopup()" aria-label="Ouvrir le panier">
+        🛒 <span class="floating-cart-count" id="floatingCartCount">0</span>
+    </button>
+
+    <!-- POPUP PANIER -->
+    <div class="cart-overlay" id="cartOverlay" onclick="closeCartPopup()"></div>
+    <div class="cart-popup" id="cartPopup">
+        <div class="cart-header">
+            <h2 class="cart-title">🛒 Aperçu du Panier</h2>
+            <button class="close-btn" onclick="closeCartPopup()" aria-label="Fermer">×</button>
+        </div>
+        <div class="cart-content" id="cartContent"></div>
+        <div class="cart-footer">
+            <a href="panier.html" class="btn-view-cart">Voir le Panier</a>
+            <button class="btn-checkout" onclick="quickCheckout()">Commander</button>
+        </div>
+    </div>
+
+    <!-- Bouton retour en haut -->
+    <button id="scrollTopBtn" title="Remonter en haut">⬆</button>
+
+    <script src="script.js" defer></script>
+    <script>
+        // Exemple simple de gestion du formulaire du forum (simulé)
+        document.getElementById('new-topic-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const title = document.getElementById('topic-title').value.trim();
+            const message = document.getElementById('topic-message').value.trim();
+
+            if (title && message) {
+                alert("✅ Sujet publié avec succès !");
+                document.getElementById('topic-title').value = '';
+                document.getElementById('topic-message').value = '';
+            }
+        });
+    </script>
+</body>
+
+</html>

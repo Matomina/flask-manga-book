@@ -1,0 +1,167 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ======================================================
+   HEADER PRINCIPAL
+   ====================================================== */
+/*
+   - Conteneur global du header
+   - Organisation en colonne (mobile-first)
+   - Fond blanc par défaut
+*/
+.site-header {
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
+
+   padding: 15px 20px;
+   background: $color-light;
+   color: $color-dark;
+
+   position: relative;
+   z-index: $z-overlay;
+}
+
+/*
+   État menu ouvert
+   - Change la couleur de fond
+*/
+.site-header.menu-open {
+   background: $color-primary;
+}
+
+/*
+   - Quand le menu est ouvert
+   - On pousse la croix complètement à droite
+*/
+.site-header.menu-open .header-top {
+   justify-content: flex-end;
+}
+
+
+/* ======================================================
+   LIGNE SUPÉRIEURE (LOGO + BURGER)
+   ====================================================== */
+/*
+   - Logo à gauche
+   - Burger à droite
+   - Alignement horizontal
+*/
+.header-top {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 100%;
+}
+
+
+/* ======================================================
+   NAVIGATION (DESKTOP UNIQUEMENT – STYLE)
+   ====================================================== */
+/*
+   - Nav prend toute la largeur
+   - Affichage réel activé en desktop (media query)
+*/
+nav {
+   display: none;
+   width: 100%;
+}
+
+/*
+   Liste des liens
+*/
+nav ul {
+   list-style: none;
+   gap: 20px;
+}
+
+/*
+   Liens de navigation
+*/
+nav ul li a {
+   text-decoration: none;
+   color: $color-primary;
+   transition: color 0.3s ease;
+}
+
+/*
+   Hover lien
+*/
+nav ul li a:hover {
+   color: $color-secondary;
+}
+
+/* ======================================================
+   ÉTAT MENU OUVERT – HEADER MINIMAL
+   ====================================================== */
+/*
+   - On garde uniquement la croix
+   - On masque logo + recherche
+*/
+
+/* Masquer le logo */
+.site-header.menu-open .logo-title {
+   display: none;
+}
+
+/* Masquer la barre de recherche */
+.site-header.menu-open .search-bar {
+   display: none;
+}
+
+/* Sécuriser l’affichage du burger */
+.site-header.menu-open .burger-menu {
+   display: flex;
+}
+
+/* ======================================================
+   RESPONSIVE – DESKTOP (≥ 1024px)
+   Mobile-first architecture
+   ====================================================== */
+
+@include respond-to(desktop) {
+
+   /* STRUCTURE HEADER EN GRID */
+   .site-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+      align-items: center;
+      row-gap: 12px;
+      padding: 15px 20px;
+   }
+
+   /* LOGO */
+   .header-top {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+      padding: 0;
+   }
+
+   /* NAV */
+   nav {
+      display: block;
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+      width: auto;
+   }
+
+   .site-header nav ul {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+   }
+
+   /* SEARCH BAR */
+   .search-bar {
+      grid-column: 1 / -1;
+      grid-row: 2 / 3;
+      justify-content: center;
+      padding: 0;
+   }
+
+   /* BURGER MASQUÉ */
+   .burger-menu {
+      display: none;
+   }
+}
