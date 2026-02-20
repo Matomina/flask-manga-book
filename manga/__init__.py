@@ -92,6 +92,9 @@ def create_app(test_config=None):
     from .admin.auth import bp as auth_bp
     app.register_blueprint(auth_bp)
 
+    from .admin import contacts
+    app.register_blueprint(contacts.bp)
+    
     # ====================================================
     # 7️⃣ Retour application
     # ====================================================

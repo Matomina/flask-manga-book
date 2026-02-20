@@ -1,15 +1,15 @@
-{% extends "base.html" %}
+{% extends "admin_layout.html" %}
 
 {% block title %}Dashboard Admin{% endblock %}
 
 {% block content %}
 
-<h1>Dashboard Administration</h1>
+<h1>Dashboard </h1>
 
 <!-- ============================= -->
 <!-- 🔹 Tableau des statistiques  -->
 <!-- ============================= -->
-<h2>Statistiques globales</h2>
+<h1>Statistiques globales</h1>
 
 <table border="1" cellpadding="10" cellspacing="0">
     <thead>
@@ -56,7 +56,7 @@
             <td>{{ stats.total_messages }}</td>
             <td>
                 <!-- À adapter si tu crées un blueprint contact -->
-                <a href="#">
+                <a href="{{ url_for('admin_contacts.list_contacts') }}">
                     Voir les messages
                 </a>
             </td>

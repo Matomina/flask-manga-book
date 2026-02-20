@@ -1,0 +1,47 @@
+{% extends "admin_layout.html" %}
+
+{% block content %}
+
+<h1>Gestion des messages</h1>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>ID</th>
+        <th>Utilisateur</th>
+        <th>Sujet</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Action</th>
+    </tr>
+
+    {% for contact in contacts %}
+    <tr>
+        <td>{{ contact.id }}</td>
+        <td>
+            {% if contact.first_name %}
+            {{ contact.first_name }} {{ contact.last_name }}
+            {% else %}
+            Utilisateur supprimé
+            {% endif %}
+        </td>
+        <td>{{ contact.sujet }}</td>
+        <td>{{ contact.status }}</td>
+        <td>{{ contact.created_at }}</td>
+        <td>
+            <a href="{{ url_for('admin_contacts.detail_contact', id=contact.id) }}">
+                Voir
+            </a>
+            |
+            <form action="{{ url_for('admin_contacts.delete_contact', id=contact['id']) }}" method="POST"
+                style="display:inline; margin:0; padding:0;">
+                <button type="submit" onclick="return confirm('Confirmer la suppression ?')">
+                    Supprimer
+                </button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

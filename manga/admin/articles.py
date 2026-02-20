@@ -25,7 +25,7 @@ def list_articles():
     ).fetchall()
 
     return render_template(
-        "articles/admin_articles.html",
+        "articles/articles.html",
         articles=articles
     )
 

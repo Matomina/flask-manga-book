@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "admin_layout.html" %}
 
 {% block title %}Catalogue des articles{% endblock %}
 
@@ -42,6 +42,13 @@
                 <a href="{{ url_for('admin_articles.update_article', id=article['id']) }}">
                     Modifier
                 </a>
+                |
+                <form method="POST" action="{{ url_for('admin_articles.delete_article', id=article['id']) }}"
+                    style="display:inline;">
+                    <button type="submit" onclick="return confirm('Confirmer la suppression ?')">
+                        Supprimer
+                    </button>
+                </form>
             </td>
         </tr>
         {% endfor %}

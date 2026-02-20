@@ -1,7 +1,9 @@
 import sqlite3
+import os
 from werkzeug.security import generate_password_hash
 
-DATABASE = "../instance/manga.sqlite"  # adapte si besoin
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE = os.path.join(BASE_DIR, "instance", "manga.sqlite")
 
 def rehash_passwords():
     conn = sqlite3.connect(DATABASE)
@@ -14,7 +16,6 @@ def rehash_passwords():
         user_id = user["id"]
         password = user["password"]
 
-        # Si déjà hashé, on ignore
         if password.startswith("pbkdf2:"):
             continue
 

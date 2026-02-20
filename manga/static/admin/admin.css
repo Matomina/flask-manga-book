@@ -1,0 +1,106 @@
+/* =====================================
+   ADMIN PREMIUM THEME
+===================================== */
+
+body.admin-body {
+    background: #f4f6f9;
+    font-family: system-ui, -apple-system, sans-serif;
+    margin: 0;
+}
+
+/* Layout principal */
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ================= SIDEBAR ================= */
+
+.admin-sidebar {
+    width: 250px;
+    background: #111827;
+    color: white;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    margin-bottom: 30px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 10px;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #cbd5e1;
+    transition: 0.2s ease;
+    font-weight: 500;
+}
+
+.sidebar-menu a:hover {
+    background: #1f2937;
+    color: white;
+}
+
+.sidebar-menu a.active {
+    background: #2563eb;
+    color: white;
+}
+
+/* ================= CONTENT ================= */
+
+.admin-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Topbar */
+.admin-topbar {
+    background: white;
+    padding: 15px 25px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Main */
+.admin-main {
+    padding: 30px;
+}
+
+/* Cards statistiques */
+.stat-card {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    transition: 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+}
+
+.stat-title {
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.stat-value {
+    font-size: 1.9rem;
+    font-weight: 600;
+}
