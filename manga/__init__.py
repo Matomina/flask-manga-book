@@ -4,12 +4,11 @@ MANGABOOK – APPLICATION FACTORY
 --------------------------------------------------------
 Initialisation principale de l'application Flask.
 
-Responsabilités :
-✔ Création de l'application
-✔ Chargement configuration
-✔ Initialisation extensions
-✔ Enregistrement blueprints
-✔ Déclaration filtres Jinja
+Architecture :
+✔ Public séparé
+✔ Admin séparé
+✔ Templates isolés par Blueprint
+✔ Extensions centralisées
 ========================================================
 """
 
@@ -19,10 +18,13 @@ from datetime import datetime
 from flask import Flask
 
 
+# ========================================================
+# 🔹 APPLICATION FACTORY
+# ========================================================
 def create_app(test_config=None):
 
     # ====================================================
-    # 1️⃣ Création application
+    # 1️⃣ Création de l'application
     # ====================================================
     app = Flask(__name__, instance_relative_config=True)
 
@@ -30,7 +32,7 @@ def create_app(test_config=None):
     # 2️⃣ Configuration
     # ====================================================
     app.config.from_mapping(
-        SECRET_KEY="dev",  # ⚠️ À sécuriser en production
+        SECRET_KEY="dev",
         DATABASE=os.path.join(app.instance_path, "manga.sqlite"),
     )
 
@@ -40,7 +42,7 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
 
     # ====================================================
-    # 3️⃣ Instance folder
+    # 3️⃣ Création dossier instance
     # ====================================================
     os.makedirs(app.instance_path, exist_ok=True)
 
@@ -62,24 +64,23 @@ def create_app(test_config=None):
 
         try:
             locale.setlocale(locale.LC_TIME, "fr_FR.UTF-8")
-        except:
+        except locale.Error:
             pass
 
         return dt.strftime("%d %B %Y à %Hh%M")
 
     # ====================================================
-    # 6️⃣ ENREGISTREMENT DES BLUEPRINTS
+    # 6️⃣ Enregistrement des Blueprints
     # ====================================================
 
     # 🔹 PUBLIC
     from .public.routes import bp as public_bp
     app.register_blueprint(public_bp)
 
-    # 🔹 ADMIN – Dashboard
+    # 🔹 ADMIN
     from .admin.admin import bp as admin_bp
     app.register_blueprint(admin_bp)
 
-    # 🔹 ADMIN – Modules
     from .admin.users import bp as users_bp
     app.register_blueprint(users_bp)
 
@@ -92,10 +93,14 @@ def create_app(test_config=None):
     from .admin.auth import bp as auth_bp
     app.register_blueprint(auth_bp)
 
-    from .admin import contacts
-    app.register_blueprint(contacts.bp)
-    
+    from .admin.contacts import bp as contacts_bp
+    app.register_blueprint(contacts_bp)
+
     # ====================================================
-    # 7️⃣ Retour application
+    # 7️⃣ Gestion erreurs globale
     # ====================================================
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return "Page non trouvée", 404
+
     return app

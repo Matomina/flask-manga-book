@@ -2,26 +2,37 @@
 <html lang="fr">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manga-Book-Style - Accueil</title>
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="icon" type="Image/png" href="Image/favicon one piece.png" />
+  <!-- ===================================================== -->
+  <!-- META / SEO / RESPONSIVE -->
+  <!-- ===================================================== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manga Book – Accueil</title>
+
+  <!-- CSS PRINCIPAL -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='public/css/main.css') }}">
+
+  <!-- FAVICON -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='image/favicon one piece.png') }}">
 </head>
 
-<body> <!-- HEADER -->
+<body>
+
+  <!-- ===================================================== -->
+  <!-- HEADER PRINCIPAL -->
+  <!-- ===================================================== -->
   <header class="site-header">
 
-    <!-- LIGNE DU HAUT : LOGO + TITRE / BURGER -->
+    <!-- LIGNE HAUTE : LOGO + BURGER -->
     <div class="header-top">
 
-      <!-- Logo + titre -->
-      <a href="index.html" class="logo-title">
-        <img src="Image/favicon one piece.png" alt="Manga Book Logo" class="logo" />
+      <!-- LOGO -->
+      <a href="{{ url_for('public.home') }}" class="logo-title">
+        <img src="{{ url_for('static', filename='image/favicon one piece.png') }}" alt="Logo Manga Book" class="logo">
         <span class="site-title">Manga Book</span>
       </a>
 
-      <!-- Menu burger -->
+      <!-- MENU BURGER MOBILE -->
       <div class="burger-menu">
         <div class="burger-icon" id="burger-icon">
           <span></span>
@@ -32,482 +43,194 @@
 
     </div>
 
-    <!-- BARRE DE RECHERCHE (centrée en dessous) -->
+    <!-- BARRE DE RECHERCHE -->
     <div class="search-bar">
-      <input type="text" placeholder="🔍 Rechercher un manga" />
+      <input type="text" placeholder="🔍 Rechercher un manga">
     </div>
 
-    <!-- MENU DESKTOP -->
+    <!-- NAVIGATION DESKTOP -->
     <nav>
       <ul>
-        <li><a href="index.html">🏠 Accueil</a></li>
-        <li><a href="catalogue.html">📖 Catalogue</a></li>
-        <li><a href="planning.html">🗓 Planning</a></li>
-        <li><a href="profil.html">👤 Votre Profil</a></li>
-        <li><a href="forum.html">💬 Forum</a></li>
-        <li><a href="goodies.html">🎁 Goodies</a></li>
-        <li><a href="panier.html">🛒 Panier</a></li>
-        <li><a href="aide.html">❓ Aide</a></li>
+        <li><a href="{{ url_for('public.home') }}">🏠 Accueil</a></li>
+        <li><a href="{{ url_for('public.catalogue') }}">📖 Catalogue</a></li>
+        <li><a href="{{ url_for('public.planning') }}">🗓 Planning</a></li>
+        <li><a href="{{ url_for('public.profil') }}">👤 Votre Profil</a></li>
+        <li><a href="{{ url_for('public.forum') }}">💬 Forum</a></li>
+        <li><a href="{{ url_for('public.goodies_page') }}">🎁 Goodies</a></li>
+        <li><a href="{{ url_for('public.panier') }}">🛒 Panier</a></li>
+        <li><a href="{{ url_for('public.aide') }}">❓ Aide</a></li>
       </ul>
     </nav>
 
   </header>
 
-  <!-- Menu de navigation mobile (caché par défaut) -->
+  <!-- NAVIGATION MOBILE -->
   <div class="mobile-nav" id="mobile-nav">
     <ul>
-      <li><a href="index.html">🏠 Accueil</a></li>
-      <li><a href="catalogue.html">📖 Catalogue</a></li>
-      <li><a href="planning.html">🗓 Planning</a></li>
-      <li><a href="profil.html">👤 Votre Profil</a></li>
-      <li><a href="forum.html">💬 Forum</a></li>
-      <li><a href="goodies.html">🎁 Goodies</a></li>
-      <li><a href="panier.html">🛒 Panier</a></li>
-      <li><a href="aide.html">❓ Aide</a></li>
+      <li><a href="{{ url_for('public.home') }}">🏠 Accueil</a></li>
+      <li><a href="{{ url_for('public.catalogue') }}">📖 Catalogue</a></li>
+      <li><a href="{{ url_for('public.planning') }}">🗓 Planning</a></li>
+      <li><a href="{{ url_for('public.profil') }}">👤 Votre Profil</a></li>
+      <li><a href="{{ url_for('public.forum') }}">💬 Forum</a></li>
+      <li><a href="{{ url_for('public.goodies_page') }}">🎁 Goodies</a></li>
+      <li><a href="{{ url_for('public.panier') }}">🛒 Panier</a></li>
+      <li><a href="{{ url_for('public.aide') }}">❓ Aide</a></li>
     </ul>
   </div>
 
+  <!-- ===================================================== -->
   <!-- BANNIÈRE -->
-  <section class="banner"> <img src="Image/Sun-jin-hoo-violet.jpeg" alt="Bannière promotion" />
+  <!-- ===================================================== -->
+  <section class="banner">
+    <img src="{{ url_for('static', filename='image/Sun-jin-hoo-violet.jpeg') }}" alt="Bannière promotion">
   </section>
 
-  <!-- MAIN -->
+  <!-- ===================================================== -->
+  <!-- CONTENU PRINCIPAL -->
+  <!-- ===================================================== -->
   <main class="home-page">
 
-    <!-- Titre principal -->
+    <!-- INTRODUCTION -->
     <section class="content">
       <h1 class="page-title">🏠 Bienvenue sur Manga Book Style</h1>
       <p class="intro-1">
-
-        Plongez dans un univers où les légendes prennent vie et où chaque page raconte une histoire inoubliable.
-        Manga Book est votre bibliothèque dédiée aux mangas incontournables, aux classiques intemporels et aux pépites à
-        découvrir.
-
-        Explorez, collectionnez et suivez vos œuvres préférées à travers une expérience fluide et immersive, pensée pour
-        les passionnés comme pour les curieux.
-
-        Votre aventure commence ici. </p>
+        Plongez dans un univers où chaque page raconte une histoire.
+        Découvrez nos mangas, goodies et produits exclusifs.
+      </p>
     </section>
 
-    <!-- Section Historiques -->
+    <!-- ===================================================== -->
+    <!-- SECTION : HISTORIQUES -->
+    <!-- ===================================================== -->
     <section class="content">
       <h2>📜 Historiques</h2>
+
       <div class="scroll-container">
         <button class="scroll-btn left">⬅</button>
 
         <div class="card-list">
+          {% for article in historiques %}
+          <div class="card">
+            <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
 
-          <div class="card"> <img src="Image/Black-Clover-Tome.jpeg" alt="Black Clover" />
             <div class="card-info">
-              <h3 class="text">Black Clover </h3>
-              <p class="price">7,90 €</p> <button class="add-to-cart-btn" data-title="Black Clover " data-price="7.90"
-                data-img="Image/Black-Clover-Tome.jpeg"> 🛒 Ajouter au panier </button>
+              <h3 class="text">{{ article.name }}</h3>
+              <p class="price">{{ "%.2f"|format(article.price) }} €</p>
+
+              <button class="add-to-cart-btn" data-id="{{ article.id }}" data-title="{{ article.name }}"
+                data-price="{{ article.price }}" data-img="{{ url_for('static', filename=article.image) }}">
+                🛒 Ajouter au panier
+              </button>
             </div>
           </div>
-
-          <div class="card"> <img src="Image/Demon-Slayer-Tome.jpeg" alt="Demon Slayer" />
-            <div class="card-info">
-              <h3 class="text">Demon Slayer </h3>
-              <p class="price">12 €</p> <button class="add-to-cart-btn" data-title="Demon Slayer " data-price="12"
-                data-img="Image/Demon-Slayer-Tome.jpeg"> 🛒 Ajouter au panier </button>
-            </div>
-          </div>
-
-          <div class="card"> <img src="Image/One-Piece-Tome.jpeg" alt="One Piece" />
-            <div class="card-info">
-              <h3 class="text">One Piece </h3>
-              <p class="price">7,90 €</p> <button class="add-to-cart-btn" data-title="One Piece " data-price="7.90"
-                data-img="Image/One-Piece-Tome.jpeg"> 🛒 Ajouter au panier </button>
-            </div>
-          </div>
-
-          <div class="card"> <img src="Image/Naruto-Shippuden.jpeg" alt="Naruto Shippuden" />
-            <div class="card-info">
-              <h3 class="text">Naruto Shippuden </h3>
-              <p class="price">7,90 €</p> <button class="add-to-cart-btn" data-title="Naruto Shippuden "
-                data-price="7.90" data-img="Image/Naruto-Shippuden.jpeg"> 🛒 Ajouter au panier </button>
-            </div>
-          </div>
-
-          <div class="card"> <img src="Image/Dandadan-Tome.jpeg" alt="Dandadan" />
-            <div class="card-info">
-              <h3 class="text">Dandadan </h3>
-              <p class="price">7,90 €</p> <button class="add-to-cart-btn" data-title="Dandadan " data-price="7.90"
-                data-img="Image/Dandadan-Tome.jpeg"> 🛒 Ajouter au panier </button>
-            </div>
-          </div>
-
-          <div class="card"> <img src="Image/Solo-Leveling-Tome.jpeg" alt="Solo Leveling" />
-            <div class="card-info">
-              <h3 class="text">Solo Leveling </h3>
-              <p class="price">8,50 €</p> <button class="add-to-cart-btn" data-title="Solo Leveling " data-price="8.50"
-                data-img="Image/Solo-Leveling-Tome.jpeg"> 🛒 Ajouter au panier </button>
-            </div>
-          </div>
-
-          <div class="card"> <img src="Image/Jujutsu-Kaisen-Tome.jpeg" alt="Jujutsu Kaisen" />
-            <div class="card-info">
-              <h3 class="text">Jujutsu Kaisen </h3>
-              <p class="price">7,90 €</p> <button class="add-to-cart-btn" data-title="Jujutsu Kaisen " data-price="7.90"
-                data-img="Image/Jujutsu-Kaisen-Tome.jpeg"> 🛒 Ajouter au panier </button>
-            </div>
-          </div>
-
-          <div class="card"> <img src="Image/Death-Note-Tome.jpeg" alt="Death Note" />
-            <div class="card-info">
-              <h3 class="text">Death Note </h3>
-              <p class="price">6,90 €</p> <button class="add-to-cart-btn" data-title="Death Note " data-price="6.90"
-                data-img="Image/Death-Note-Tome.jpeg"> 🛒 Ajouter au panier </button>
-            </div>
-          </div>
-
-          <div class="card"> <img src="Image/Edens-Zero-Tome.jpeg" alt="Edens Zero" />
-            <div class="card-info">
-              <h3 class="text">Edens Zero </h3>
-              <p class="price">7,90 €</p> <button class="add-to-cart-btn" data-title="Edens Zero " data-price="7.90"
-                data-img="Image/Edens-Zero-Tome.jpeg"> 🛒 Ajouter au panier </button>
-            </div>
-          </div>
-
-          <div class="card"> <img src="Image/One-Punch-Man-Tome.jpeg" alt="One Punch Man" />
-            <div class="card-info">
-              <h3 class="text">One Punch Man </h3>
-              <p class="price">7,90 €</p> <button class="add-to-cart-btn" data-title="One Punch Man " data-price="7.90"
-                data-img="Image/One-Punch-Man-Tome.jpeg"> 🛒 Ajouter au panier </button>
-            </div>
-          </div>
-
-          <div class="card"> <img src="Image/Sakamoto-Days-Tome.jpeg" alt="Sakamoto Days" />
-            <div class="card-info">
-              <h3 class="text">Sakamoto Days </h3>
-              <p class="price">7,90 €</p> <button class="add-to-cart-btn" data-title="Sakamoto Days " data-price="7.90"
-                data-img="Image/Sakamoto-Days-Tome.jpeg"> 🛒 Ajouter au panier </button>
-            </div>
-          </div>
-
-          <div class="card"> <img src="Image/Full-Metal-Tome.jpeg" alt="Full Metal Alchemist" />
-            <div class="card-info">
-              <h3 class="text">Full Metal Alchemist </h3>
-              <p class="price">7,90 €</p> <button class="add-to-cart-btn" data-title="Full Metal Alchemist "
-                data-price="7.90" data-img="Image/Full-Metal-Tome.jpeg"> 🛒 Ajouter au panier </button>
-            </div>
-          </div>
-          <button class="scroll-btn right">➡</button>
+          {% else %}
+          <p>Aucun article disponible.</p>
+          {% endfor %}
         </div>
+
+        <button class="scroll-btn right">➡</button>
       </div>
     </section>
 
-    <!-- Section Classiques -->
+    <!-- ===================================================== -->
+    <!-- SECTION : CLASSIQUES -->
+    <!-- ===================================================== -->
     <section class="content">
       <h2>⭐ Les Classiques</h2>
-      <div class="scroll-container"> <button class="scroll-btn left">⬅</button>
+
+      <div class="scroll-container">
+        <button class="scroll-btn left">⬅</button>
+
         <div class="card-list">
-          <div class="card"> <img src="Image/Dragon-Ball-Tome.jpeg" alt="Dragon Ball" />
+          {% for article in classiques %}
+          <div class="card">
+            <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
+
             <div class="card-info">
-              <h3 class="text">Dragon Ball </h3>
-              <p class="price">6,90 €</p> <button class="add-to-cart-btn" data-title="Dragon Ball " data-price="6.90"
-                data-img="Image/Dragon-Ball-Tome.jpeg">🛒 Ajouter au panier</button>
+              <h3 class="text">{{ article.name }}</h3>
+              <p class="price">{{ "%.2f"|format(article.price) }} €</p>
+
+              <button class="add-to-cart-btn" data-id="{{ article.id }}" data-title="{{ article.name }}"
+                data-price="{{ article.price }}" data-img="{{ url_for('static', filename=article.image) }}">
+                🛒 Ajouter au panier
+              </button>
             </div>
           </div>
-          <div class="card"> <img src="Image/Dragon-Ball-Z-Tome.jpeg" alt="Dragon Ball Z" />
-            <div class="card-info">
-              <h3 class="text">Dragon Ball Z </h3>
-              <p class="price">7,10 €</p> <button class="add-to-cart-btn" data-title="Dragon Ball Z " data-price="7.10"
-                data-img="Image/Dragon-Ball-Z-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/One-Piece-Tome.jpeg" alt="One Piece" />
-            <div class="card-info">
-              <h3 class="text">One Piece </h3>
-              <p class="price">6,90 €</p> <button class="add-to-cart-btn" data-title="One Piece " data-price="6.90"
-                data-img="Image/One-Piece-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Naruto-Tome.jpeg" alt="Naruto" />
-            <div class="card-info">
-              <h3 class="text">Naruto </h3>
-              <p class="price">7,50 €</p> <button class="add-to-cart-btn" data-title="Naruto " data-price="7.50"
-                data-img="Naruto-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Naruto-Shippuden.jpeg" alt="Naruto Shippuden" />
-            <div class="card-info">
-              <h3 class="text">Naruto Shippuden </h3>
-              <p class="price">7,90 €</p> <button class="add-to-cart-btn" data-title="Naruto Shippuden "
-                data-price="7.90" data-img="Image/Naruto-Shippuden.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Bleach-Tome.jpeg" alt="Bleach" />
-            <div class="card-info">
-              <h3 class="text">Bleach </h3>
-              <p class="price">7,30 €</p> <button class="add-to-cart-btn" data-title="Bleach " data-price="7.30"
-                data-img="Image/Bleach-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Pokemon-Tome.jpeg" alt="Pokemon" />
-            <div class="card-info">
-              <h3 class="text">Pokémon </h3>
-              <p class="price">6,50 €</p> <button class="add-to-cart-btn" data-title="Pokémon " data-price="6.50"
-                data-img="Image/Pokemon-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Sailor-Moon-Tome.jpeg" alt="Sailor Moon" />
-            <div class="card-info">
-              <h3 class="text">Sailor Moon </h3>
-              <p class="price">8,00 €</p> <button class="add-to-cart-btn" data-title="Sailor Moon " data-price="8.00"
-                data-img="Image/Sailor-Moon-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Ranma-1-2-Tome.jpeg" alt="Ranma 1/2" />
-            <div class="card-info">
-              <h3 class="text">Ranma ½ </h3>
-              <p class="price">7,40 €</p> <button class="add-to-cart-btn" data-title="Ranma ½ " data-price="7.40"
-                data-img="Image/Ranma-1-2-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Détective-Conan-Tome.jpeg" alt="Détective Conan" />
-            <div class="card-info">
-              <h3 class="text">Détective Conan </h3>
-              <p class="price">7,60 €</p> <button class="add-to-cart-btn" data-title="Détective Conan "
-                data-price="7.60" data-img=Image/Détective-Conan-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Yu-Gi-Oh-Tome.jpeg" alt="Yu-Gi-Oh" />
-            <div class="card-info">
-              <h3 class="text">Yu-Gi-Oh </h3>
-              <p class="price">7,00 €</p> <button class="add-to-cart-btn" data-title="Yu-Gi-Oh " data-price="7.00"
-                data-img="Image/Yu-Gi-Oh-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Great-Teacger-Onizuka-Tome.jpeg" alt="GTO" />
-            <div class="card-info">
-              <h3 class="text">Great Teacher Onizuka </h3>
-              <p class="price">8,20 €</p> <button class="add-to-cart-btn" data-title="Great Teacher Onizuka "
-                data-price="8.20" data-img="Image/Great-Teacher-Onizuka-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div> <button class="scroll-btn right">➡</button>
+          {% else %}
+          <p>Aucun classique disponible.</p>
+          {% endfor %}
         </div>
-      </div>
-    </section> <!-- Section Pépites -->
-    <section class="content">
-      <h2>💎 Les Pépites</h2>
-      <div class="scroll-container"> <button class="scroll-btn left">⬅</button>
-        <div class="card-list">
-          <div class="card"> <img src="Image/Death-Note-Tome.jpeg" alt="Death Note" />
-            <div class="card-info">
-              <h3 class="text">Death Note </h3>
-              <p class="price">6,90 €</p> <button class="add-to-cart-btn" data-title="Death Note " data-price="6.90"
-                data-img="Image/Death-Note-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Hajime-No-Ippo-Tome.jpeg" alt="Hajime No Ippo" />
-            <div class="card-info">
-              <h3 class="text">Hajime No Ippo </h3>
-              <p class="price">8,90 €</p> <button class="add-to-cart-btn" data-title="Hajime No Ippo " data-price="8.90"
-                data-img="Image/Hajime-No-Ippo-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Saint-Seya-Tome.jpeg" alt="Saint Seiya" />
-            <div class="card-info">
-              <h3 class="text">Saint Seiya </h3>
-              <p class="price">7,20 €</p> <button class="add-to-cart-btn" data-title="Saint Seiya " data-price="7.20"
-                data-img="Image/Saint-Seya-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Ken-Le-Survivant-Tome.jpeg" alt="Ken le Survivant" />
-            <div class="card-info">
-              <h3 class="text">Ken le Survivant </h3>
-              <p class="price">8,50 €</p> <button class="add-to-cart-btn" data-title="Ken le Survivant "
-                data-price="8.50" data-img="Image/Ken-Le-Survivant-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/City-Hunter-Tome.jpeg" alt="City Hunter" />
-            <div class="card-info">
-              <h3 class="text">City Hunter </h3>
-              <p class="price">7,60 €</p> <button class="add-to-cart-btn" data-title="City Hunter " data-price="7.60"
-                data-img="Image/City-Hunter-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Gundam-Wing-Tome.jpeg" alt="Gundam Wing" />
-            <div class="card-info">
-              <h3 class="text">Gundam Wing </h3>
-              <p class="price">8,00 €</p> <button class="add-to-cart-btn" data-title="Gundam Wing " data-price="8.00"
-                data-img="Image/Gundam-Wing-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Full-Metal-Tome.jpeg" alt="Full Metal" />
-            <div class="card-info">
-              <h3 class="text">Full Metal Alchemist </h3>
-              <p class="price">8,00 €</p> <button class="add-to-cart-btn" data-title="Full Metal Alchemist "
-                data-price="8.00" data-img="Image/Full-Metal-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Fairy-Tail-Tome.jpeg" alt="Fairy Tail" />
-            <div class="card-info">
-              <h3 class="text">Fairy Tail </h3>
-              <p class="price">7,50 €</p> <button class="add-to-cart-btn" data-title="Fairy Tail " data-price="7.50"
-                data-img="Image/Fairy-Tail-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/One-Punch-Man-Tome.jpeg" alt="One Punch Man" />
-            <div class="card-info">
-              <h3 class="text">One Punch Man </h3>
-              <p class="price">8,50 €</p> <button class="add-to-cart-btn" data-title="One Punch Man " data-price="8.50"
-                data-img="Image/One-Punch-Man-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Afro-Samourai-Tome.jpeg" alt="Afro Samourai" />
-            <div class="card-info">
-              <h3 class="text">Afro Samouraï </h3>
-              <p class="price">9,10 €</p> <button class="add-to-cart-btn" data-title="Afro Samouraï " data-price="9.10"
-                data-img="Image/Afro-Samourai-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/99-Renforced-Wooden-Stick.jpeg" alt="99 Renforced Wooden Stick" />
-            <div class="card-info">
-              <h3 class="text">99 Renforced Wooden Stick</h3>
-              <p class="price">10,00 €</p> <button class="add-to-cart-btn" data-title="99 Renforced Wooden Stick"
-                data-price="10.00" data-img="Image/99-Renforced-Wooden-Stick.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Moi-Slime-Tome.jpeg" alt="Moi Slime" />
-            <div class="card-info">
-              <h3 class="text">Moi Slime </h3>
-              <p class="price">7,80 €</p> <button class="add-to-cart-btn" data-title="Moi Slime " data-price="7.80"
-                data-img="Image/Moi-Slime-Tome.jpeg">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-        </div> <button class="scroll-btn right">➡</button>
-      </div>
-    </section> <!-- Section Goodies -->
-    <section class="content">
-      <h2>🎁 Les Goodies</h2>
-      <div class="scroll-container"> <button class="scroll-btn left">⬅</button>
-        <div class="card-list">
 
-          <div class="card">
-            <a href="goodies.html#goodies-naruto">
-              <img src="Image/Produit-Naruto.jpeg" alt="Produit Naruto" />
-            </a>
-          </div>
-
-          <div class="card">
-            <a href="goodies.html#goodies-Jujutsu-Kaisen">
-              <img src="Image/Produit-Jujutsu-Kaisen.jpeg" alt="Produit Jujutsu-Kaisen" />
-            </a>
-          </div>
-
-          <div class="card">
-            <a href="goodies.html#goodies-One-Piece">
-              <img src="Image/Produit-One-Piece.jpeg" alt="Produit-One-Piece" />
-            </a>
-          </div>
-
-          <div class="card">
-            <a href="goodies.html#goodies-Demon-Slayer">
-              <img src="Image/Produit-Demon-Slayer.jpeg" alt="Produit Demon Slayer" />
-            </a>
-          </div>
-
-          <div class="card">
-            <a href="goodies.html#goodies-Dragon-Ball-Z">
-              <img src="Image/Produit-DBZ.jpeg" alt="Produit DBZ" />
-            </a>
-          </div>
-
-          <div class="card"> <img src="Image/Gif-figurine-Aokiji.gif" alt="Produit Aokiji" />
-            <div class="card-info">
-              <h3 class="text">Figurine Aokiji</h3>
-              <p class="price">25,00 €</p> <button class="add-to-cart-btn" data-title="Figurine Aokiji"
-                data-price="25.00" data-img="Image/Gif-figurine-Aokiji.gif">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Gif-Mug-Bdz.webp" alt="Produit Mug DBZ" />
-            <div class="card-info">
-              <h3 class="text">Mug Dragon Ball Z</h3>
-              <p class="price">12,00 €</p> <button class="add-to-cart-btn" data-title="Mug DBZ" data-price="12.00"
-                data-img="Image/Gif-Mug-Bdz.webp">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Gif-Figurine.webp" alt="Produit Figurine" />
-            <div class="card-info">
-              <h3 class="text">Lot de figurine</h3>
-              <p class="price">180,00 €</p> <button class="add-to-cart-btn" data-title="Figurine" data-price="180.00"
-                data-img="Image/Gif-Figurine.webp">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Gif-Mug-Sasuke.webp" alt="Produit Mug Sasuke" />
-            <div class="card-info">
-              <h3 class="text">Mug Sasuke</h3>
-              <p class="price">12,50 €</p> <button class="add-to-cart-btn" data-title="Mug Sasuke" data-price="12.50"
-                data-img="Image/Gif-Mug-Sasuke.webp">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Gif-Figurine2.gif" alt="Produit Figurine 2" />
-            <div class="card-info">
-              <h3 class="text">Figurine Alma Feri</h3>
-              <p class="price">20,00 €</p> <button class="add-to-cart-btn" data-title="Figurine 2" data-price="20.00"
-                data-img="Image/Gif-Figurine2.gif">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Mug-YuGiOh-thermo-actif.gif" alt="Produit Mug YuGiOh" />
-            <div class="card-info">
-              <h3 class="text">Mug Yu-Gi-Oh</h3>
-              <p class="price">14,00 €</p> <button class="add-to-cart-btn" data-title="Mug YuGiOh" data-price="14.00"
-                data-img="Image/Mug-YuGiOh-thermo-actif.gif">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <div class="card"> <img src="Image/Gif-Figurine-3.webp" alt="Produit Figurine 3" />
-            <div class="card-info">
-              <h3 class="text">Figurine Terrece </h3>
-              <p class="price">22,00 €</p> <button class="add-to-cart-btn" data-title="Figurine 3" data-price="22.00"
-                data-img="Image/Gif-Figurine-3.webp">🛒 Ajouter au panier</button>
-            </div>
-          </div>
-          <button class="scroll-btn right">➡</button>
-        </div>
+        <button class="scroll-btn right">➡</button>
       </div>
     </section>
+
+    <!-- ===================================================== -->
+    <!-- SECTION : PÉPITES -->
+    <!-- ===================================================== -->
+    <section class="content">
+      <h2>💎 Les Pépites</h2>
+
+      <div class="scroll-container">
+        <button class="scroll-btn left">⬅</button>
+
+        <div class="card-list">
+          {% for article in pepites %}
+          <div class="card">
+            <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
+
+            <div class="card-info">
+              <h3 class="text">{{ article.name }}</h3>
+              <p class="price">{{ "%.2f"|format(article.price) }} €</p>
+
+              <button class="add-to-cart-btn" data-id="{{ article.id }}" data-title="{{ article.name }}"
+                data-price="{{ article.price }}" data-img="{{ url_for('static', filename=article.image) }}">
+                🛒 Ajouter au panier
+              </button>
+            </div>
+          </div>
+          {% else %}
+          <p>Aucune pépite disponible.</p>
+          {% endfor %}
+        </div>
+
+        <button class="scroll-btn right">➡</button>
+      </div>
+    </section>
+
   </main>
 
+  <!-- ===================================================== -->
   <!-- FOOTER -->
+  <!-- ===================================================== -->
   <footer>
     <div class="footer-links">
-      <h3><a href="index.html">MANGA BOOK © 2025 - Tous droits réservés</a></h3>
-      <a href="aide.html#Conditions générales">Conditions générales</a> |
-      <a href="aide.html#Politique de confidentialité">Politique de confidentialité</a> |
-      <a href="aide.html#contact-form">Contact</a>
+      <h3>
+        <a href="{{ url_for('public.home') }}">
+          MANGA BOOK © 2025 - Tous droits réservés
+        </a>
+      </h3>
     </div>
   </footer>
 
-  <!-- BOUTON PANIER FLOTTANT -->
+  <!-- ===================================================== -->
+  <!-- PANIER FLOTTANT -->
+  <!-- ===================================================== -->
   <button class="floating-cart-btn" onclick="openCartPopup()" aria-label="Ouvrir le panier">
-    🛒 <span class="floating-cart-count" id="floatingCartCount">0</span>
+    🛒 <span id="floatingCartCount">0</span>
   </button>
 
-  <!-- POPUP PANIER -->
   <div class="cart-overlay" id="cartOverlay" onclick="closeCartPopup()"></div>
 
   <div class="cart-popup" id="cartPopup">
-    <div class="cart-header">
-      <h2 class="cart-title">🛒 Aperçu du Panier</h2>
-      <button class="close-btn" onclick="closeCartPopup()" aria-label="Fermer">×</button>
-    </div>
-    <div class="cart-content" id="cartContent">
-      <!-- Contenu dynamique généré par JS -->
-    </div>
-    <div class="cart-footer">
-      <a href="panier.html" class="btn-view-cart">Voir le Panier</a>
-      <button class="btn-checkout" onclick="quickCheckout()">Commander</button>
-    </div>
+    <!-- Contenu généré par JS -->
   </div>
 
+  <!-- ===================================================== -->
+  <!-- JS -->
+  <!-- ===================================================== -->
+  <script src="{{ url_for('static', filename='public/js/script.js') }}" defer></script>
 
-
-  <!-- Bouton retour en haut -->
-  <button id="scrollTopBtn" title="Remonter en haut">⬆</button>
-
-  <script src="script.js" defer></script>
 </body>
 
 </html>
