@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <!-- ===================================================== -->
+    <!-- META -->
+    <!-- ===================================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ===================================================== -->
+    <!-- TITLE DYNAMIQUE -->
+    <!-- ===================================================== -->
+    <title>{% block title %}Manga Book{% endblock %}</title>
+
+    <!-- ===================================================== -->
+    <!-- CSS GLOBAL -->
+    <!-- ===================================================== -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/main.css') }}">
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='image/favicon one piece.png') }}">
+
+    <!-- CSS SPECIFIQUE PAGE (optionnel) -->
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+    <!-- ===================================================== -->
+    <!-- HEADER GLOBAL -->
+    <!-- ===================================================== -->
+    <header class="site-header">
+
+        <div class="header-top">
+            <a href="{{ url_for('public.home') }}" class="logo-title">
+                <img src="{{ url_for('static', filename='image/favicon one piece.png') }}" alt="Logo Manga Book"
+                    class="logo">
+                <span class="site-title">Manga Book</span>
+            </a>
+
+            <div class="burger-menu">
+                <div class="burger-icon" id="burger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" placeholder="🔍 Rechercher un manga">
+        </div>
+
+        <!-- NAVIGATION DESKTOP -->
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('public.home') }}">🏠 Accueil</a></li>
+                <li><a href="{{ url_for('public.catalogue') }}">📖 Catalogue</a></li>
+                <li><a href="{{ url_for('public.planning') }}">🗓 Planning</a></li>
+                <li><a href="{{ url_for('public.profil') }}">👤 Votre Profil</a></li>
+                <li><a href="{{ url_for('public.forum') }}">💬 Forum</a></li>
+                <li><a href="{{ url_for('public.goodies_page') }}">🎁 Goodies</a></li>
+                <li><a href="{{ url_for('public.panier') }}">🛒 Panier</a></li>
+                <li><a href="{{ url_for('public.aide') }}">❓ Aide</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <!-- NAVIGATION MOBILE -->
+    <div class="mobile-nav" id="mobile-nav">
+        <ul>
+            <li><a href="{{ url_for('public.home') }}">🏠 Accueil</a></li>
+            <li><a href="{{ url_for('public.catalogue') }}">📖 Catalogue</a></li>
+            <li><a href="{{ url_for('public.planning') }}">🗓 Planning</a></li>
+            <li><a href="{{ url_for('public.profil') }}">👤 Votre Profil</a></li>
+            <li><a href="{{ url_for('public.forum') }}">💬 Forum</a></li>
+            <li><a href="{{ url_for('public.goodies_page') }}">🎁 Goodies</a></li>
+            <li><a href="{{ url_for('public.panier') }}">🛒 Panier</a></li>
+            <li><a href="{{ url_for('public.aide') }}">❓ Aide</a></li>
+        </ul>
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- CONTENU SPECIFIQUE PAGE -->
+    <!-- ===================================================== -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- ===================================================== -->
+    <!-- FOOTER GLOBAL -->
+    <!-- ===================================================== -->
+    <footer>
+        <div class="footer-links">
+            <h3>
+                <a href="{{ url_for('public.home') }}">
+                    MANGA BOOK © 2025 - Tous droits réservés
+                </a>
+            </h3>
+
+            <a href="{{ url_for('public.aide') }}#conditions">
+                Conditions générales
+            </a> |
+
+            <a href="{{ url_for('public.aide') }}#confidentialite">
+                Politique de confidentialité
+            </a> |
+
+            <a href="{{ url_for('public.aide') }}#contact-form">
+                Contact
+            </a>
+        </div>
+    </footer>
+
+
+    <!-- ===================================================== -->
+    <!-- BOUTON PANIER FLOTTANT GLOBAL -->
+    <!-- ===================================================== -->
+    <button class="floating-cart-btn" onclick="openCartPopup()" aria-label="Ouvrir le panier">
+        🛒
+        <span class="floating-cart-count" id="floatingCartCount">
+            0
+        </span>
+    </button>
+
+
+    <!-- ===================================================== -->
+    <!-- POPUP PANIER GLOBAL -->
+    <!-- ===================================================== -->
+
+    <div class="cart-overlay" id="cartOverlay" onclick="closeCartPopup()">
+    </div>
+
+    <div class="cart-popup" id="cartPopup">
+
+        <div class="cart-header">
+            <h2 class="cart-title">🛒 Aperçu du Panier</h2>
+
+            <button class="close-btn" onclick="closeCartPopup()" aria-label="Fermer">
+                ×
+            </button>
+        </div>
+
+        <div class="cart-content" id="cartContent">
+            <!-- Contenu dynamique JS -->
+        </div>
+
+        <div class="cart-footer">
+            <a href="{{ url_for('public.panier') }}" class="btn-view-cart">
+                Voir le Panier
+            </a>
+
+            <button class="btn-checkout" onclick="quickCheckout()">
+                Commander
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- BOUTON SCROLL TOP GLOBAL -->
+    <!-- ===================================================== -->
+    <button id="scrollTopBtn" title="Remonter en haut">
+        ⬆
+    </button>
+
+
+    <!-- ===================================================== -->
+    <!-- JS GLOBAL -->
+    <!-- ===================================================== -->
+    <script src="{{ url_for('static', filename='public/js/script.js') }}" defer>
+    </script>
+
+    <!-- JS SPÉCIFIQUE PAGE -->
+    {% block extra_js %}{% endblock %}
+
+</body>
+
+</html>

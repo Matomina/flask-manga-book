@@ -1,236 +1,210 @@
-<!DOCTYPE html>
-<html lang="fr">
+{% extends "base.html" %}
 
-<head>
+{% block title %}
+Accueil – Manga Book
+{% endblock %}
+
+
+{% block content %}
+
+<!-- ===================================================== -->
+<!-- BANNIÈRE -->
+<!-- ===================================================== -->
+<section class="banner">
+  <img src="{{ url_for('static', filename='image/Sun-jin-hoo-violet.jpeg') }}" alt="Bannière promotion">
+</section>
+
+
+<!-- ===================================================== -->
+<!-- CONTENU PRINCIPAL -->
+<!-- ===================================================== -->
+<main class="home-page">
+
+  <!-- INTRODUCTION -->
+  <section class="content">
+    <h1 class="page-title">🏠 Bienvenue sur Manga Book Style</h1>
+    <p class="intro-1">
+      Plongez dans un univers où chaque page raconte une histoire.
+      Découvrez nos mangas, goodies et produits exclusifs.
+    </p>
+  </section>
+
+
   <!-- ===================================================== -->
-  <!-- META / SEO / RESPONSIVE -->
+  <!-- SECTION : HISTORIQUES -->
   <!-- ===================================================== -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manga Book – Accueil</title>
+  <section class="content">
+    <h2>📜 Historiques</h2>
 
-  <!-- CSS PRINCIPAL -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='public/css/main.css') }}">
+    <div class="scroll-container">
+      <button class="scroll-btn left">⬅</button>
 
-  <!-- FAVICON -->
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='image/favicon one piece.png') }}">
-</head>
+      <div class="card-list">
+        {% for article in historiques %}
+        <div class="card">
+          <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
 
-<body>
+          <div class="card-info">
+            <h3 class="text">{{ article.name }}</h3>
+            <p class="price">{{ "%.2f"|format(article.price) }} €</p>
 
-  <!-- ===================================================== -->
-  <!-- HEADER PRINCIPAL -->
-  <!-- ===================================================== -->
-  <header class="site-header">
-
-    <!-- LIGNE HAUTE : LOGO + BURGER -->
-    <div class="header-top">
-
-      <!-- LOGO -->
-      <a href="{{ url_for('public.home') }}" class="logo-title">
-        <img src="{{ url_for('static', filename='image/favicon one piece.png') }}" alt="Logo Manga Book" class="logo">
-        <span class="site-title">Manga Book</span>
-      </a>
-
-      <!-- MENU BURGER MOBILE -->
-      <div class="burger-menu">
-        <div class="burger-icon" id="burger-icon">
-          <span></span>
-          <span></span>
-          <span></span>
+            <button class="add-to-cart-btn" data-id="{{ article.id }}" data-title="{{ article.name }}"
+              data-price="{{ article.price }}" data-img="{{ url_for('static', filename=article.image) }}">
+              🛒 Ajouter au panier
+            </button>
+          </div>
         </div>
+        {% else %}
+        <p>Aucun article disponible.</p>
+        {% endfor %}
       </div>
 
+      <button class="scroll-btn right">➡</button>
     </div>
+  </section>
 
-    <!-- BARRE DE RECHERCHE -->
-    <div class="search-bar">
-      <input type="text" placeholder="🔍 Rechercher un manga">
-    </div>
-
-    <!-- NAVIGATION DESKTOP -->
-    <nav>
-      <ul>
-        <li><a href="{{ url_for('public.home') }}">🏠 Accueil</a></li>
-        <li><a href="{{ url_for('public.catalogue') }}">📖 Catalogue</a></li>
-        <li><a href="{{ url_for('public.planning') }}">🗓 Planning</a></li>
-        <li><a href="{{ url_for('public.profil') }}">👤 Votre Profil</a></li>
-        <li><a href="{{ url_for('public.forum') }}">💬 Forum</a></li>
-        <li><a href="{{ url_for('public.goodies_page') }}">🎁 Goodies</a></li>
-        <li><a href="{{ url_for('public.panier') }}">🛒 Panier</a></li>
-        <li><a href="{{ url_for('public.aide') }}">❓ Aide</a></li>
-      </ul>
-    </nav>
-
-  </header>
-
-  <!-- NAVIGATION MOBILE -->
-  <div class="mobile-nav" id="mobile-nav">
-    <ul>
-      <li><a href="{{ url_for('public.home') }}">🏠 Accueil</a></li>
-      <li><a href="{{ url_for('public.catalogue') }}">📖 Catalogue</a></li>
-      <li><a href="{{ url_for('public.planning') }}">🗓 Planning</a></li>
-      <li><a href="{{ url_for('public.profil') }}">👤 Votre Profil</a></li>
-      <li><a href="{{ url_for('public.forum') }}">💬 Forum</a></li>
-      <li><a href="{{ url_for('public.goodies_page') }}">🎁 Goodies</a></li>
-      <li><a href="{{ url_for('public.panier') }}">🛒 Panier</a></li>
-      <li><a href="{{ url_for('public.aide') }}">❓ Aide</a></li>
-    </ul>
-  </div>
 
   <!-- ===================================================== -->
-  <!-- BANNIÈRE -->
+  <!-- SECTION : CLASSIQUES -->
   <!-- ===================================================== -->
-  <section class="banner">
-    <img src="{{ url_for('static', filename='image/Sun-jin-hoo-violet.jpeg') }}" alt="Bannière promotion">
+  <section class="content">
+    <h2>⭐ Les Classiques</h2>
+
+    <div class="scroll-container">
+      <button class="scroll-btn left">⬅</button>
+
+      <div class="card-list">
+        {% for article in classiques %}
+        <div class="card">
+          <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
+
+          <div class="card-info">
+            <h3 class="text">{{ article.name }}</h3>
+            <p class="price">{{ "%.2f"|format(article.price) }} €</p>
+
+            <button class="add-to-cart-btn" data-id="{{ article.id }}" data-title="{{ article.name }}"
+              data-price="{{ article.price }}" data-img="{{ url_for('static', filename=article.image) }}">
+              🛒 Ajouter au panier
+            </button>
+          </div>
+        </div>
+        {% else %}
+        <p>Aucun classique disponible.</p>
+        {% endfor %}
+      </div>
+
+      <button class="scroll-btn right">➡</button>
+    </div>
+  </section>
+
+
+  <!-- ===================================================== -->
+  <!-- SECTION : PÉPITES -->
+  <!-- ===================================================== -->
+  <section class="content">
+    <h2>💎 Les Pépites</h2>
+
+    <div class="scroll-container">
+      <button class="scroll-btn left">⬅</button>
+
+      <div class="card-list">
+        {% for article in pepites %}
+        <div class="card">
+          <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
+
+          <div class="card-info">
+            <h3 class="text">{{ article.name }}</h3>
+            <p class="price">{{ "%.2f"|format(article.price) }} €</p>
+
+            <button class="add-to-cart-btn" data-id="{{ article.id }}" data-title="{{ article.name }}"
+              data-price="{{ article.price }}" data-img="{{ url_for('static', filename=article.image) }}">
+              🛒 Ajouter au panier
+            </button>
+          </div>
+        </div>
+        {% else %}
+        <p>Aucune pépite disponible.</p>
+        {% endfor %}
+      </div>
+
+      <button class="scroll-btn right">➡</button>
+    </div>
   </section>
 
   <!-- ===================================================== -->
-  <!-- CONTENU PRINCIPAL -->
+  <!-- SECTION : GOODIES -->
   <!-- ===================================================== -->
-  <main class="home-page">
+  <section class="content">
+    <h2>🎁 Les Goodies</h2>
 
-    <!-- INTRODUCTION -->
-    <section class="content">
-      <h1 class="page-title">🏠 Bienvenue sur Manga Book Style</h1>
-      <p class="intro-1">
-        Plongez dans un univers où chaque page raconte une histoire.
-        Découvrez nos mangas, goodies et produits exclusifs.
-      </p>
-    </section>
+    <div class="scroll-container">
+      <button class="scroll-btn left">⬅</button>
 
-    <!-- ===================================================== -->
-    <!-- SECTION : HISTORIQUES -->
-    <!-- ===================================================== -->
-    <section class="content">
-      <h2>📜 Historiques</h2>
+      <div class="card-list">
 
-      <div class="scroll-container">
-        <button class="scroll-btn left">⬅</button>
+        <!-- ============================================= -->
+        <!-- CARTES UNIVERS (STATIQUES – NON RÉPÉTÉES) -->
+        <!-- ============================================= -->
 
-        <div class="card-list">
-          {% for article in historiques %}
-          <div class="card">
-            <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
-
-            <div class="card-info">
-              <h3 class="text">{{ article.name }}</h3>
-              <p class="price">{{ "%.2f"|format(article.price) }} €</p>
-
-              <button class="add-to-cart-btn" data-id="{{ article.id }}" data-title="{{ article.name }}"
-                data-price="{{ article.price }}" data-img="{{ url_for('static', filename=article.image) }}">
-                🛒 Ajouter au panier
-              </button>
-            </div>
-          </div>
-          {% else %}
-          <p>Aucun article disponible.</p>
-          {% endfor %}
+        <div class="card">
+          <a href="{{ url_for('public.goodies_page') }}#goodies-naruto">
+            <img src="{{ url_for('static', filename='image/Produit-Naruto.jpeg') }}" alt="Produit Naruto">
+          </a>
         </div>
 
-        <button class="scroll-btn right">➡</button>
-      </div>
-    </section>
-
-    <!-- ===================================================== -->
-    <!-- SECTION : CLASSIQUES -->
-    <!-- ===================================================== -->
-    <section class="content">
-      <h2>⭐ Les Classiques</h2>
-
-      <div class="scroll-container">
-        <button class="scroll-btn left">⬅</button>
-
-        <div class="card-list">
-          {% for article in classiques %}
-          <div class="card">
-            <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
-
-            <div class="card-info">
-              <h3 class="text">{{ article.name }}</h3>
-              <p class="price">{{ "%.2f"|format(article.price) }} €</p>
-
-              <button class="add-to-cart-btn" data-id="{{ article.id }}" data-title="{{ article.name }}"
-                data-price="{{ article.price }}" data-img="{{ url_for('static', filename=article.image) }}">
-                🛒 Ajouter au panier
-              </button>
-            </div>
-          </div>
-          {% else %}
-          <p>Aucun classique disponible.</p>
-          {% endfor %}
+        <div class="card">
+          <a href="{{ url_for('public.goodies_page') }}#goodies-jujutsu">
+            <img src="{{ url_for('static', filename='image/Produit-Jujutsu-Kaisen.jpeg') }}"
+              alt="Produit Jujutsu-Kaisen">
+          </a>
         </div>
 
-        <button class="scroll-btn right">➡</button>
-      </div>
-    </section>
-
-    <!-- ===================================================== -->
-    <!-- SECTION : PÉPITES -->
-    <!-- ===================================================== -->
-    <section class="content">
-      <h2>💎 Les Pépites</h2>
-
-      <div class="scroll-container">
-        <button class="scroll-btn left">⬅</button>
-
-        <div class="card-list">
-          {% for article in pepites %}
-          <div class="card">
-            <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
-
-            <div class="card-info">
-              <h3 class="text">{{ article.name }}</h3>
-              <p class="price">{{ "%.2f"|format(article.price) }} €</p>
-
-              <button class="add-to-cart-btn" data-id="{{ article.id }}" data-title="{{ article.name }}"
-                data-price="{{ article.price }}" data-img="{{ url_for('static', filename=article.image) }}">
-                🛒 Ajouter au panier
-              </button>
-            </div>
-          </div>
-          {% else %}
-          <p>Aucune pépite disponible.</p>
-          {% endfor %}
+        <div class="card">
+          <a href="{{ url_for('public.goodies_page') }}#goodies-one-piece">
+            <img src="{{ url_for('static', filename='image/Produit-One-Piece.jpeg') }}" alt="Produit One Piece">
+          </a>
         </div>
 
-        <button class="scroll-btn right">➡</button>
+        <div class="card">
+          <a href="{{ url_for('public.goodies_page') }}#goodies-demon-slayer">
+            <img src="{{ url_for('static', filename='image/Produit-Demon-Slayer.jpeg') }}" alt="Produit Demon Slayer">
+          </a>
+        </div>
+
+        <div class="card">
+          <a href="{{ url_for('public.goodies_page') }}#goodies-dbz">
+            <img src="{{ url_for('static', filename='image/Produit-DBZ.jpeg') }}" alt="Produit DBZ">
+          </a>
+        </div>
+
+        <!-- ============================================= -->
+        <!-- PRODUITS GOODIES DYNAMIQUES -->
+        <!-- ============================================= -->
+
+        {% for article in goodies %}
+        <div class="card">
+          <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
+
+          <div class="card-info">
+            <h3 class="text">{{ article.name }}</h3>
+            <p class="price">{{ "%.2f"|format(article.price) }} €</p>
+
+            <button class="add-to-cart-btn" data-id="{{ article.id }}" data-title="{{ article.name }}"
+              data-price="{{ article.price }}" data-img="{{ url_for('static', filename=article.image) }}">
+              🛒 Ajouter au panier
+            </button>
+          </div>
+        </div>
+        {% else %}
+        <p>Aucun goodies disponible.</p>
+        {% endfor %}
+
       </div>
-    </section>
 
-  </main>
-
-  <!-- ===================================================== -->
-  <!-- FOOTER -->
-  <!-- ===================================================== -->
-  <footer>
-    <div class="footer-links">
-      <h3>
-        <a href="{{ url_for('public.home') }}">
-          MANGA BOOK © 2025 - Tous droits réservés
-        </a>
-      </h3>
+      <button class="scroll-btn right">➡</button>
     </div>
-  </footer>
+  </section>
 
-  <!-- ===================================================== -->
-  <!-- PANIER FLOTTANT -->
-  <!-- ===================================================== -->
-  <button class="floating-cart-btn" onclick="openCartPopup()" aria-label="Ouvrir le panier">
-    🛒 <span id="floatingCartCount">0</span>
-  </button>
+</main>
 
-  <div class="cart-overlay" id="cartOverlay" onclick="closeCartPopup()"></div>
-
-  <div class="cart-popup" id="cartPopup">
-    <!-- Contenu généré par JS -->
-  </div>
-
-  <!-- ===================================================== -->
-  <!-- JS -->
-  <!-- ===================================================== -->
-  <script src="{{ url_for('static', filename='public/js/script.js') }}" defer></script>
-
-</body>
-
-</html>
+{% endblock %}

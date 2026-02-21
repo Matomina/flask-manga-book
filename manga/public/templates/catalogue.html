@@ -1,703 +1,78 @@
-<!DOCTYPE html>
-<html lang="fr">
+{% extends "base.html" %}
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manga-Book-Style - Catalogue</title>
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="icon" type="Image/png" href="Image/favicon one piece.png" />
-</head>
+{% block title %}Catalogue{% endblock %}
 
-<body> <!-- HEADER -->
-  <header class="site-header">
+{% block content %}
 
-    <!-- LIGNE DU HAUT : LOGO + TITRE / BURGER -->
-    <div class="header-top">
+<!-- BANNIÈRE -->
+<section class="banner">
+  <img src="{{ url_for('static', filename='Image/Naruto-Sasuke.jpg') }}" alt="Bannière promotion">
+</section>
 
-      <!-- Logo + titre -->
-      <a href="index.html" class="logo-title">
-        <img src="Image/favicon one piece.png" alt="Manga Book Logo" class="logo" />
-        <span class="site-title">Manga Book</span>
-      </a>
+<main class="catalogue-page">
 
-      <!-- Menu burger -->
-      <div class="burger-menu">
-        <div class="burger-icon" id="burger-icon">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- BARRE DE RECHERCHE (centrée en dessous) -->
-    <div class="search-bar">
-      <input type="text" placeholder="🔍 Rechercher un manga" />
-    </div>
-
-    <!-- MENU DESKTOP -->
-    <nav>
-      <ul>
-        <li><a href="index.html">🏠 Accueil</a></li>
-        <li><a href="catalogue.html">📖 Catalogue</a></li>
-        <li><a href="planning.html">🗓 Planning</a></li>
-        <li><a href="profil.html">👤 Votre Profil</a></li>
-        <li><a href="forum.html">💬 Forum</a></li>
-        <li><a href="goodies.html">🎁 Goodies</a></li>
-        <li><a href="panier.html">🛒 Panier</a></li>
-        <li><a href="aide.html">❓ Aide</a></li>
-      </ul>
-    </nav>
-
-  </header>
-  <!-- Menu de navigation mobile (caché par défaut) -->
-  <div class="mobile-nav" id="mobile-nav">
-    <ul>
-      <li><a href="index.html">🏠 Accueil</a></li>
-      <li><a href="catalogue.html">📖 Catalogue</a></li>
-      <li><a href="planning.html">🗓 Planning</a></li>
-      <li><a href="profil.html">👤 Votre Profil</a></li>
-      <li><a href="forum.html">💬 Forum</a></li>
-      <li><a href="goodies.html">🎁 Goodies</a></li>
-      <li><a href="panier.html">🛒 Panier</a></li>
-      <li><a href="aide.html">❓ Aide</a></li>
-    </ul>
-  </div>
-
-  <!-- BANNIÈRE -->
-  <section class="banner">
-    <img src="Image/Naruto-Sasuke.jpg" alt="Bannière promotion" />
+  <!-- INTRO -->
+  <section class="content">
+    <h1 class="page-title">📖 Catalogue</h1>
+    <p class="intro-1">
+      Bienvenue dans notre catalogue. Découvrez nos mangas disponibles,
+      des classiques incontournables aux nouveautés les plus récentes.
+      Votre prochain coup de cœur vous attend.
+    </p>
   </section>
 
-  <!-- PAGE CATALOGUE -->
-  <main class="catalogue-page">
+  <!-- FILTRES -->
+  <section class="filters">
+    <aside class="filters">
+      <button>Trier par Types</button>
+      <button>Trier par Langues</button>
+      <button>Trier par Genres</button>
+    </aside>
 
-    <section class="content">
-      <h1 class="page-title">📖 Catalogue</h1>
-      <p class="intro-1">
-
-        Bienvenue dans notre catalogue, l’espace où chaque œuvre trouve sa place.
-        Ici, nous avons réuni une sélection soigneusement choisie pour satisfaire aussi bien les passionnés que les
-        curieux en quête de nouvelles découvertes.
-
-        Parcourez librement notre collection, explorez des univers variés, des classiques incontournables aux nouveautés
-        les plus récentes. Chaque titre a été sélectionné avec attention afin de vous proposer un contenu de qualité,
-        accessible et inspirant.
-
-        Prenez le temps de découvrir, comparer et vous laisser guider par vos envies.
-        Votre prochaine lecture ou votre prochain coup de cœur n’est peut-être qu’à un clic. </p>
+    <section class="catalogue-content">
+      <div class="catalogue-search">
+        <div class="search-bar1">
+          <input type="text" placeholder="🔍 Rechercher un manga">
+        </div>
+        <div class="catalogue-search-buttons">
+          <button>Trier</button>
+          <button>Aléatoire</button>
+        </div>
+      </div>
     </section>
+  </section>
 
-    <!-- FILTRES -->
-    <section class="filters">
+  <!-- LISTE PRODUITS DYNAMIQUE -->
+  <div class="product-grid" data-product-grid>
 
-      <aside class="filters">
-        <button>Trier par Types</button>
-        <button>Trier par Langues</button>
-        <button>Trier par Genres</button>
-      </aside>
+    {% for manga in mangas %}
+    <div class="product-card" data-product-card>
+      <div class="card" data-card>
+        <img src="{{ url_for('static', filename=manga.image) }}" alt="{{ manga.name }}" data-card-img>
 
-      <!-- CONTENU PRINCIPAL -->
-      <section class="catalogue-content">
-        <!-- Barre de recherche -->
-        <div class="catalogue-search">
-          <div class="search-bar1">
-            <input type="text" placeholder="🔍 Rechercher un manga" />
-          </div>
-          <div class="catalogue-search-buttons">
-            <button>Trier</button>
-            <button>Aléatoire</button>
-          </div>
-        </div>
-      </section>
-    </section>
+        <div class="card-info" data-card-info>
+          <h3 class="text" data-title-text>
+            {{ manga.name }}<br>
+            <span class="subtitle">
+              {{ manga.subtitle }}
+            </span>
+          </h3>
 
-    <!-- Liste de produits -->
-    <div class="product-grid" data-product-grid>
+          <p class="price" data-price>
+            {{ "%.2f"|format(manga.price) }} €
+          </p>
 
-      <!-- One Piece -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/One-Piece-Tome.jpeg" alt="One Piece" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              One Piece<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="One Piece - Tous les tomes " data-price="7.80"
-              data-img="Image/One-Piece-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
+          <button class="add-to-cart-btn" data-title="{{ manga.name }}" data-price="{{ manga.price }}"
+            data-img="{{ url_for('static', filename=manga.image) }}">
+            🛒 Ajouter au panier
+          </button>
         </div>
       </div>
-
-      <!-- Naruto-Shippuden -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Naruto-Shippuden.jpeg" alt="Naruto Shippuden" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Naruto Shippuden<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Naruto-Shippuden - Tous les tomes " data-price="7.80"
-              data-img="Image/Naruto-Shippuden.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Jujutsu-Kaisen -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Jujutsu-Kaisen-Tome.jpeg" alt="Jujutsu Kaisen" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Jujutsu Kaisen<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Jujutsu-Kaisen - Tous les tomes " data-price="7.80"
-              data-img="Image/Jujutsu-Kaisen-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Demon Slayer -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Demon-Slayer-Tome.jpeg" alt="Demon Slayer" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Demon Slayer<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Demon-Slayer - Tous les tomes " data-price="7.80"
-              data-img="Image/Demon-Slayer-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Black Clover -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Black-Clover-Tome.jpeg" alt="Black Clover" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Black Clover<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Black-Clover - Tous les tomes " data-price="7.80"
-              data-img="Image/Black-Clover-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Death Note -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Death-Note-Tome.jpeg" alt="Death-Note" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Death Note<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Death-Note - Tous les tomes " data-price="7.80"
-              data-img="Image/Death-Note-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Solo Leveling -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Solo-Leveling-Tome.jpeg" alt="Solo-Leveling" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Solo Leveling<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Solo-Leveling - Tous les tomes " data-price="7.80"
-              data-img="Image/Solo-Leveling-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- My Hero Academia -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/My-Hero-Academia-Tome.jpeg" alt="My-Hero-Academia" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              My Hero Academia<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="My-Hero-Academia - Tous les tomes " data-price="7.80"
-              data-img="Image/My-Hero-Academia-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hajime No Ippo -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Hajime-No-Ippo-Tome.jpeg" alt="Hajime-No-Ippo" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Hajime No Ippo<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Hajime-No-Ippo - Tous les tomes " data-price="7.80"
-              data-img="Image/Hajime-No-Ippo-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Kaiju N°8 -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Kaiju-N°8-Tome.jpeg" alt="Kaiju-N°8" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Kaiju N°8<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Kaiju-N°8 - Tous les tomes " data-price="7.80"
-              data-img="Image/Kaiju-N°8-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Dandadan -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Dandadan-Tome.jpeg" alt="Dandadan" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Dandadan<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Dandadan - Tous les tomes " data-price="7.80"
-              data-img="Image/Dandadan-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Edens Zero -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Edens-Zero-Tome.jpeg" alt="Edens-Zero" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Edens Zero<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Edens-Zero - Tous les tomes " data-price="7.80"
-              data-img="Image/Edens-Zero-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-      <!-- Sakamoto Days -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Sakamoto-Days-Tome.jpeg" alt="Sakamoto-Days" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Sakamoto Days<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Sakamoto-Days - Tous les tomes " data-price="7.80"
-              data-img="Image/Sakamoto-Days-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- One-Punch-Man -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/One-Punch-Man-Tome.jpeg" alt="One-Punch-Man" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              One Punch Man<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="One-Punch-Man - Tous les tomes " data-price="7.80"
-              data-img="Image/One-Punch-Man-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Full-Metal -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Full-Metal-Tome.jpeg" alt="Full-Metal" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Fullmetal Alchemist <br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Full-Metal - Tous les tomes " data-price="7.80"
-              data-img="Image/Full-Metal-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Dr-Stone -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Dr-Stone-Tome.jpeg" alt="Dr-Stone" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Dr Stone<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Dr-Stone - Tous les tomes " data-price="7.80"
-              data-img="Image/Dr-Stone-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Afro-Samourai -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Afro-Samourai-tome.jpeg" alt="Afro-Samourai" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Afro Samourai<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Afro-Samourai - Tous les tomes " data-price="7.80"
-              data-img="Image/Afro-Samourai-tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Fairy-Tail -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Fairy-Tail-Tome.jpeg" alt="Fairy-Tail" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Fairy Tail<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Fairy-Tail - Tous les tomes " data-price="7.80"
-              data-img="Image/Fairy-Tail-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hunter-X-Hunter -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Hunter-X-Hunter-Tome.jpeg" alt="Hunter-X-Hunter" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Hunter X Hunter<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Hunter-X-Hunter - Tous les tomes " data-price="7.80"
-              data-img="Image/Hunter-X-Hunter-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- 99-Renforced-Wooden-Stick -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/99-Renforced-Wooden-Stick.jpeg" alt="99-Renforced-Wooden-Stick" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              99 Renforced Wooden Stick<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="99-Renforced-Wooden-Stick - Tous les tomes " data-price="7.80"
-              data-img="Image/99-Renforced-Wooden-Stick.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Moi-Quand-Je-Me-Reincarne-En-Slime -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Moi-Slime-Tome.jpeg" alt="Moi-Slime" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Moi Quand Je Me Reincarne En Slime<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Moi-Quand-Je-Me-Reincarne-En-Slime - Tous les tomes "
-              data-price="7.80" data-img="Image/Moi-Slime-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Gundam Wing -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Gundam-Wing-Tome.jpeg" alt="Gundam-Wing" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Gundam Wing<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Gundam-Wing - Tous les tomes " data-price="7.80"
-              data-img="Image/Gundam-Wing-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- City Hunter -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/City-Hunter-Tome.jpeg" alt="City-Hunter" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              City Hunter - Nicky Larson<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="City-Hunter- Nicky-Larson - Tous les tomes " data-price="7.80"
-              data-img="Image/City-Hunter-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Ranma 1/2 -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Ranma-1-2-Tome.jpeg" alt="Ranma-1-2-Tome" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Ranma1/2<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Ranma1/2 - Tous les tomes " data-price="7.80"
-              data-img="Image/Ranma-1-2-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Shangri-La-Frontier -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Shangri-La-Frontier.jpeg" alt="Shangri-La-Frontier" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Shangri La Frontier<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Shangri-La-Frontier - Tous les tomes " data-price="7.80"
-              data-img="Image/Shangri-La-Frontier.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Gachiakuta -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Gachiakuta-Tome.jpeg" alt="Gachiakuta" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Gachiakuta<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Gachiakuta - Tous les tomes " data-price="7.80"
-              data-img="Image/Gachiakuta-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Great Teacher Onizuka -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Great-Teacger-Onizuka-Tome.jpeg" alt="Great-Teacher-Onizuka" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Great Teacher Onizuka<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Great-Teacher-Onizuka - Tous les tomes " data-price="7.80"
-              data-img="Image/Great-Teacger-Onizuka-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Yu-Gi-Oh -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Yu-Gi-Oh-Tome.jpeg" alt="Yu-Gi-Oh" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Yu-Gi-Oh<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Yu-Gi-Oh - Tous les tomes " data-price="7.80"
-              data-img="Image/Yu-Gi-Oh-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Détective Conan -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Détective-Conan-Tome.jpeg" alt="Détective-Conan" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Détective Conan<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Détective-Conan - Tous les tomes " data-price="7.80"
-              data-img="Image/Détective-Conan-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Ken Le Survivant -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Ken-Le-Survivant-Tome.jpeg" alt="Ken-Le-Survivant" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Ken Le Survivant<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Ken-Le-Survivant - Tous les tomes " data-price="7.80"
-              data-img="Image/Ken-Le-Survivant-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Saint Seiya -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Saint-Seya-Tome.jpeg" alt="Saint-Seya" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Saint Seiya - Les Chevaliers Du Zodiaque<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Saint-Seya-Les-Chevaliers-Du-Zodiaque - Tous les tomes "
-              data-price="7.80" data-img="Image/Saint-Seya-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Sailor Moon -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Sailor-Moon-Tome.jpeg" alt="Sailor-Moon" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Sailor Moon<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Sailor-Moon - Tous les tomes " data-price="7.80"
-              data-img="Image/Sailor-Moon-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Dragon Ball Z -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Dragon-Ball-Z-Tome.jpeg" alt="Dragon-Ball-Z" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Dragon Ball Z<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Dragon-Ball-Z - Tous les tomes " data-price="7.80"
-              data-img="Image/Dragon-Ball-Z-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Naruto -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Naruto-Tome.jpeg" alt="Naruto" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Naruto<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Naruto - Tous les tomes " data-price="7.80"
-              data-img="Image/Naruto-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Dragon Ball -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Dragon-Ball-Tome.jpeg" alt="Dragon-Ball" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Bragon Ball<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Dragon-Ball - Tous les tomes " data-price="7.80"
-              data-img="Image/Dragon-Ball-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bleach -->
-      <div class="product-card" data-product-card>
-        <div class="card" data-card>
-          <img src="Image/Bleach-Tome.jpeg" alt="Bleach" data-card-img />
-          <div class="card-info" data-card-info>
-            <h3 class="text" data-title-text>
-              Bleach<br><span class="subtitle">Tous les tomes </span>
-            </h3>
-            <p class="price" data-price>7,80 €</p>
-            <button class="add-to-cart-btn" data-title="Bleach - Tous les tomes " data-price="7.80"
-              data-img="Image/Bleach-Tome.jpeg">🛒 Ajouter au panier</button>
-          </div>
-        </div>
-      </div>
-
     </div>
-    </section>
-  </main>
+    {% endfor %}
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-links">
-      <h3><a href="index.html">MANGA BOOK © 2025 - Tous droits réservés</a></h3>
-      <a href="aide.html#Conditions générales">Conditions générales</a> |
-      <a href="aide.html#Politique de confidentialité">Politique de confidentialité</a> |
-      <a href="aide.html#contact-form">Contact</a>
-    </div>
-  </footer>
-
-  <!-- BOUTON PANIER FLOTTANT -->
-  <button class="floating-cart-btn" onclick="openCartPopup()" aria-label="Ouvrir le panier">
-    🛒 <span class="floating-cart-count" id="floatingCartCount">0</span>
-  </button>
-
-  <!-- POPUP PANIER -->
-  <div class="cart-overlay" id="cartOverlay" onclick="closeCartPopup()"></div>
-
-  <div class="cart-popup" id="cartPopup">
-    <div class="cart-header">
-      <h2 class="cart-title">🛒 Aperçu du Panier</h2>
-      <button class="close-btn" onclick="closeCartPopup()" aria-label="Fermer">×</button>
-    </div>
-    <div class="cart-content" id="cartContent">
-      <!-- Contenu dynamique généré par JS -->
-    </div>
-    <div class="cart-footer">
-      <a href="panier.html" class="btn-view-cart">Voir le Panier</a>
-      <button class="btn-checkout" onclick="quickCheckout()">Commander</button>
-    </div>
   </div>
 
+</main>
 
-
-  <!-- Bouton retour en haut -->
-  <button id="scrollTopBtn" title="Remonter en haut">⬆</button>
-
-  <script src="script.js" defer></script>
-</body>
-
-</html>
+{% endblock %}

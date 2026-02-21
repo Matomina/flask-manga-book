@@ -54,7 +54,7 @@ INSERT INTO articles (name, genres, image, price) VALUES
 ('Ranma ½','manga','image/Ranma-1-2-Tome.jpeg', 7.40),
 ('Détective Conan','manga','image/Détective-Conan-Tome.jpeg', 7.60),
 ('Yu-Gi-Oh','manga','image/Yu-Gi-Oh-Tome.jpeg', 7.00),
-('Great Teacher Onizuka','manga','image/Great-Teacher-Onizuka-Tome.jpeg', 8.20),
+('Great Teacher Onizuka','manga','image/Great-Teacger-Onizuka-Tome.jpeg', 8.20),
 ('Death Note','manga','image/Death-Note-Tome.jpeg', 6.90),
 ('Hajime No Ippo','manga','image/Hajime-No-Ippo-Tome.jpeg', 8.90),
 ('Saint Seiya','manga','image/Saint-Seya-Tome.jpeg', 7.20),
