@@ -384,6 +384,12 @@ nav ul li a:hover {
     align-items: center;
     gap: 20px;
   }
+  /* pousse le dropdown utilisateur complètement à droite */
+  .site-header nav ul .dropdown {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
   /* SEARCH BAR */
   .search-bar {
     grid-column: 1/-1;
@@ -604,10 +610,11 @@ footer .footer-links a:hover {
 .mobile-nav.active {
   display: block;
 }
-
+.mobile-nav {
   /* ----------------------------------------------------
    LISTE DES LIENS
    ---------------------------------------------------- */
+}
 .mobile-nav ul {
   display: flex;
   flex-direction: column;
@@ -1529,6 +1536,127 @@ footer .footer-links a:hover {
    ------------------------------------------------------ */
 #scrollTopBtn:hover {
   background: linear-gradient(135deg, #9135ff, #dc1ef7);
+}
+
+/* ======================================================
+   ABSTRACTS – VARIABLES GLOBALES
+   ====================================================== */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  /* 🔥 juste en dessous */
+  right: 0;
+  /* collé à droite du bouton */
+  margin-top: 0.5rem;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: 0.2s ease;
+  background: #fff;
+  list-style: none;
+  padding: 10px 0;
+  border-radius: 12px;
+  min-width: 160px;
+  box-shadow: 0 10px 30px #000;
+  z-index: 200;
+}
+
+.dropdown.active .dropdown-menu {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  color: #9135ff;
+}
+
+.dropdown-toggle:hover {
+  color: #dc1ef7;
+}
+
+.mobile-nav {
+  /* ==============================
+     Dropdown container
+  ============================== */
+}
+.mobile-nav .dropdown {
+  width: 100%;
+}
+.mobile-nav {
+  /* ==============================
+     Bouton utilisateur
+  ============================== */
+}
+.mobile-nav .dropdown-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  font: inherit;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px 0;
+}
+.mobile-nav .dropdown-toggle:hover {
+  color: #dc1ef7;
+}
+.mobile-nav {
+  /* ==============================
+     Sous-menu
+  ============================== */
+}
+.mobile-nav .dropdown-menu {
+  display: none;
+  /* caché par défaut */
+  position: static;
+  /* plus en absolute */
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin-top: 0.5rem;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+.mobile-nav {
+  /* ==============================
+     État actif
+  ============================== */
+}
+.mobile-nav .dropdown.active .dropdown-menu {
+  display: block;
+}
+.mobile-nav {
+  /* ==============================
+     Items du sous-menu
+  ============================== */
+}
+.mobile-nav .dropdown-menu li {
+  padding: 6px 0;
+  text-align: center;
+}
+.mobile-nav .dropdown-menu li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+.mobile-nav .dropdown-menu li a:hover {
+  opacity: 1;
+  color: #dc1ef7;
 }
 
 /* ======================================================

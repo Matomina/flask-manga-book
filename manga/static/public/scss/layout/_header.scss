@@ -152,6 +152,13 @@ nav ul li a:hover {
       gap: 20px;
    }
 
+   /* pousse le dropdown utilisateur complètement à droite */
+   .site-header nav ul .dropdown {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+   }
+
    /* SEARCH BAR */
    .search-bar {
       grid-column: 1 / -1;

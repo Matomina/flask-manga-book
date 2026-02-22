@@ -38,31 +38,28 @@ bp = Blueprint(
 @bp.route("/")
 def home():
 
-    # ----------------------------------------
-    # Récupération des articles
-    # ----------------------------------------
+    db = get_db()
+
     articles = [dict(a) for a in get_all_articles()]
 
     # ====================================================
-    # 📜 HISTORIQUES (basés sur la session utilisateur)
+    # 📜 HISTORIQUES (BDD réelle)
     # ====================================================
 
     historiques = []
 
-    if "history" in session:
-        history_ids = session["history"]
+    if "user_id" in session:
 
-        # On récupère les articles correspondant aux IDs
-        historiques = [
-            a for a in articles
-            if a["id"] in history_ids
-            and a["genres"] == "manga"
-        ]
+        historiques_db = db.execute("""
+            SELECT articles.*
+            FROM history
+            JOIN articles ON history.article_id = articles.id
+            WHERE history.user_id = ?
+            ORDER BY history.viewed_at DESC
+            LIMIT 10
+        """, (session["user_id"],)).fetchall()
 
-        # Respecter l’ordre de consultation
-        historiques.sort(
-            key=lambda x: history_ids.index(x["id"])
-        )
+        historiques = [dict(a) for a in historiques_db]
 
     # ====================================================
     # ⭐ CLASSIQUES
@@ -93,10 +90,6 @@ def home():
         if a["genres"] == "goodies"
     ][:10]
 
-    # ====================================================
-    # Rendu template
-    # ====================================================
-
     return render_template(
         "index.html",
         historiques=historiques,
@@ -121,36 +114,51 @@ def catalogue():
 
 
 # ====================================================
-# 🔹 Route : Fiche produit
+# 🔹 Route : Fiche produit (Détail Article Public)
 # ====================================================
 @bp.route("/article/<int:article_id>")
 def article_detail(article_id):
-    articles = [dict(a) for a in get_all_articles()]
-    article = next((a for a in articles if a["id"] == article_id), None)
+
+    db = get_db()
+
+    # ----------------------------------------
+    # 🔍 Récupération article + description
+    # ----------------------------------------
+    article = db.execute("""
+        SELECT articles.*, detail_articles_public.description
+        FROM articles
+        LEFT JOIN detail_articles_public
+        ON articles.id = detail_articles_public.article_id
+        WHERE articles.id = ?
+    """, (article_id,)).fetchone()
 
     if article is None:
         abort(404)
 
-    # ===============================
-    # AJOUT DANS HISTORIQUE SESSION
-    # ===============================
+    article = dict(article)
 
-    if "history" not in session:
-        session["history"] = []
+    # ----------------------------------------
+    # 📜 Ajout historique si utilisateur connecté
+    # ----------------------------------------
+    if "user_id" in session:
 
-    history = session["history"]
+        db.execute("""
+            INSERT INTO history (user_id, article_id)
+            VALUES (?, ?)
+            ON CONFLICT(user_id, article_id)
+            DO UPDATE SET viewed_at = CURRENT_TIMESTAMP
+        """, (session["user_id"], article_id))
 
-    # Supprime si déjà présent (évite doublon)
-    if article_id in history:
-        history.remove(article_id)
+        db.commit()
 
-    # Ajoute en première position
-    history.insert(0, article_id)
+    # ----------------------------------------
+    # Rendu template
+    # ----------------------------------------
+    return render_template(
+        "article_detail.html",
+        article=article
+    )
 
-    # Limite à 10 éléments
-    session["history"] = history[:10]
-
-    return render_template("article_detail.html", article=article)
 
 # ====================================================
 # 🔹 Route : Planning
@@ -300,11 +308,31 @@ def planning():
 
 
 # ====================================================
-# 🔹 Route : Profil
+# 🔹 Route : Profil utilisateur
 # ====================================================
 @bp.route("/profil")
 def profil():
-    return render_template("profil.html")
+
+    if "user_id" not in session:
+        return render_template("profil.html", historiques=[])
+
+    db = get_db()
+
+    historiques = db.execute("""
+        SELECT articles.*
+        FROM history
+        JOIN articles ON history.article_id = articles.id
+        WHERE history.user_id = ?
+        ORDER BY history.viewed_at DESC
+        LIMIT 12
+    """, (session["user_id"],)).fetchall()
+
+    historiques = [dict(a) for a in historiques]
+
+    return render_template(
+        "profil.html",
+        historiques=historiques
+    )
 
 
 # ====================================================

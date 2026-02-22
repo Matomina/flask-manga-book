@@ -426,6 +426,33 @@ function checkEmails(formId, emailId, confirmEmailId, errorId) {
 }
 
 // ======================================================
+// =========== GESTION DROPDOWN-TOGGLE ==================
+// ======================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const dropdowns = document.querySelectorAll(".dropdown");
+
+  dropdowns.forEach(dropdown => {
+
+    const toggle = dropdown.querySelector(".dropdown-toggle");
+
+    if (!toggle) return;
+
+    toggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle("active");
+    });
+
+  });
+
+  document.addEventListener("click", () => {
+    dropdowns.forEach(d => d.classList.remove("active"));
+  });
+
+});
+
+// ======================================================
 // ============ APPELS DE LA FONCTION ===================
 // ======================================================
 

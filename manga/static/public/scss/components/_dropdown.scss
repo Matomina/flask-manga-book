@@ -1,0 +1,126 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    /* 🔥 juste en dessous */
+    right: 0;
+    /* collé à droite du bouton */
+    margin-top: $spacing-xs;
+
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: 0.2s ease;
+
+    background: $color-light;
+    list-style: none;
+    padding: 10px 0;
+    border-radius: $radius-xl;
+    min-width: 160px;
+    box-shadow: 0 10px 30px $color-dark;
+    z-index: $z-dropdown;
+}
+
+.dropdown.active .dropdown-menu {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+    font-weight: 500;
+    color: $color-primary;
+}
+
+.dropdown-toggle:hover {
+    color: $color-secondary;
+}
+
+.mobile-nav {
+
+    /* ==============================
+     Dropdown container
+  ============================== */
+    .dropdown {
+        width: 100%;
+    }
+
+    /* ==============================
+     Bouton utilisateur
+  ============================== */
+    .dropdown-toggle {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: $spacing-xs;
+
+        background: none;
+        border: none;
+        font: inherit;
+        font-weight: 500;
+        color: $color-light;
+        cursor: pointer;
+
+        padding: 10px 0;
+    }
+
+    .dropdown-toggle:hover {
+        color: $color-secondary;
+    }
+
+    /* ==============================
+     Sous-menu
+  ============================== */
+    .dropdown-menu {
+        display: none;
+        /* caché par défaut */
+        position: static;
+        /* plus en absolute */
+        width: 100%;
+
+        list-style: none;
+        padding: 0;
+        margin-top: $spacing-xs;
+
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    /* ==============================
+     État actif
+  ============================== */
+    .dropdown.active .dropdown-menu {
+        display: block;
+    }
+
+    /* ==============================
+     Items du sous-menu
+  ============================== */
+    .dropdown-menu li {
+        padding: 6px 0;
+        text-align: center;
+    }
+
+    .dropdown-menu li a {
+        color: $color-light;
+        text-decoration: none;
+        font-size: 0.95rem;
+        opacity: 0.85;
+    }
+
+    .dropdown-menu li a:hover {
+        opacity: 1;
+        color: $color-secondary;
+    }
+}

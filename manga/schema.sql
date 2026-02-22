@@ -3,9 +3,13 @@ PRAGMA foreign_keys = ON;
 DROP TABLE IF EXISTS contact;
 DROP TABLE IF EXISTS orders_articles;
 DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS history;
+DROP TABLE IF EXISTS detail_articles_public;
 DROP TABLE IF EXISTS articles;
 DROP TABLE IF EXISTS user;
 
+/* ======================================================================================= */
+/* ======================================================================================= */
 
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -336,6 +340,48 @@ INSERT INTO articles (name, genres, image, price) VALUES
 ('Parure Sung Jin Hoo','textiles','image/Parure Sung Jin Hoo.jpg', 258.50),
 ('Parure Solo Leveling','textiles','image/Parure Solo Leveling.jpg', 268.50),
 ('Parure Sung Jin Hoo Black','textiles','image/Parure Sung Jin Hoo Black.jpg', 278.50);
+
+/* ======================================================================================= */
+/* ======================================================================================= */
+
+CREATE TABLE detail_articles_public (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  article_id INTEGER NOT NULL UNIQUE,
+  description TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+  FOREIGN KEY (article_id) REFERENCES articles(id) ON DELETE CASCADE
+);
+
+/* ======================================================================================= */
+/* ======================================================================================= */
+
+CREATE TABLE history (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL,
+  article_id INTEGER NOT NULL,
+  viewed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+  FOREIGN KEY (article_id) REFERENCES articles(id) ON DELETE CASCADE,
+
+  UNIQUE (user_id, article_id)
+);
+
+/* ======================================================================================= */
+/* ======================================================================================= */
+
+CREATE TABLE favorites (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL,
+  article_id INTEGER NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+  FOREIGN KEY (article_id) REFERENCES articles(id) ON DELETE CASCADE,
+
+  UNIQUE (user_id, article_id)
+);
 
 /* ======================================================================================= */
 /* ======================================================================================= */

@@ -32,7 +32,7 @@ def create_app(test_config=None):
     # 2️⃣ Configuration
     # ====================================================
     app.config.from_mapping(
-        SECRET_KEY="dev",
+        SECRET_KEY=os.environ.get("SECRET_KEY", "dev"),
         DATABASE=os.path.join(app.instance_path, "manga.sqlite"),
     )
 
@@ -51,6 +51,26 @@ def create_app(test_config=None):
     # ====================================================
     from .extensions import db
     db.init_app(app)
+
+    # ====================================================
+    # 🔹 Injection utilisateur global (Navbar dynamique)
+    # ====================================================
+    from flask import session
+    from .extensions.db import get_db
+
+    @app.context_processor
+    def inject_user():
+
+        user = None
+
+        if "user_id" in session:
+            db = get_db()
+            user = db.execute(
+                "SELECT id, first_name, role FROM user WHERE id = ?",
+                (session["user_id"],)
+            ).fetchone()
+
+        return dict(current_user=user)
 
     # ====================================================
     # 5️⃣ Filtre Jinja
