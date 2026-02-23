@@ -36,12 +36,19 @@ Accueil – Manga Book
   <section class="content">
     <h2>📜 Historiques</h2>
 
+    {% if historiques %}
+
     <div class="scroll-container">
       <button class="scroll-btn left">⬅</button>
 
-      <div class="card-list">
+      <div class="card-row">
         {% for article in historiques %}
         <div class="card">
+
+          <button class="favorite-btn" data-article-id="{{ article.id }}" aria-label="Ajouter aux favoris">
+            ❤
+          </button>
+
           <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
 
           <div class="card-info">
@@ -53,14 +60,18 @@ Accueil – Manga Book
               🛒 Ajouter au panier
             </button>
           </div>
+
         </div>
-        {% else %}
-        <p>Aucun article disponible.</p>
         {% endfor %}
       </div>
 
       <button class="scroll-btn right">➡</button>
     </div>
+
+    {% else %}
+    <p class="empty-state">Aucun article disponible.</p>
+    {% endif %}
+
   </section>
 
 
@@ -76,6 +87,12 @@ Accueil – Manga Book
       <div class="card-list">
         {% for article in classiques %}
         <div class="card">
+
+          <!-- BOUTON COEUR -->
+          <button class="favorite-btn" data-article-id="{{ article.id }}" aria-label="Ajouter aux favoris">
+            ❤
+          </button>
+
           <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
 
           <div class="card-info">
@@ -110,6 +127,13 @@ Accueil – Manga Book
       <div class="card-list">
         {% for article in pepites %}
         <div class="card">
+
+          <!-- BOUTON COEUR (overlay, ne change pas l’ordre visuel) -->
+          <button class="favorite-btn" data-article-id="{{ article.id }}" aria-label="Ajouter aux favoris">
+            ❤
+          </button>
+
+          <!-- IMAGE (reste en premier visuellement) -->
           <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
 
           <div class="card-info">
@@ -121,6 +145,7 @@ Accueil – Manga Book
               🛒 Ajouter au panier
             </button>
           </div>
+
         </div>
         {% else %}
         <p>Aucune pépite disponible.</p>

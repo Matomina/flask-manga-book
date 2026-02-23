@@ -62,15 +62,27 @@ def create_app(test_config=None):
     def inject_user():
 
         user = None
+        favorites_ids = []
 
         if "user_id" in session:
             db = get_db()
+
             user = db.execute(
                 "SELECT id, first_name, role FROM user WHERE id = ?",
                 (session["user_id"],)
             ).fetchone()
 
-        return dict(current_user=user)
+            favorites = db.execute("""
+                SELECT article_id FROM favorites
+                WHERE user_id = ?
+            """, (session["user_id"],)).fetchall()
+
+            favorites_ids = [f["article_id"] for f in favorites]
+
+        return dict(
+            current_user=user,
+            favorites_ids=favorites_ids
+        )
 
     # ====================================================
     # 5️⃣ Filtre Jinja

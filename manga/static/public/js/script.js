@@ -425,6 +425,7 @@ function checkEmails(formId, emailId, confirmEmailId, errorId) {
   });
 }
 
+
 // ======================================================
 // =========== GESTION DROPDOWN-TOGGLE ==================
 // ======================================================
@@ -451,6 +452,63 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+
+
+// ======================================================
+// =================== FAVORIS (BDD) ====================
+// ======================================================
+
+async function toggleFavorite(articleId, btn) {
+  try {
+    const res = await fetch(`/toggle-favorite/${articleId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Requested-With": "XMLHttpRequest",
+      },
+      body: JSON.stringify({}), // optionnel, mais propre
+    });
+
+    // Pas connecté
+    if (res.status === 401) {
+      window.location.href = "/auth/login";
+      return;
+    }
+
+    const data = await res.json();
+
+    if (data.status === "added") {
+      btn.classList.add("is-favorite");
+      btn.setAttribute("aria-label", "Retirer des favoris");
+    }
+
+    if (data.status === "removed") {
+      btn.classList.remove("is-favorite");
+      btn.setAttribute("aria-label", "Ajouter aux favoris");
+    }
+  } catch (err) {
+    console.error("Erreur favoris:", err);
+  }
+}
+
+function initFavorites() {
+  document.querySelectorAll(".favorite-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation(); // évite d'ouvrir le détail si la card est cliquable
+
+      const articleId = btn.dataset.articleId;
+      if (!articleId) return;
+
+      toggleFavorite(articleId, btn);
+    });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initFavorites();
+});
+
 
 // ======================================================
 // ============ APPELS DE LA FONCTION ===================

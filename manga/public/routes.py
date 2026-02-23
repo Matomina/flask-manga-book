@@ -12,10 +12,9 @@ Responsabilités :
 ========================================================
 """
 
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, render_template, abort, session, redirect, url_for
 from manga.models.article_model import get_all_articles
 from manga.extensions.db import get_db
-from flask import session
 
 
 # ====================================================
@@ -159,6 +158,39 @@ def article_detail(article_id):
         article=article
     )
 
+
+# ====================================================
+# 🔹 Route : Toggle Favoris ❤️
+# ====================================================
+@bp.route("/toggle-favorite/<int:article_id>", methods=["POST"])
+def toggle_favorite(article_id):
+
+    if "user_id" not in session:
+        return {"error": "Non autorisé"}, 401
+
+    db = get_db()
+
+    favorite = db.execute("""
+        SELECT 1 FROM favorites
+        WHERE user_id = ? AND article_id = ?
+    """, (session["user_id"], article_id)).fetchone()
+
+    if favorite:
+        db.execute("""
+            DELETE FROM favorites
+            WHERE user_id = ? AND article_id = ?
+        """, (session["user_id"], article_id))
+        db.commit()
+        return {"status": "removed"}
+
+    else:
+        db.execute("""
+            INSERT INTO favorites (user_id, article_id)
+            VALUES (?, ?)
+        """, (session["user_id"], article_id))
+        db.commit()
+        return {"status": "added"}
+    
 
 # ====================================================
 # 🔹 Route : Planning
@@ -314,12 +346,15 @@ def planning():
 def profil():
 
     if "user_id" not in session:
-        return render_template("profil.html", historiques=[])
+        return redirect(url_for("auth.login"))
 
     db = get_db()
 
+    # ====================================================
+    # 📜 HISTORIQUE
+    # ====================================================
     historiques = db.execute("""
-        SELECT articles.*
+        SELECT articles.*, history.viewed_at
         FROM history
         JOIN articles ON history.article_id = articles.id
         WHERE history.user_id = ?
@@ -329,9 +364,26 @@ def profil():
 
     historiques = [dict(a) for a in historiques]
 
+    # ====================================================
+    # ❤️ FAVORIS
+    # ====================================================
+    favoris = db.execute("""
+        SELECT articles.*, favorites.created_at
+        FROM favorites
+        JOIN articles ON favorites.article_id = articles.id
+        WHERE favorites.user_id = ?
+        ORDER BY favorites.created_at DESC
+    """, (session["user_id"],)).fetchall()
+
+    favoris = [dict(a) for a in favoris]
+
+    # ====================================================
+    # RENDU TEMPLATE
+    # ====================================================
     return render_template(
         "profil.html",
-        historiques=historiques
+        historiques=historiques,
+        favoris=favoris
     )
 
 

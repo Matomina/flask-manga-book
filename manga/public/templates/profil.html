@@ -6,7 +6,7 @@
 
 <!-- BANNIÈRE -->
 <section class="banner">
-  <img src="{{ url_for('static', filename='Image/zenitsu.png') }}" alt="Profil">
+  <img src="{{ url_for('static', filename='image/zenitsu.png') }}" alt="Profil">
 </section>
 
 <main class="profil-page">
@@ -24,77 +24,95 @@
   <section class="content">
     <h2>📜 Historiques</h2>
 
+    {% if historiques %}
     <div class="scroll-container">
       <button class="scroll-btn left">⬅</button>
 
       <div class="card-list">
-
         {% for manga in historiques %}
         <div class="card">
+
           <img src="{{ url_for('static', filename=manga['image']) }}" alt="{{ manga['name'] }}">
 
-          <div class="card-info">
-            <h3 class="text">
-              {{ manga['name'] }}
-            </h3>
+          {% if current_user %}
+          <button class="fav-btn" data-article-id="{{ manga['id'] }}" aria-label="Ajouter/Retirer des favoris"
+            type="button">
+            ❤️
+          </button>
+          {% endif %}
 
-            <p class="price">
-              {{ manga['price'] }} €
-            </p>
+          <div class="card-info">
+            <h3 class="text">{{ manga['name'] }}</h3>
+            <p class="price">{{ manga['price'] }} €</p>
 
             <button class="add-to-cart-btn" data-title="{{ manga['name'] }}" data-price="{{ manga['price'] }}"
               data-img="{{ url_for('static', filename=manga['image']) }}">
               🛒 Ajouter au panier
             </button>
           </div>
+
         </div>
         {% endfor %}
-
       </div>
 
       <button class="scroll-btn right">➡</button>
     </div>
-  </section>
 
+    {% else %}
+    <div class="empty-section">
+      Aucun historique pour le moment.
+    </div>
+    {% endif %}
+  </section>
 
   <!-- ================= FAVORIS ================= -->
   <section class="content">
     <h2>❤️ Favoris</h2>
 
+    {% if favoris %}
     <div class="scroll-container">
       <button class="scroll-btn left">⬅</button>
 
       <div class="card-list">
-
         {% for manga in favoris %}
         <div class="card">
+
           <img src="{{ url_for('static', filename=manga['image']) }}" alt="{{ manga['name'] }}">
 
-          <div class="card-info">
-            <h3 class="text">
-              {{ manga['name'] }}
-            </h3>
+          {% if current_user %}
+          <button class="fav-btn" data-article-id="{{ manga['id'] }}" aria-label="Ajouter/Retirer des favoris"
+            title="Retirer des favoris" type="button">
+            ❤️
+          </button>
+          {% endif %}
 
-            <p class="price">
-              {{ manga['price'] }} €
-            </p>
+          <div class="card-info">
+            <h3 class="text">{{ manga['name'] }}</h3>
+
+            <p class="price">{{ manga['price'] }} €</p>
 
             <button class="add-to-cart-btn" data-title="{{ manga['name'] }}" data-price="{{ manga['price'] }}"
               data-img="{{ url_for('static', filename=manga['image']) }}">
               🛒 Ajouter au panier
             </button>
           </div>
+
         </div>
         {% endfor %}
-
       </div>
 
       <button class="scroll-btn right">➡</button>
     </div>
+
+    {% else %}
+    <div class="empty-section">
+      Aucun favori pour le moment.
+    </div>
+    {% endif %}
   </section>
 
-
-  <!-- ================= AUTH ================= -->
+  <!-- ================= AUTH (uniquement si pas connecté) ================= -->
+  {% if not current_user %}
   <section class="form-container">
 
     <div class="form-tabs">
@@ -159,6 +177,7 @@
     </div>
 
   </section>
+  {% endif %}
 
 </main>
 
