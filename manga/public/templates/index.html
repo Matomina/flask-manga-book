@@ -45,7 +45,8 @@ Accueil – Manga Book
         {% for article in historiques %}
         <div class="card">
 
-          <button class="favorite-btn" data-article-id="{{ article.id }}" aria-label="Ajouter aux favoris">
+          <button class="favorite-btn 
+        {% if article.id|string in favorites %}is-favorite{% endif %}" data-article-id="{{ article.id }}">
             ❤
           </button>
 
@@ -89,7 +90,8 @@ Accueil – Manga Book
         <div class="card">
 
           <!-- BOUTON COEUR -->
-          <button class="favorite-btn" data-article-id="{{ article.id }}" aria-label="Ajouter aux favoris">
+          <button class="favorite-btn 
+        {% if article.id|string in favorites %}is-favorite{% endif %}" data-article-id="{{ article.id }}">
             ❤
           </button>
 
@@ -129,7 +131,8 @@ Accueil – Manga Book
         <div class="card">
 
           <!-- BOUTON COEUR (overlay, ne change pas l’ordre visuel) -->
-          <button class="favorite-btn" data-article-id="{{ article.id }}" aria-label="Ajouter aux favoris">
+          <button class="favorite-btn 
+        {% if article.id|string in favorites %}is-favorite{% endif %}" data-article-id="{{ article.id }}">
             ❤
           </button>
 

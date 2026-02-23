@@ -42,7 +42,7 @@ def home():
     articles = [dict(a) for a in get_all_articles()]
 
     # ====================================================
-    # 📜 HISTORIQUES (BDD réelle)
+    # 📜 HISTORIQUES
     # ====================================================
 
     historiques = []
@@ -89,27 +89,61 @@ def home():
         if a["genres"] == "goodies"
     ][:10]
 
+    # ====================================================
+    # ❤️ FAVORIS
+    # ====================================================
+
+    favorites = []
+
+    if "user_id" in session:
+        fav_rows = db.execute(
+            "SELECT article_id FROM favorites WHERE user_id = ?",
+            (session["user_id"],)
+        ).fetchall()
+
+        favorites = [str(row["article_id"]) for row in fav_rows]
+
     return render_template(
         "index.html",
         historiques=historiques,
         classiques=classiques,
         pepites=pepites,
-        goodies=goodies
+        goodies=goodies,
+        favorites=favorites
     )
 
 
 # ====================================================
 # 🔹 Route : Catalogue
 # ====================================================
+from flask import session
+
 @bp.route("/catalogue")
 def catalogue():
     db = get_db()
+
     mangas = db.execute(
         "SELECT * FROM articles WHERE genres = ?",
         ("manga",)
     ).fetchall()
 
-    return render_template("catalogue.html", mangas=mangas)
+    favorites = []
+
+    if "user_id" in session:
+        user_id = session["user_id"]
+
+        fav_rows = db.execute(
+            "SELECT article_id FROM favorites WHERE user_id = ?",
+            (user_id,)
+        ).fetchall()
+
+        favorites = [str(row["article_id"]) for row in fav_rows]
+
+    return render_template(
+        "catalogue.html",
+        mangas=mangas,
+        favorites=favorites
+    )
 
 
 # ====================================================
