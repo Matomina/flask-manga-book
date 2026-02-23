@@ -1,5 +1,6 @@
 PRAGMA foreign_keys = ON;
 
+DROP TABLE IF EXISTS topics;
 DROP TABLE IF EXISTS contact;
 DROP TABLE IF EXISTS orders_articles;
 DROP TABLE IF EXISTS orders;
@@ -488,5 +489,18 @@ INSERT INTO contact (user_id, sujet, message, status) VALUES
 (6, 'Commande', 'Très bon site merci', 'pending'),
 (7, 'Commande', 'Je n''ai toujours pas reçu ma commande', 'pending');
 
-/* ======================================================================================= */
-/* ======================================================================================= */
+/***************************************************************************************/
+/***************************************************************************************/
+
+CREATE TABLE topics (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL,
+  title TEXT NOT NULL,
+  message TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+);
+
+/***************************************************************************************/
+/***************************************************************************************/

@@ -12,9 +12,10 @@ Responsabilités :
 ========================================================
 """
 
-from flask import Blueprint, render_template, abort, session, redirect, url_for
+from flask import Blueprint, render_template, abort, session, redirect, url_for,request
 from manga.models.article_model import get_all_articles
 from manga.extensions.db import get_db
+from datetime import datetime
 
 
 # ====================================================
@@ -319,9 +320,38 @@ def profil():
 # ====================================================
 # 🔹 Route : Forum
 # ====================================================
-@bp.route("/forum")
-def forum():
-    return render_template("forum.html")
+bp = Blueprint(
+    "public",
+    __name__,
+    url_prefix="/",
+    template_folder="templates"
+)
+
+
+@bp.route("/", methods=["GET", "POST"])
+def forum_home():
+    db = get_db()
+
+    if request.method == "POST":
+        title = request.form["title"]
+        message = request.form["message"]
+
+        db.execute(
+            """
+            INSERT INTO topics (title, message, author, created_at)
+            VALUES (?, ?, ?, ?)
+            """,
+            (title, message, "Utilisateur", datetime.now())
+        )
+        db.commit()
+
+        return redirect(url_for("forum.forum_home"))
+
+    topics = db.execute(
+        "SELECT * FROM topics ORDER BY created_at DESC"
+    ).fetchall()
+
+    return render_template("forum.html", topics=topics)
 
 
 # ====================================================
