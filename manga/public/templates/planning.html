@@ -37,7 +37,7 @@
           <img src="{{ url_for('static', filename=manga.image) }}" alt="{{ manga.title }}">
 
           <div class="card-info">
-            <h3 class="text">{{ manga.title }}</h3>
+            <h3 class="text">{{ manga.name }}</h3>
             <p class="price">{{ manga.price }} €</p>
 
             <button class="add-to-cart-btn" data-title="{{ manga.title }}" data-price="{{ manga.price }}"
