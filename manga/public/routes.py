@@ -32,6 +32,33 @@ bp = Blueprint(
 
 
 # ====================================================
+# 🔹 Utilitaire : Récupération favoris utilisateur
+# ====================================================
+def get_user_favorites():
+
+    if "user_id" not in session:
+        return []
+
+    db = get_db()
+
+    rows = db.execute("""
+        SELECT article_id
+        FROM favorites
+        WHERE user_id = ?
+    """, (session["user_id"],)).fetchall()
+
+    return [str(row["article_id"]) for row in rows]
+
+
+# ====================================================
+# 🔹 Injection globale des favoris dans Jinja
+# ====================================================
+@bp.app_context_processor
+def inject_favorites():
+    return dict(favorites=get_user_favorites())
+
+
+# ====================================================
 # 🔹 Route : Page d'accueil
 # ====================================================
 @bp.route("/")
@@ -89,19 +116,6 @@ def home():
         if a["genres"] == "goodies"
     ][:10]
 
-    # ====================================================
-    # ❤️ FAVORIS
-    # ====================================================
-
-    favorites = []
-
-    if "user_id" in session:
-        fav_rows = db.execute(
-            "SELECT article_id FROM favorites WHERE user_id = ?",
-            (session["user_id"],)
-        ).fetchall()
-
-        favorites = [str(row["article_id"]) for row in fav_rows]
 
     return render_template(
         "index.html",
@@ -109,7 +123,6 @@ def home():
         classiques=classiques,
         pepites=pepites,
         goodies=goodies,
-        favorites=favorites
     )
 
 
@@ -127,22 +140,10 @@ def catalogue():
         ("manga",)
     ).fetchall()
 
-    favorites = []
-
-    if "user_id" in session:
-        user_id = session["user_id"]
-
-        fav_rows = db.execute(
-            "SELECT article_id FROM favorites WHERE user_id = ?",
-            (user_id,)
-        ).fetchall()
-
-        favorites = [str(row["article_id"]) for row in fav_rows]
 
     return render_template(
         "catalogue.html",
         mangas=mangas,
-        favorites=favorites
     )
 
 

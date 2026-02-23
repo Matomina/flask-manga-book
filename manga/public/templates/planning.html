@@ -27,6 +27,13 @@
       <div class="card-list">
         {% for manga in day.mangas %}
         <div class="card">
+
+          <!-- COEUR FAVORI -->
+          <button class="favorite-btn 
+        {% if manga.id|string in favorites %}is-favorite{% endif %}" data-article-id="{{ manga.id }}">
+            ❤
+          </button>
+
           <img src="{{ url_for('static', filename=manga.image) }}" alt="{{ manga.title }}">
 
           <div class="card-info">
