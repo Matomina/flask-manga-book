@@ -20,10 +20,6 @@ from datetime import datetime
 
 # ====================================================
 # 🔹 Déclaration du Blueprint Public
-# ----------------------------------------------------
-# template_folder="templates"
-# Permet à Flask d'utiliser :
-# manga/public/templates/
 # ====================================================
 bp = Blueprint(
     "public",
@@ -320,36 +316,37 @@ def profil():
 # ====================================================
 # 🔹 Route : Forum
 # ====================================================
-bp = Blueprint(
-    "public",
-    __name__,
-    url_prefix="/",
-    template_folder="templates"
-)
-
-
-@bp.route("/", methods=["GET", "POST"])
+@bp.route("/forum", methods=["GET", "POST"])
 def forum_home():
     db = get_db()
 
     if request.method == "POST":
+
+        user_id = session.get("user_id")
+
+        if not user_id:
+            return redirect(url_for("auth.login"))
+
         title = request.form["title"]
         message = request.form["message"]
 
         db.execute(
             """
-            INSERT INTO topics (title, message, author, created_at)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO topics (user_id, title, message)
+            VALUES (?, ?, ?)
             """,
-            (title, message, "Utilisateur", datetime.now())
+            (user_id, title, message)
         )
         db.commit()
 
-        return redirect(url_for("forum.forum_home"))
+        return redirect(url_for("public.forum_home"))
 
-    topics = db.execute(
-        "SELECT * FROM topics ORDER BY created_at DESC"
-    ).fetchall()
+    topics = db.execute("""
+        SELECT topics.*, user.first_name
+        FROM topics
+        JOIN user ON topics.user_id = user.id
+        ORDER BY topics.created_at DESC
+    """).fetchall()
 
     return render_template("forum.html", topics=topics)
 
@@ -358,8 +355,71 @@ def forum_home():
 # 🔹 Route : Goodies
 # ====================================================
 @bp.route("/goodies")
-def goodies_page():
-    return render_template("goodies.html")
+def goodies():
+    db = get_db()
+
+    # Ordre forcé des univers
+    universe_order = [
+        "naruto",
+        "jujutsu_kaisen",
+        "one_piece",
+        "demon_slayer",
+        "dragon_ball",
+    ]
+
+    universes = {}
+
+    for u in universe_order:
+        articles = db.execute(
+            """
+            SELECT *
+            FROM articles
+            WHERE universe = ?
+              AND genres = 'goodies'
+            """,
+            (u,),
+        ).fetchall()
+
+        # On ajoute seulement si l'univers contient des articles
+        if articles:
+            universes[u] = articles
+
+    # Sections globales du bas
+    figurines = db.execute(
+        """
+        SELECT *
+        FROM articles
+        WHERE genres = 'figurine'
+        ORDER BY id DESC
+        """
+    ).fetchall()
+
+    textiles = db.execute(
+        """
+        SELECT *
+        FROM articles
+        WHERE genres = 'textiles'
+        ORDER BY id DESC
+        """
+    ).fetchall()
+
+    vaisselle = db.execute(
+        """
+        SELECT *
+        FROM articles
+        WHERE genres = 'vaisselle'
+        ORDER BY id DESC
+        """
+    ).fetchall()
+
+    return render_template(
+        "goodies.html",
+        universes=universes,
+        universe_order=universe_order,
+        figurines=figurines,
+        textiles=textiles,
+        vaisselle=vaisselle,
+    )
 
 
 # ====================================================

@@ -6,17 +6,24 @@
 
 <!-- BANNIÈRE -->
 <section class="banner">
-    <img src="{{ url_for('static', filename='Image/Luffy Gear 5.jpeg') }}" alt="Bannière Forum">
+    <img src="{{ url_for('static', filename='image/Luffy Gear 5.jpeg') }}" alt="Bannière Forum">
 </section>
 
-<main class="forum-page">
+<div class="forum-page">
 
-    <!-- INTRO -->
     <section class="content">
         <h1 class="page-title">💬 Forum</h1>
         <p class="intro-1">
             Bienvenue sur le forum, l’espace d’échange et de discussion de la communauté.
-            Partagez vos idées, posez vos questions et échangez autour de vos mangas préférés.
+            Ici, chacun peut partager ses idées, poser des questions, donner son avis et échanger autour des sujets
+            qui rassemblent.
+
+            Le forum est pensé comme un lieu ouvert et respectueux, où les discussions prennent vie et où chaque
+            contribution a sa place. Que vous soyez là pour demander conseil, débattre ou simplement lire les
+            échanges, vous êtes au bon endroit.
+
+            Participez aux discussions, découvrez de nouveaux points de vue et faites vivre la communauté à travers
+            vos messages.
         </p>
     </section>
 
@@ -46,18 +53,12 @@
             {% if topics %}
             {% for topic in topics %}
             <div class="topic-card">
-
                 <h4>{{ topic['title'] }}</h4>
-
                 <p>
-                    Publié par <strong>{{ topic['author'] }}</strong>
+                    Publié par <strong>{{ topic['first_name'] }}</strong>
                     — {{ topic['created_at'] }}
                 </p>
-
-                <a href="{{ url_for('forum.topic_detail', topic_id=topic['id']) }}" class="btn-view">
-                    Voir le sujet
-                </a>
-
+                <a href="#" class="btn-view">Voir le sujet</a>
             </div>
             {% endfor %}
             {% else %}
@@ -68,6 +69,6 @@
 
     </section>
 
-</main>
+</div>
 
 {% endblock %}
