@@ -1,143 +1,44 @@
-<!DOCTYPE html>
-<html lang="fr">
+{% extends "base.html" %}
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manga-Book-Style - Panier</title>
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="icon" type="Image/png" href="Image/favicon one piece.png" />
-</head>
+{% block title %}Panier{% endblock %}
 
-<body> <!-- HEADER -->
-  <header class="site-header">
+{% block content %}
 
-    <!-- LIGNE DU HAUT : LOGO + TITRE / BURGER -->
-    <div class="header-top">
+<!-- BANNIÈRE -->
+<section class="banner">
+  <img src="{{ url_for('static', filename='image/Son Goku Ultra Instinct.jpg') }}" alt="Mise en avant catalogue" />
+</section>
 
-      <!-- Logo + titre -->
-      <a href="index.html" class="logo-title">
-        <img src="Image/favicon one piece.png" alt="Manga Book Logo" class="logo" />
-        <span class="site-title">Manga Book</span>
-      </a>
+<!-- CONTENU PRINCIPAL -->
+<section class="profil-container">
 
-      <!-- Menu burger -->
-      <div class="burger-menu">
-        <div class="burger-icon" id="burger-icon">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
+  <!-- Titre principal -->
+  <section class="content">
+    <h1>🛒 Panier</h1>
+    <p class="intro-1">
+      Bienvenue dans votre panier, l’étape finale avant de concrétiser vos choix.
+      Ici, vous retrouvez l’ensemble des articles que vous avez sélectionnés, prêts à être commandés.
 
-    </div>
+      Cette page vous permet de vérifier votre sélection, d’ajuster les quantités et de vous assurer que tout
+      correspond à vos envies avant de finaliser votre achat. Tout est pensé pour vous offrir une expérience simple,
+      fluide et sécurisée.
 
-    <!-- BARRE DE RECHERCHE (centrée en dessous) -->
-    <div class="search-bar">
-      <input type="text" placeholder="🔍 Rechercher un manga" />
-    </div>
-
-    <!-- MENU DESKTOP -->
-    <nav>
-      <ul>
-        <li><a href="index.html">🏠 Accueil</a></li>
-        <li><a href="catalogue.html">📖 Catalogue</a></li>
-        <li><a href="planning.html">🗓 Planning</a></li>
-        <li><a href="profil.html">👤 Votre Profil</a></li>
-        <li><a href="forum.html">💬 Forum</a></li>
-        <li><a href="goodies.html">🎁 Goodies</a></li>
-        <li><a href="panier.html">🛒 Panier</a></li>
-        <li><a href="aide.html">❓ Aide</a></li>
-      </ul>
-    </nav>
-
-  </header>
-  <!-- Menu de navigation mobile (caché par défaut) -->
-  <div class="mobile-nav" id="mobile-nav">
-    <ul>
-      <li><a href="index.html">🏠 Accueil</a></li>
-      <li><a href="catalogue.html">📖 Catalogue</a></li>
-      <li><a href="planning.html">🗓 Planning</a></li>
-      <li><a href="profil.html">👤 Votre Profil</a></li>
-      <li><a href="forum.html">💬 Forum</a></li>
-      <li><a href="goodies.html">🎁 Goodies</a></li>
-      <li><a href="panier.html">🛒 Panier</a></li>
-      <li><a href="aide.html">❓ Aide</a></li>
-    </ul>
-  </div>
-
-  <!-- BANNIÈRE -->
-  <section class="banner">
-    <img src="Image/Son Goku Ultra Instinct.jpg" alt="Mise en avant catalogue" />
+      Prenez un dernier moment pour valider votre panier en toute sérénité, puis passez à l’étape suivante.
+    </p>
   </section>
 
-  <!-- CONTENU PRINCIPAL -->
-  <main class="profil-container">
-
-    <!-- Titre principal -->
-    <section class="content">
-      <h1>🛒 Panier</h1>
-      <p class="intro-1">
-        Bienvenue dans votre panier, l’étape finale avant de concrétiser vos choix.
-        Ici, vous retrouvez l’ensemble des articles que vous avez sélectionnés, prêts à être commandés.
-
-        Cette page vous permet de vérifier votre sélection, d’ajuster les quantités et de vous assurer que tout
-        correspond à vos envies avant de finaliser votre achat. Tout est pensé pour vous offrir une expérience simple,
-        fluide et sécurisée.
-
-        Prenez un dernier moment pour valider votre panier en toute sérénité, puis passez à l’étape suivante. </p>
-    </section>
-
-    <!-- PANIER DYNAMIQUE -->
-    <div class="panier" id="cartPageContent">
-      <!-- Le contenu du panier est injecté ici par le JS -->
-    </div>
-
-    <!-- Bouton Commander -->
-    <div class="btn-container">
-      <button class="btn-commander" onclick="quickCheckout()">Commander</button>
-    </div>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-links">
-      <h3><a href="index.html">MANGA BOOK © 2025 - Tous droits réservés</a></h3>
-      <a href="aide.html#Conditions générales">Conditions générales</a> |
-      <a href="aide.html#Politique de confidentialité">Politique de confidentialité</a> |
-      <a href="aide.html#contact-form">Contact</a>
-    </div>
-  </footer>
-
-  <!-- BOUTON PANIER FLOTTANT -->
-  <button class="floating-cart-btn" onclick="openCartPopup()" aria-label="Ouvrir le panier">
-    🛒 <span class="floating-cart-count" id="floatingCartCount">0</span>
-  </button>
-
-  <!-- POPUP PANIER -->
-  <div class="cart-overlay" id="cartOverlay" onclick="closeCartPopup()"></div>
-
-  <div class="cart-popup" id="cartPopup">
-    <div class="cart-header">
-      <h2 class="cart-title">🛒 Aperçu du Panier</h2>
-      <button class="close-btn" onclick="closeCartPopup()" aria-label="Fermer">×</button>
-    </div>
-    <div class="cart-content" id="cartContent">
-      <!-- Contenu dynamique généré par JS -->
-    </div>
-    <div class="cart-footer">
-      <a href="panier.html" class="btn-view-cart">Voir le Panier</a>
-      <button class="btn-checkout" onclick="quickCheckout()">Commander</button>
-    </div>
+  <!-- PANIER DYNAMIQUE (page panier) -->
+  <div class="panier" id="cartPageContent">
+    <!-- Le contenu du panier est injecté ici par le JS -->
   </div>
 
+  <!-- Bouton Commander -->
+  <div class="btn-container">
+    <button class="btn-commander" type="button" onclick="quickCheckout()">
+      Commander
+    </button>
+  </div>
 
+</section>
 
-  <!-- Bouton retour en haut -->
-  <button id="scrollTopBtn" title="Remonter en haut">⬆</button>
-
-  <script src="script.js" defer></script>
-</body>
-
-</html>
+{% endblock %}
