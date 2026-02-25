@@ -19,7 +19,6 @@ from flask import (
     render_template, request, session, url_for
 )
 from werkzeug.security import check_password_hash, generate_password_hash
-
 from manga.extensions.db import get_db
 
 
@@ -86,41 +85,67 @@ def register():
 
 
 # ====================================================
-# 🔹 LOGIN
+# LOGIN
 # ====================================================
 @bp.route("/login", methods=("GET", "POST"))
 def login():
 
     if request.method == "POST":
 
+        # ----------------------------------------------
+        # Récupération des données du formulaire
+        # ----------------------------------------------
         email = request.form.get("email")
         password = request.form.get("password")
 
         db = get_db()
         error = None
 
+        # ----------------------------------------------
+        # Recherche utilisateur en base
+        # ----------------------------------------------
         user = db.execute(
             "SELECT * FROM user WHERE email = ?",
             (email,),
         ).fetchone()
 
+        # ----------------------------------------------
+        # Vérifications
+        # ----------------------------------------------
         if user is None:
             error = "Incorrect email."
         elif not check_password_hash(user["password"], password):
             error = "Incorrect password."
 
+        # ----------------------------------------------
+        # Connexion réussie
+        # ----------------------------------------------
         if error is None:
+
+            # Nettoyage session précédente
             session.clear()
             session["user_id"] = user["id"]
 
-            # 🔹 Redirection intelligente
+            # Récupération éventuelle du paramètre "next"
+            # Exemple : /auth/login?next=/profil
+            next_page = request.args.get("next")
+
+            # Sécurité : on autorise uniquement les URLs internes
+            # (évite les redirections vers des sites externes)
+            if next_page and next_page.startswith("/"):
+                return redirect(next_page)
+
+            # Redirection selon rôle
             if user["role"] == "admin":
                 return redirect(url_for("admin.dashboard"))
 
-            return redirect(url_for("public.index"))
+            # Redirection par défaut utilisateur
+            return redirect(url_for("public.profil"))
 
+        # Si erreur → message flash
         flash(error)
 
+    # Affichage page login (GET)
     return render_template("auth/login.html")
 
 
@@ -147,8 +172,14 @@ def load_logged_in_user():
 @bp.route("/logout")
 def logout():
 
+    role = g.user["role"] if g.user else None
+
     session.clear()
-    return redirect(url_for("public.index"))
+
+    if role == "admin":
+        return redirect(url_for("auth.login"))
+
+    return redirect(url_for("public.home"))
 
 
 # ====================================================

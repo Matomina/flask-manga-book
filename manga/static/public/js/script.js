@@ -128,30 +128,87 @@ document.addEventListener("DOMContentLoaded", () => {
 // =====================================================
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Boutons des onglets (connexion / inscription)
+
+  // -----------------------------------------------------
+  // Sélection des éléments
+  // -----------------------------------------------------
+
   const tabButtons = document.querySelectorAll(
     ".tab-btn-inscription, .tab-btn-connexion"
   );
 
-  // Conteneurs des formulaires
   const formBoxes = document.querySelectorAll(".form-box");
 
-  /*
-    Gestion du système d’onglets :
-    - Un seul onglet actif à la fois
-    - Un seul formulaire visible à la fois
-  */
-  tabButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      tabButtons.forEach((btn) => btn.classList.remove("active"));
-      formBoxes.forEach((form) => form.classList.remove("active"));
+  // Sécurité : si la page ne contient pas les formulaires,
+  // on arrête ici pour éviter toute erreur JavaScript.
+  if (!tabButtons.length || !formBoxes.length) return;
 
-      button.classList.add("active");
+
+  // -----------------------------------------------------
+  // Fonction utilitaire : activer un onglet
+  // -----------------------------------------------------
+
+  function activateTab(tabName) {
+
+    // Retire toutes les classes actives
+    tabButtons.forEach(btn => btn.classList.remove("active"));
+    formBoxes.forEach(form => form.classList.remove("active"));
+
+    // Active le bouton correspondant
+    const activeButton = document.querySelector(`.tab-btn-${tabName}`);
+    activeButton?.classList.add("active");
+
+    // Active le formulaire correspondant
+    const targetForm = document.getElementById(`form-${tabName}`);
+    targetForm?.classList.add("active");
+
+    return targetForm;
+  }
+
+
+  // -----------------------------------------------------
+  // Gestion du clic manuel sur les onglets
+  // -----------------------------------------------------
+
+  tabButtons.forEach((button) => {
+
+    button.addEventListener("click", () => {
 
       const target = button.getAttribute("data-tab");
-      document.getElementById(`form-${target}`).classList.add("active");
+      activateTab(target);
+
     });
+
   });
+
+
+  // -----------------------------------------------------
+  // Activation automatique via paramètre URL
+  // Exemple : /profil?tab=connexion
+  // -----------------------------------------------------
+
+  const params = new URLSearchParams(window.location.search);
+  const tab = params.get("tab");
+
+  if (tab === "connexion" || tab === "inscription") {
+
+    const targetForm = activateTab(tab);
+
+    // Scroll automatique vers le formulaire
+    // Petit délai pour laisser le DOM appliquer la classe active
+    setTimeout(() => {
+
+      if (!targetForm) return;
+
+      targetForm.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+    }, 100);
+
+  }
+
 });
 
 // =====================================================

@@ -1710,6 +1710,15 @@ footer .footer-links a:hover {
   color: #dc1ef7;
 }
 
+/* ==============================
+   Desktop uniquement
+============================== */
+nav .dropdown-menu li a.dropdown-fav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 /* ======================================================
    PAGES
    ====================================================== */

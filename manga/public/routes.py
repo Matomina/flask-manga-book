@@ -271,41 +271,34 @@ def planning():
 @bp.route("/profil")
 def profil():
 
-    if "user_id" not in session:
-        return redirect(url_for("auth.login"))
-
     db = get_db()
 
-    # ====================================================
-    # 📜 HISTORIQUE
-    # ====================================================
-    historiques = db.execute("""
-        SELECT articles.*, history.viewed_at
-        FROM history
-        JOIN articles ON history.article_id = articles.id
-        WHERE history.user_id = ?
-        ORDER BY history.viewed_at DESC
-        LIMIT 12
-    """, (session["user_id"],)).fetchall()
+    historiques = []
+    favoris = []
 
-    historiques = [dict(a) for a in historiques]
+    if "user_id" in session:
 
-    # ====================================================
-    # ❤️ FAVORIS
-    # ====================================================
-    favoris = db.execute("""
-        SELECT articles.*, favorites.created_at
-        FROM favorites
-        JOIN articles ON favorites.article_id = articles.id
-        WHERE favorites.user_id = ?
-        ORDER BY favorites.created_at DESC
-    """, (session["user_id"],)).fetchall()
+        historiques_db = db.execute("""
+            SELECT articles.*, history.viewed_at
+            FROM history
+            JOIN articles ON history.article_id = articles.id
+            WHERE history.user_id = ?
+            ORDER BY history.viewed_at DESC
+            LIMIT 12
+        """, (session["user_id"],)).fetchall()
 
-    favoris = [dict(a) for a in favoris]
+        historiques = [dict(a) for a in historiques_db]
 
-    # ====================================================
-    # RENDU TEMPLATE
-    # ====================================================
+        favoris_db = db.execute("""
+            SELECT articles.*, favorites.created_at
+            FROM favorites
+            JOIN articles ON favorites.article_id = articles.id
+            WHERE favorites.user_id = ?
+            ORDER BY favorites.created_at DESC
+        """, (session["user_id"],)).fetchall()
+
+        favoris = [dict(a) for a in favoris_db]
+
     return render_template(
         "profil.html",
         historiques=historiques,
