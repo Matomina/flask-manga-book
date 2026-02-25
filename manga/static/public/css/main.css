@@ -875,18 +875,18 @@ footer .footer-links a:hover {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.95);
+  background: #fff;
   backdrop-filter: blur(8px);
   font-size: 18px;
   line-height: 1;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 30px #000;
   transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
-  color: #666;
-  z-index: 2;
+  color: #f5f5f5;
+  z-index: 100;
 }
 .card .favorite-btn:hover {
   transform: scale(1.08);
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 16px 35px #000;
 }
 .card .favorite-btn:active {
   transform: scale(0.95);
@@ -901,7 +901,7 @@ footer .footer-links a:hover {
    ------------------------------ */
 }
 .card .favorite-btn.is-favorite {
-  background: white;
+  background: #fff;
   color: #e63946;
   /* rouge manga stylé */
   box-shadow: 0 16px 35px rgba(230, 57, 70, 0.35);
@@ -1720,6 +1720,52 @@ nav .dropdown-menu li a.dropdown-fav {
 }
 
 /* ======================================================
+   FAVORITES BADGE – VERSION FLOATING 
+   ====================================================== */
+/*
+   Wrapper de l’icône cœur
+   Permet de positionner le badge en absolute
+*/
+.fav-icon-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  font-size: 20px;
+}
+
+/*
+   Badge compteur flottant
+   Positionné en haut à droite du cœur
+*/
+.fav-count-badge {
+  position: absolute;
+  top: -3px;
+  right: -6px;
+  min-width: 14px;
+  height: 14px;
+  padding: 0 4px;
+  border-radius: 50%;
+  background: #ec2d84;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  box-shadow: 0 0 12px rgba(230, 57, 70, 0.5);
+  transition: transform 0.2s ease;
+}
+
+/*
+   Effet hover desktop
+   Petit agrandissement au survol
+*/
+nav .dropdown-menu li a.dropdown-fav:hover .fav-count-badge {
+  transform: scale(1.15);
+}
+
+/* ======================================================
    PAGES
    ====================================================== */
 /* ======================================================
@@ -2325,6 +2371,29 @@ nav .dropdown-menu li a.dropdown-fav {
 /* Classe utilitaire si besoin global */
 .heart-pop {
   animation: heartPop 0.3s ease;
+}
+
+/* ------------------------------------------------------
+   ANIMATION – FAVORITES BADGE POP
+   Utilisée pour le compteur flottant en navbar
+   ------------------------------------------------------ */
+@keyframes favBadgePop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/*
+   Classe utilitaire pour déclencher
+   l’animation via JavaScript
+*/
+.fav-badge-pop {
+  animation: favBadgePop 0.3s ease;
 }
 
 /*# sourceMappingURL=main.css.map */

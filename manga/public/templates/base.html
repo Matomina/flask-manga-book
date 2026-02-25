@@ -75,8 +75,21 @@
                     <ul class="dropdown-menu">
                         <li>
                             <a href="{{ url_for('public.profil') }}" class="dropdown-fav">
-                                <span class="fav-icon">❤️</span>
+
+                                <span class="fav-icon-wrapper">
+
+                                    <span class="fav-icon">❤️</span>
+
+                                    {% if favorites_count > 0 %}
+                                    <span class="fav-count-badge floating-fav-count" id="favCountDesktop">
+                                        {{ favorites_count }}
+                                    </span>
+                                    {% endif %}
+
+                                </span>
+
                                 <span>Favoris</span>
+
                             </a>
                         </li>
 
@@ -122,7 +135,25 @@
                 </button>
 
                 <ul class="dropdown-menu">
-                    <li><a href="{{ url_for('public.profil') }}">❤️ Favoris</a></li>
+                    <li>
+                        <a href="{{ url_for('public.profil') }}">
+
+                            <span class="fav-icon-wrapper">
+
+                                ❤️
+
+                                {% if favorites_count > 0 %}
+                                <span class="fav-count-badge floating-fav-count" id="favCountMobile">
+                                    {{ favorites_count }}
+                                </span>
+                                {% endif %}
+
+                            </span>
+
+                            Favoris
+
+                        </a>
+                    </li>
 
                     {% if current_user["role"] == "admin" %}
 

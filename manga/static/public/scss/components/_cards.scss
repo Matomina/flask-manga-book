@@ -93,13 +93,13 @@
 
     cursor: pointer;
 
-    background: rgba(255, 255, 255, 0.95);
+    background: $color-light;
     backdrop-filter: blur(8px);
 
     font-size: 18px;
     line-height: 1;
 
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 30px $color-dark;
 
     transition:
       transform 0.15s ease,
@@ -107,13 +107,13 @@
       background 0.2s ease,
       color 0.2s ease;
 
-    color: #666;
+    color: $color-gray;
 
-    z-index: 2;
+    z-index: $z-header;
 
     &:hover {
       transform: scale(1.08);
-      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 16px 35px $color-dark;
     }
 
     &:active {
@@ -131,7 +131,7 @@
    ------------------------------ */
 
   .favorite-btn.is-favorite {
-    background: white;
+    background: $color-light;
     color: #e63946;
     /* rouge manga stylé */
     box-shadow: 0 16px 35px rgba(230, 57, 70, 0.35);

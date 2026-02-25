@@ -5,7 +5,7 @@
    UTILS – ANIMATIONS
    Animations globales réutilisables dans le site
    ====================================================== */
-   
+
 /* ------------------------------------------------------
    ANIMATION – SLIDE IN LEFT
    ------------------------------------------------------ */
@@ -117,4 +117,32 @@
 /* Classe utilitaire si besoin global */
 .heart-pop {
     animation: heartPop 0.3s ease;
+}
+
+/* ------------------------------------------------------
+   ANIMATION – FAVORITES BADGE POP
+   Utilisée pour le compteur flottant en navbar
+   ------------------------------------------------------ */
+
+@keyframes favBadgePop {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.35);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/*
+   Classe utilitaire pour déclencher
+   l’animation via JavaScript
+*/
+.fav-badge-pop {
+    animation: favBadgePop 0.3s ease;
 }

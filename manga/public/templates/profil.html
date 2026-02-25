@@ -34,10 +34,10 @@
 
           <img src="{{ url_for('static', filename=manga['image']) }}" alt="{{ manga['name'] }}">
 
-          {% if not g.user %}
-          <button class="fav-btn" data-article-id="{{ manga['id'] }}" aria-label="Ajouter/Retirer des favoris"
+          {% if g.user %}
+          <button class="favorite-btn" data-article-id="{{ manga['id'] }}" aria-label="Ajouter/Retirer des favoris"
             type="button">
-            ❤️
+            ❤
           </button>
           {% endif %}
 
@@ -79,10 +79,10 @@
 
           <img src="{{ url_for('static', filename=manga['image']) }}" alt="{{ manga['name'] }}">
 
-          {% if not g.user %}
-          <button class="fav-btn" data-article-id="{{ manga['id'] }}" aria-label="Ajouter/Retirer des favoris"
-            title="Retirer des favoris" type="button">
-            ❤️
+          {% if g.user %}
+          <button class="favorite-btn is-favorite" data-article-id="{{ manga['id'] }}" aria-label="Retirer des favoris"
+            type="button">
+            ❤
           </button>
           {% endif %}
 

@@ -52,7 +52,13 @@ def get_user_favorites():
 # ====================================================
 @bp.app_context_processor
 def inject_favorites():
-    return dict(favorites=get_user_favorites())
+
+    favorites = get_user_favorites()
+
+    return dict(
+        favorites=favorites,
+        favorites_count=len(favorites)
+    )
 
 
 # ====================================================

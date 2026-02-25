@@ -510,6 +510,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+// ======================================================
+// ============ COMPTEUR FAVORIS NAVBAR =================
+// ======================================================
+
+function updateFavoriteCounter(change) {
+
+  const desktopBadge = document.getElementById("favCountDesktop");
+  const mobileBadge = document.getElementById("favCountMobile");
+
+  let currentCount = 0;
+
+  // On récupère le compteur existant
+  if (desktopBadge) {
+    currentCount = parseInt(desktopBadge.textContent) || 0;
+  } else if (mobileBadge) {
+    currentCount = parseInt(mobileBadge.textContent) || 0;
+  }
+
+  currentCount += change;
+
+  // Desktop
+  if (desktopBadge) {
+    if (currentCount > 0) {
+      desktopBadge.textContent = currentCount;
+    } else {
+      desktopBadge.remove();
+    }
+  }
+
+  // Mobile
+  if (mobileBadge) {
+    if (currentCount > 0) {
+      mobileBadge.textContent = currentCount;
+    } else {
+      mobileBadge.remove();
+    }
+  }
+}
 
 // ======================================================
 // =================== FAVORIS (BDD) ====================
@@ -537,12 +575,15 @@ async function toggleFavorite(articleId, btn) {
     if (data.status === "added") {
       btn.classList.add("is-favorite");
       btn.setAttribute("aria-label", "Retirer des favoris");
+      updateFavoriteCounter(1);
     }
 
     if (data.status === "removed") {
       btn.classList.remove("is-favorite");
       btn.setAttribute("aria-label", "Ajouter aux favoris");
+      updateFavoriteCounter(-1);
     }
+
   } catch (err) {
     console.error("Erreur favoris:", err);
   }
