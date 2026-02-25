@@ -12,8 +12,11 @@ Gestion complète des utilisateurs (Back-office)
 ========================================================
 """
 
+from pyexpat.errors import messages
+
 from flask import Blueprint, render_template, request, redirect, url_for, abort
 from werkzeug.security import generate_password_hash
+from manga.extensions import db
 from manga.extensions.db import get_db
 from .auth import admin_required
 
@@ -72,10 +75,34 @@ def detail_user(id):
     if user is None:
         abort(404)
 
+    # Commandes
+    orders = db.execute(
+        """
+        SELECT o.id, o.total_amount, o.status, o.created_at
+        FROM orders o
+        WHERE o.user_id = ?
+        ORDER BY o.created_at DESC
+        """,
+        (id,),
+    ).fetchall()
+
+    # Messages
+    contacts = db.execute(
+        """
+        SELECT c.id, c.sujet, c.status, c.created_at
+        FROM contact c
+        WHERE c.user_id = ?
+        ORDER BY c.created_at DESC
+        """,
+        (id,),
+    ).fetchall()
+
     return render_template(
-        "users/detail_user.html",
-        user=user
-    )
+    "users/detail_user.html",
+    user=user,
+    orders=orders,
+    contacts=contacts
+)
 
 
 # ====================================================

@@ -1,10 +1,10 @@
 {% extends "admin_layout.html" %}
 
-{% block title %}Créer un utilisateur{% endblock %}
+{% block title %}Détail utilisateur{% endblock %}
 
 {% block content %}
 
-<h1>Créer un utilisateur</h1>
+<h1>Détail utilisateur</h1>
 
 <p>
     <a href="{{ url_for('users.list_users') }}">
@@ -12,42 +12,105 @@
     </a>
 </p>
 
-<form method="POST" action="{{ url_for('users.create_user') }}">
+<hr>
 
-    <div>
-        <label>Nom</label>
-        <input name="nom_utilisateur" type="text" required>
-    </div>
+<p><strong>ID :</strong> {{ user.id }}</p>
+<p><strong>Prénom :</strong> {{ user.first_name }}</p>
+<p><strong>Nom :</strong> {{ user.last_name }}</p>
+<p><strong>Email :</strong> {{ user.email }}</p>
+<p><strong>Téléphone :</strong> {{ user.phone or 'Non renseigné' }}</p>
+<p><strong>Adresse :</strong> {{ user.address or 'Non renseignée' }}</p>
+<p><strong>Ville :</strong> {{ user.city or 'Non renseignée' }}</p>
+<p><strong>Rôle :</strong> {{ user.role }}</p>
+<p><strong>Créé le :</strong> {{ user.created_at }}</p>
 
-    <div>
-        <label>Prénom</label>
-        <input name="prenom_utilisateur" type="text" required>
-    </div>
+<br><br>
 
-    <div>
-        <label>Email</label>
-        <input name="email_utilisateur" type="email" required>
-    </div>
+<!-- Boutons actions -->
+<a href="{{ url_for('users.update_user', id=user.id) }}">
+    Modifier cet utilisateur
+</a>
 
-    <div>
-        <label>Mot de passe</label>
-        <input name="password_utilisateur" type="password" required>
-    </div>
+&nbsp; | &nbsp;
 
-    <div>
-        <label>Rôle</label>
-        <select name="role_utilisateur">
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-        </select>
-    </div>
-
-    <br>
-
-    <button type="submit">
-        Créer
+<form method="POST" action="{{ url_for('users.delete_user', id=user.id) }}" style="display:inline;">
+    <button type="submit" onclick="return confirm('Confirmer la suppression de cet utilisateur ?');">
+        Supprimer cet utilisateur
     </button>
-
 </form>
+
+<hr>
+
+<!-- ================= COMMANDES ================= -->
+
+<h2>Commandes de l'utilisateur</h2>
+
+{% if orders %}
+
+<table border="1" cellpadding="6" cellspacing="0">
+    <tr>
+        <th>ID</th>
+        <th>Total (€)</th>
+        <th>Statut</th>
+        <th>Date</th>
+        <th>Action</th>
+    </tr>
+
+    {% for order in orders %}
+    <tr>
+        <td>{{ order.id }}</td>
+        <td>{{ order.total_amount }}</td>
+        <td>{{ order.status }}</td>
+        <td>{{ order.created_at }}</td>
+        <td>
+            <a href="{{ url_for('admin_orders.detail_order', id=order.id) }}">
+                Voir
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% else %}
+<p>Aucune commande enregistrée.</p>
+{% endif %}
+
+<hr>
+
+<!-- ================= MESSAGES ================= -->
+
+<h2>Messages envoyés</h2>
+
+{% if contacts %}
+
+<table border="1" cellpadding="6" cellspacing="0">
+    <tr>
+        <th>ID</th>
+        <th>Sujet</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Action</th>
+    </tr>
+
+    {% for contact in contacts %}
+    <tr>
+        <td>{{ contact.id }}</td>
+        <td>{{ contact.sujet }}</td>
+        <td>{{ contact.status }}</td>
+        <td>{{ contact.created_at }}</td>
+        <td>
+            <a href="{{ url_for('admin_contacts.detail_contact', id=contact.id) }}">
+                Voir
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% else %}
+<p>Aucun message envoyé.</p>
+{% endif %}
 
 {% endblock %}
