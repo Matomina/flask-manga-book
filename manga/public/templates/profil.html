@@ -25,28 +25,28 @@
     <h2>📜 Historiques</h2>
 
     {% if historiques %}
+
     <div class="scroll-container">
       <button class="scroll-btn left">⬅</button>
 
-      <div class="card-list">
-        {% for manga in historiques %}
+      <div class="card-row">
+        {% for article in historiques %}
         <div class="card">
 
-          <img src="{{ url_for('static', filename=manga['image']) }}" alt="{{ manga['name'] }}">
-
-          {% if g.user %}
-          <button class="favorite-btn" data-article-id="{{ manga['id'] }}" aria-label="Ajouter/Retirer des favoris"
-            type="button">
+          <button class="favorite-btn 
+        {% if article.id|string in favorites %}is-favorite{% endif %}" data-article-id="{{ article.id }}">
             ❤
           </button>
-          {% endif %}
 
+          <a href="{{ url_for('public.article_detail', article_id=article.id) }}">
+            <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
+          </a>
           <div class="card-info">
-            <h3 class="text">{{ manga['name'] }}</h3>
-            <p class="price">{{ manga['price'] }} €</p>
+            <h3 class="text">{{ article.name }}</h3>
+            <p class="price">{{ "%.2f"|format(article.price) }} €</p>
 
-            <button class="add-to-cart-btn" data-title="{{ manga['name'] }}" data-price="{{ manga['price'] }}"
-              data-img="{{ url_for('static', filename=manga['image']) }}">
+            <button class="add-to-cart-btn" data-id="{{ article.id }}" data-title="{{ article.name }}"
+              data-price="{{ article.price }}" data-img="{{ url_for('static', filename=article.image) }}">
               🛒 Ajouter au panier
             </button>
           </div>
@@ -59,10 +59,9 @@
     </div>
 
     {% else %}
-    <div class="empty-section">
-      Aucun historique pour le moment.
-    </div>
+    <p class="empty-state">Aucun article disponible.</p>
     {% endif %}
+
   </section>
 
   <!-- ================= FAVORIS ================= -->
