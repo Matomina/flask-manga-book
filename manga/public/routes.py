@@ -12,7 +12,7 @@ Responsabilités :
 ========================================================
 """
 
-from flask import Blueprint, render_template, abort, session, redirect, url_for,request
+from flask import Blueprint, render_template, abort, session, redirect, url_for, request, jsonify
 from manga.models.article_model import get_all_articles
 from manga.extensions.db import get_db
 from datetime import datetime
@@ -204,10 +204,12 @@ def article_detail(article_id):
 def toggle_favorite(article_id):
 
     if "user_id" not in session:
-        return {"error": "Non autorisé"}, 401
+        return jsonify({
+            "status": "unauthorized",
+            "redirect": url_for("public.profil", show="register")
+        }), 401
 
     db = get_db()
-
     favorite = db.execute("""
         SELECT 1 FROM favorites
         WHERE user_id = ? AND article_id = ?
@@ -219,15 +221,14 @@ def toggle_favorite(article_id):
             WHERE user_id = ? AND article_id = ?
         """, (session["user_id"], article_id))
         db.commit()
-        return {"status": "removed"}
+        return jsonify({"status": "removed"})
 
-    else:
-        db.execute("""
-            INSERT INTO favorites (user_id, article_id)
-            VALUES (?, ?)
-        """, (session["user_id"], article_id))
-        db.commit()
-        return {"status": "added"}
+    db.execute("""
+        INSERT INTO favorites (user_id, article_id)
+        VALUES (?, ?)
+    """, (session["user_id"], article_id))
+    db.commit()
+    return jsonify({"status": "added"})
     
 
 # ====================================================

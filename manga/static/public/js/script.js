@@ -1,231 +1,139 @@
-// ======================================================
-// ============ OUTILS GÉNÉRIQUES =======================
-// ======================================================
+/* ======================================================
+   MANGABOOK – MAIN SCRIPT
+   Architecture :
+   - Outils
+   - UI
+   - Panier
+   - Favoris
+   - Initialisation unique
+====================================================== */
 
-/*
-  Fonction utilitaire générique
-  Objectif :
-  - Ajouter un écouteur d’événement uniquement si l’élément existe
-  - Éviter les erreurs JavaScript de type "cannot read property addEventListener of null"
-*/
+
+/* ======================================================
+   OUTILS GÉNÉRIQUES
+====================================================== */
+
 function onEvent(element, event, callback) {
-  if (element) {
-    element.addEventListener(event, callback);
-  }
+  if (element) element.addEventListener(event, callback);
 }
 
-/*
-  Fonction générique de scroll horizontal
-  Utilisée pour :
-  - carrousels
-  - listes de cartes
-  - grilles scrollables
-
-  wrapperSelector  : conteneur global
-  containerSelector: élément qui défile horizontalement
-*/
 function initScroll(wrapperSelector, containerSelector) {
-  document.querySelectorAll(wrapperSelector).forEach((wrapper) => {
+  document.querySelectorAll(wrapperSelector).forEach(wrapper => {
     const container = wrapper.querySelector(containerSelector);
     const btnLeft = wrapper.querySelector(".scroll-btn.left");
     const btnRight = wrapper.querySelector(".scroll-btn.right");
-
-    // Si le conteneur n’existe pas, on ne fait rien
     if (!container) return;
 
-    // Scroll vers la gauche
-    onEvent(btnLeft, "click", () => {
-      container.scrollBy({ left: -300, behavior: "smooth" });
-    });
+    onEvent(btnLeft, "click", () =>
+      container.scrollBy({ left: -300, behavior: "smooth" })
+    );
 
-    // Scroll vers la droite
-    onEvent(btnRight, "click", () => {
-      container.scrollBy({ left: 300, behavior: "smooth" });
-    });
+    onEvent(btnRight, "click", () =>
+      container.scrollBy({ left: 300, behavior: "smooth" })
+    );
   });
 }
 
-// ======================================================
-// ============ SCROLL HORIZONTAL =======================
-// ======================================================
 
-// Initialisation des différents scrolls du site
-initScroll(".scroll-container", ".card-list");
-initScroll(".scroll-wrapper", ".scroll-list");
-initScroll(".planning-grid-wrapper", ".planning-grid");
-initScroll(".no-fixed-day-wrapper", ".card-row");
+/* ======================================================
+   MENU BURGER
+====================================================== */
 
-// ======================================================
-// ============ MENU BURGER MOBILE =====================
-// ======================================================
-
-document.addEventListener("DOMContentLoaded", () => {
+function initBurgerMenu() {
   const burgerMenu = document.querySelector(".burger-menu");
   const burgerIcon = document.getElementById("burger-icon");
   const mobileNav = document.querySelector(".mobile-nav");
-
   if (!burgerMenu || !burgerIcon || !mobileNav) return;
 
   burgerMenu.addEventListener("click", () => {
     burgerIcon.classList.toggle("open");
     mobileNav.classList.toggle("active");
-    document.querySelector(".site-header")?.classList.toggle("menu-open");
-
-    document.body.classList.toggle(
-      "no-scroll",
-      mobileNav.classList.contains("active")
-    );
+    document.body.classList.toggle("no-scroll");
   });
 
-  mobileNav.querySelectorAll("a").forEach((link) => {
+  mobileNav.querySelectorAll("a").forEach(link => {
     link.addEventListener("click", () => {
       burgerIcon.classList.remove("open");
       mobileNav.classList.remove("active");
       document.body.classList.remove("no-scroll");
     });
   });
-
-  document.addEventListener("click", (event) => {
-    if (
-      !burgerMenu.contains(event.target) &&
-      !mobileNav.contains(event.target) &&
-      mobileNav.classList.contains("active")
-    ) {
-      burgerIcon.classList.remove("open");
-      mobileNav.classList.remove("active");
-      document.body.classList.remove("no-scroll");
-    }
-  });
-});
+}
 
 
-// ======================================================
-// =============== BOUTON "HAUT DE PAGE" ================
-// ======================================================
+/* ======================================================
+   SCROLL TOP
+====================================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
-  const scrollTopBtn = document.getElementById("scrollTopBtn");
-  if (!scrollTopBtn) return;
+function initScrollTop() {
+  const btn = document.getElementById("scrollTopBtn");
+  if (!btn) return;
 
-  /*
-    Affiche le bouton uniquement
-    lorsque l’utilisateur a scrollé suffisamment
-  */
   window.addEventListener("scroll", () => {
-    scrollTopBtn.classList.toggle("active", window.scrollY > 300);
+    btn.classList.toggle("active", window.scrollY > 300);
   });
 
-  /*
-    Scroll fluide vers le haut de la page
-  */
-  scrollTopBtn.addEventListener("click", () => {
+  btn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
-});
+}
 
-// =====================================================
-// =================== FORMULAIRES =====================
-// =====================================================
 
-document.addEventListener("DOMContentLoaded", () => {
+/* ======================================================
+   FORMULAIRES (ONGLETS + HASH)
+====================================================== */
 
-  // -----------------------------------------------------
-  // Sélection des éléments
-  // -----------------------------------------------------
-
+function initForms() {
   const tabButtons = document.querySelectorAll(
     ".tab-btn-inscription, .tab-btn-connexion"
   );
-
   const formBoxes = document.querySelectorAll(".form-box");
-
-  // Sécurité : si la page ne contient pas les formulaires,
-  // on arrête ici pour éviter toute erreur JavaScript.
   if (!tabButtons.length || !formBoxes.length) return;
 
-
-  // -----------------------------------------------------
-  // Fonction utilitaire : activer un onglet
-  // -----------------------------------------------------
-
-  function activateTab(tabName) {
-
-    // Retire toutes les classes actives
+  function activateTab(name) {
     tabButtons.forEach(btn => btn.classList.remove("active"));
-    formBoxes.forEach(form => form.classList.remove("active"));
+    formBoxes.forEach(box => box.classList.remove("active"));
 
-    // Active le bouton correspondant
-    const activeButton = document.querySelector(`.tab-btn-${tabName}`);
-    activeButton?.classList.add("active");
-
-    // Active le formulaire correspondant
-    const targetForm = document.getElementById(`form-${tabName}`);
-    targetForm?.classList.add("active");
-
-    return targetForm;
+    document.querySelector(`.tab-btn-${name}`)?.classList.add("active");
+    const target = document.getElementById(`form-${name}`);
+    target?.classList.add("active");
+    return target;
   }
 
-
-  // -----------------------------------------------------
-  // Gestion du clic manuel sur les onglets
-  // -----------------------------------------------------
-
-  tabButtons.forEach((button) => {
-
-    button.addEventListener("click", () => {
-
-      const target = button.getAttribute("data-tab");
-      activateTab(target);
-
+  tabButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      activateTab(btn.dataset.tab);
     });
-
   });
 
-
-  // -----------------------------------------------------
-  // Activation automatique via paramètre URL
-  // Exemple : /profil?tab=connexion
-  // -----------------------------------------------------
-
   const params = new URLSearchParams(window.location.search);
-  const tab = params.get("tab");
+  const tabParam = params.get("tab");
+  const hash = window.location.hash;
 
-  if (tab === "connexion" || tab === "inscription") {
+  let tabToActivate = null;
 
-    const targetForm = activateTab(tab);
-
-    // Scroll automatique vers le formulaire
-    // Petit délai pour laisser le DOM appliquer la classe active
-    setTimeout(() => {
-
-      if (!targetForm) return;
-
-      targetForm.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-
-    }, 100);
-
+  if (tabParam === "connexion" || tabParam === "inscription") {
+    tabToActivate = tabParam;
   }
 
-});
+  if (hash === "#form-inscription") {
+    tabToActivate = "inscription";
+  }
 
-// =====================================================
-// =================== PANIER GLOBAL ===================
-// =====================================================
+  if (tabToActivate) {
+    activateTab(tabToActivate);
+    document.getElementById("auth-section")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
 
-/*
-  Chargement initial du panier
-  - localStorage → persistance des données
-  - fallback tableau vide si aucune donnée
-*/
+
+/* ======================================================
+   PANIER
+====================================================== */
+
 let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
-/*
-  Sauvegarde du panier
-  + synchronisation de tous les affichages
-*/
 function saveCart() {
   localStorage.setItem("cartItems", JSON.stringify(cartItems));
   renderCart("cartContent");
@@ -233,133 +141,78 @@ function saveCart() {
   updateCartCount();
 }
 
-// ======================================================
-// =================== COMPTEUR PANIER =================
-// ======================================================
-
 function updateCartCount() {
-  // Calcul du nombre total d’articles
   const count = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const countEl = document.getElementById("floatingCartCount");
-
-  if (!countEl) return;
-
-  countEl.textContent = count;
-  countEl.style.display = count > 0 ? "flex" : "none";
+  const badge = document.getElementById("floatingCartCount");
+  if (!badge) return;
+  badge.textContent = count;
+  badge.style.display = count > 0 ? "flex" : "none";
 }
-
-// ======================================================
-// =================== AJOUT AU PANIER =================
-// ======================================================
 
 function addToCart(name, price, img, btn = null) {
-  const existingItem = cartItems.find((item) => item.name === name);
-
-  if (existingItem) {
-    existingItem.quantity++;
-  } else {
-    cartItems.push({ name, price, quantity: 1, img });
-  }
+  const existing = cartItems.find(i => i.name === name);
+  if (existing) existing.quantity++;
+  else cartItems.push({ name, price, quantity: 1, img });
 
   saveCart();
 
-  /*    Feedback visuel utilisateur
-    → confirmation immédiate de l’action */
   if (btn) {
-    const originalText = btn.textContent;
-    btn.textContent = "✅ Ajouté !";
-    btn.style.background = "#28a745";
-
-    setTimeout(() => {
-      btn.textContent = originalText;
-      btn.style.background = "";
-    }, 1500);
+    const original = btn.textContent;
+    btn.textContent = "Ajouté";
+    setTimeout(() => (btn.textContent = original), 1500);
   }
 }
-
-// ======================================================
-// =================== GESTION QUANTITÉS ===============
-// ======================================================
 
 function updateQuantity(name, change) {
-  const item = cartItems.find((item) => item.name === name);
+  const item = cartItems.find(i => i.name === name);
   if (!item) return;
-
   item.quantity = Math.max(0, item.quantity + change);
-
-  // Suppression de l’article si quantité = 0
-  if (item.quantity === 0) {
-    cartItems = cartItems.filter((item) => item.name !== name);
-  }
-
+  if (item.quantity === 0)
+    cartItems = cartItems.filter(i => i.name !== name);
   saveCart();
 }
 
-function setQuantity(name, value) {
-  const item = cartItems.find((item) => item.name === name);
-  if (!item) return;
-
-  item.quantity = Math.max(1, parseInt(value) || 1);
-  saveCart();
-}
-
-// ======================================================
-// =================== AFFICHAGE PANIER ================
-// ======================================================
-
-function renderCart(containerId = "cartContent") {
+function renderCart(containerId) {
   const container = document.getElementById(containerId);
   if (!container) return;
 
-  // Cas panier vide
-  if (cartItems.length === 0) {
+  if (!cartItems.length) {
     container.innerHTML = `
       <div class="empty-cart">
-        <div class="empty-cart-icon">📚</div>
         <p>Votre panier est vide</p>
-        <p style="font-size:14px;margin-top:8px;">Découvrez nos mangas !</p>
-      </div>`;
+      </div>
+    `;
     return;
   }
 
-  // Calculs financiers
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
 
-  const deliveryFee = subtotal > 35 ? 0 : 4.99;
-  const total = subtotal + deliveryFee;
-
-  // Génération HTML dynamique
   container.innerHTML = `
     ${cartItems.map(item => `
       <div class="cart-item">
         <img src="${item.img}" alt="${item.name}">
-        <div>
+        <div class="cart-item-info">
           <strong>${item.name}</strong>
-          <div>
+          <div class="cart-qty">
             <button onclick="updateQuantity('${item.name}', -1)">−</button>
-            <input type="number" value="${item.quantity}" min="1"
-              onchange="setQuantity('${item.name}', this.value)">
+            <span>${item.quantity}</span>
             <button onclick="updateQuantity('${item.name}', 1)">+</button>
           </div>
         </div>
-        <span>${(item.price * item.quantity).toFixed(2)}€</span>
+        <span class="cart-price">
+          ${(item.price * item.quantity).toFixed(2)}€
+        </span>
       </div>
     `).join("")}
 
-    <div class="total">
-      <p>Sous-total : ${subtotal.toFixed(2)}€</p>
-      <p>Livraison : ${deliveryFee ? deliveryFee + "€" : "Gratuit"}</p>
-      <p><strong>Total : ${total.toFixed(2)}€</strong></p>
+    <div class="cart-total">
+      <strong>Total : ${subtotal.toFixed(2)}€</strong>
     </div>
   `;
 }
-
-// ======================================================
-// =================== POPUP PANIER ====================
-// ======================================================
 
 function openCartPopup() {
   document.body.classList.add("no-scroll");
@@ -374,23 +227,130 @@ function closeCartPopup() {
   document.getElementById("cartOverlay")?.classList.remove("active");
 }
 
-// ======================================================
-// =================== COMMANDE ========================
-// ======================================================
+
+/* ======================================================
+   FAVORIS
+====================================================== */
+
+function updateFavoriteCounter(change) {
+  const badge = document.getElementById("favCountDesktop");
+  if (!badge) return;
+  let count = parseInt(badge.textContent) || 0;
+  count += change;
+  if (count > 0) badge.textContent = count;
+  else badge.remove();
+}
+
+async function toggleFavorite(articleId, button) {
+  try {
+    const response = await fetch(`/toggle-favorite/${articleId}`, {
+      method: "POST",
+      headers: { "X-Requested-With": "XMLHttpRequest" }
+    });
+
+    if (response.status === 401) {
+      window.location.href = "/profil#form-inscription";
+      return;
+    }
+
+    const data = await response.json();
+
+    if (data.status === "added") {
+      button.classList.add("is-favorite");
+      updateFavoriteCounter(1);
+    }
+
+    if (data.status === "removed") {
+      button.classList.remove("is-favorite");
+      updateFavoriteCounter(-1);
+    }
+
+  } catch (err) {
+    console.error("Erreur favoris :", err);
+  }
+}
+
+function initFavorites() {
+  document.querySelectorAll(".favorite-btn").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleFavorite(btn.dataset.articleId, btn);
+    });
+  });
+}
+
+
+/* ======================================================
+   VALIDATION COMMANDE
+====================================================== */
 
 function quickCheckout() {
+
+  if (!cartItems.length) {
+    alert("Votre panier est vide.");
+    return;
+  }
+
   alert("Merci pour votre commande !");
+
   cartItems = [];
-  saveCart();
+  localStorage.removeItem("cartItems");
+
+  renderCart("cartContent");
+  renderCart("cartPageContent");
+  updateCartCount();
+
   closeCartPopup();
 }
 
-// ======================================================
-// =================== INITIALISATION ==================
-// ======================================================
+
+/* ======================================================
+   DROPDOWN UTILISATEUR
+====================================================== */
+
+function initDropdowns() {
+
+  const dropdowns = document.querySelectorAll(".dropdown");
+  if (!dropdowns.length) return;
+
+  dropdowns.forEach(dropdown => {
+
+    const toggle = dropdown.querySelector(".dropdown-toggle");
+    if (!toggle) return;
+
+    toggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle("active");
+    });
+
+  });
+
+  // Ferme les dropdowns si on clique ailleurs
+  document.addEventListener("click", () => {
+    dropdowns.forEach(d => d.classList.remove("active"));
+  });
+}
+
+
+/* ======================================================
+   INITIALISATION UNIQUE
+====================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".add-to-cart-btn").forEach((btn) => {
+
+  initScroll(".scroll-container", ".card-list");
+  initScroll(".scroll-wrapper", ".scroll-list");
+  initScroll(".planning-grid-wrapper", ".planning-grid");
+  initScroll(".no-fixed-day-wrapper", ".card-row");
+
+  initBurgerMenu();
+  initScrollTop();
+  initForms();
+  initFavorites();
+  initDropdowns();
+
+  document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       addToCart(
         btn.dataset.title,
@@ -401,217 +361,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  document.getElementById("floatingCartBtn")
+    ?.addEventListener("click", openCartPopup);
+
+  document.getElementById("cartOverlay")
+    ?.addEventListener("click", closeCartPopup);
+
   renderCart("cartContent");
   renderCart("cartPageContent");
   updateCartCount();
-});
-
-// ======================================================
-// ========== SYNCHRONISATION MULTI-ONGLETS =============
-// ======================================================
-
-window.addEventListener("storage", () => {
-  cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-  renderCart("cartContent");
-  renderCart("cartPageContent");
-  updateCartCount();
-});
-
-
-// ======================================================
-// =================== FAQ INTERACTIVE ==================
-// ======================================================
-
-document.addEventListener("DOMContentLoaded", () => {
-  const questions = document.querySelectorAll(".faq-question");
-
-  // Sécurité : si aucune FAQ sur la page, on ne fait rien
-  if (!questions.length) return;
-
-  questions.forEach((question) => {
-    question.addEventListener("click", () => {
-      const answer = question.nextElementSibling;
-
-      // Vérification de sécurité
-      if (!answer || !answer.classList.contains("faq-answer")) return;
-
-      // Toggle de la classe active
-      answer.classList.toggle("active");
-    });
-  });
-});
-
-
-// ======================================================
-// ============ VALIDATION EMAIL (FORMULAIRES) ==========
-// ======================================================
-
-function checkEmails(formId, emailId, confirmEmailId, errorId) {
-  const form = document.getElementById(formId);
-  const email = document.getElementById(emailId);
-  const confirmEmail = document.getElementById(confirmEmailId);
-  const error = document.getElementById(errorId);
-
-  // Sécurité : si un élément manque, on arrête
-  if (!form || !email || !confirmEmail || !error) {
-    console.warn("Éléments manquants pour la validation email :", formId);
-    return;
-  }
-
-  // Vérification lors de la soumission du formulaire
-  form.addEventListener("submit", function (e) {
-    if (email.value.trim() !== confirmEmail.value.trim()) {
-      e.preventDefault(); // bloque l'envoi
-      error.textContent = "Les adresses email ne correspondent pas.";
-      error.style.display = "block";
-      confirmEmail.classList.add("error");
-    } else {
-      error.textContent = "";
-      error.style.display = "none";
-      confirmEmail.classList.remove("error");
-    }
-  });
-
-  // Vérification en temps réel
-  confirmEmail.addEventListener("input", function () {
-    if (email.value.trim() === confirmEmail.value.trim()) {
-      error.textContent = "";
-      error.style.display = "none";
-      confirmEmail.classList.remove("error");
-    }
-  });
-}
-
-
-// ======================================================
-// =========== GESTION DROPDOWN-TOGGLE ==================
-// ======================================================
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  const dropdowns = document.querySelectorAll(".dropdown");
-
-  dropdowns.forEach(dropdown => {
-
-    const toggle = dropdown.querySelector(".dropdown-toggle");
-
-    if (!toggle) return;
-
-    toggle.addEventListener("click", (e) => {
-      e.stopPropagation();
-      dropdown.classList.toggle("active");
-    });
-
-  });
-
-  document.addEventListener("click", () => {
-    dropdowns.forEach(d => d.classList.remove("active"));
-  });
 
 });
-
-// ======================================================
-// ============ COMPTEUR FAVORIS NAVBAR =================
-// ======================================================
-
-function updateFavoriteCounter(change) {
-
-  const desktopBadge = document.getElementById("favCountDesktop");
-  const mobileBadge = document.getElementById("favCountMobile");
-
-  let currentCount = 0;
-
-  // On récupère le compteur existant
-  if (desktopBadge) {
-    currentCount = parseInt(desktopBadge.textContent) || 0;
-  } else if (mobileBadge) {
-    currentCount = parseInt(mobileBadge.textContent) || 0;
-  }
-
-  currentCount += change;
-
-  // Desktop
-  if (desktopBadge) {
-    if (currentCount > 0) {
-      desktopBadge.textContent = currentCount;
-    } else {
-      desktopBadge.remove();
-    }
-  }
-
-  // Mobile
-  if (mobileBadge) {
-    if (currentCount > 0) {
-      mobileBadge.textContent = currentCount;
-    } else {
-      mobileBadge.remove();
-    }
-  }
-}
-
-// ======================================================
-// =================== FAVORIS (BDD) ====================
-// ======================================================
-
-async function toggleFavorite(articleId, btn) {
-  try {
-    const res = await fetch(`/toggle-favorite/${articleId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Requested-With": "XMLHttpRequest",
-      },
-      body: JSON.stringify({}), // optionnel, mais propre
-    });
-
-    // Pas connecté
-    if (res.status === 401) {
-      window.location.href = "/auth/login";
-      return;
-    }
-
-    const data = await res.json();
-
-    if (data.status === "added") {
-      btn.classList.add("is-favorite");
-      btn.setAttribute("aria-label", "Retirer des favoris");
-      updateFavoriteCounter(1);
-    }
-
-    if (data.status === "removed") {
-      btn.classList.remove("is-favorite");
-      btn.setAttribute("aria-label", "Ajouter aux favoris");
-      updateFavoriteCounter(-1);
-    }
-
-  } catch (err) {
-    console.error("Erreur favoris:", err);
-  }
-}
-
-function initFavorites() {
-  document.querySelectorAll(".favorite-btn").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation(); // évite d'ouvrir le détail si la card est cliquable
-
-      const articleId = btn.dataset.articleId;
-      if (!articleId) return;
-
-      toggleFavorite(articleId, btn);
-    });
-  });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  initFavorites();
-});
-
-
-// ======================================================
-// ============ APPELS DE LA FONCTION ===================
-// ======================================================
-
-checkEmails("connexionForm", "email", "confirmEmail", "emailError");
-checkEmails("contact-form", "email2", "confirmEmail2", "emailError2");
-
