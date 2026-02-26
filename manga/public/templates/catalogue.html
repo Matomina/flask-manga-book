@@ -23,23 +23,15 @@
 
   <!-- FILTRES -->
   <section class="filters">
-    <aside class="filters">
-      <button>Trier par Types</button>
-      <button>Trier par Langues</button>
-      <button>Trier par Genres</button>
+    <aside class="filters-buttons">
+      <form method="get"><button name="sort" value="name_asc">Nom (A → Z)</button></form>
+      <form method="get"><button name="sort" value="price_asc">Prix croissant</button></form>
+      <form method="get"><button name="sort" value="date_desc">Plus récent</button></form>
     </aside>
 
-    <section class="catalogue-content">
-      <div class="catalogue-search">
-        <div class="search-bar1">
-          <input type="text" placeholder="🔍 Rechercher un manga">
-        </div>
-        <div class="catalogue-search-buttons">
-          <button>Trier</button>
-          <button>Aléatoire</button>
-        </div>
-      </div>
-    </section>
+    <div class="random-button">
+      <form method="get"><button name="sort" value="random">Aléatoire</button></form>
+    </div>
   </section>
 
   <!-- LISTE PRODUITS DYNAMIQUE -->

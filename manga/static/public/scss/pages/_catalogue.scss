@@ -29,31 +29,75 @@
    ------------------------------------------------------ */
 
 .filters {
-    flex: 0 0 200px;
+    width: 100%;
+    max-width: 2000px;
+    margin: 40px auto;
 
     display: flex;
-    flex-direction: column;
+    flex-direction: column; // mobile : colonne
+    align-items: center; // centre tout
+    justify-content: center;
+    gap: 25px;
+}
+
+/* Groupe des 3 boutons */
+.filters-buttons {
+    display: flex;
+    flex-direction: column; // mobile : empilé
+    align-items: center;
+    justify-content: center;
     gap: 15px;
 
-    h2 {
-        margin-bottom: 10px;
+    // Evite que les forms aient une largeur bizarre
+    form {
+        margin: 0;
+    }
+}
+
+/* Bouton aléatoire */
+.random-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    form {
+        margin: 0;
+    }
+}
+
+/* Style boutons : tu gardes le tien */
+.filters button {
+    padding: 10px;
+
+    background: $color-primary;
+    color: $color-light;
+
+    border: 1px solid $color-secondary;
+    border-radius: $radius-md;
+
+    cursor: pointer;
+
+    &:hover {
+        @include gradient-primary;
+    }
+}
+
+/* ==========================================
+   TABLETTE ET +
+========================================== */
+
+@media (min-width: 768px) {
+
+    .filters {
+        flex-direction: row; // tout sur la même ligne
+        justify-content: space-around; // space-around
+        align-items: center;
+        gap: 0; // space-around gère l'espace
     }
 
-    button {
-        padding: 10px;
-
-        background: $color-primary;
-        color: $color-light;
-
-        border: none;
-        border-radius: $radius-md;
-        border: 1px solid $color-secondary;
-
-        cursor: pointer;
-
-        &:hover {
-            @include gradient-primary;
-        }
+    .filters-buttons {
+        flex-direction: row; // les 3 filtres côte à côte
+        gap: 20px;
     }
 }
 

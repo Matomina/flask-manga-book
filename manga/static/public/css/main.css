@@ -1809,27 +1809,66 @@ nav .dropdown-menu li a.dropdown-fav:hover .fav-count-badge {
    FILTRES CATALOGUE
    ------------------------------------------------------ */
 .filters {
-  flex: 0 0 200px;
+  width: 100%;
+  max-width: 2000px;
+  margin: 40px auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}
+
+/* Groupe des 3 boutons */
+.filters-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 15px;
 }
-.filters h2 {
-  margin-bottom: 10px;
+.filters-buttons form {
+  margin: 0;
 }
+
+/* Bouton aléatoire */
+.random-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.random-button form {
+  margin: 0;
+}
+
+/* Style boutons : tu gardes le tien */
 .filters button {
   padding: 10px;
   background: #9135ff;
   color: #fff;
-  border: none;
-  border-radius: 5px;
   border: 1px solid #dc1ef7;
+  border-radius: 5px;
   cursor: pointer;
 }
 .filters button:hover {
   background: linear-gradient(135deg, #9135ff, #dc1ef7);
 }
 
+/* ==========================================
+   TABLETTE ET +
+========================================== */
+@media (min-width: 768px) {
+  .filters {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0;
+  }
+  .filters-buttons {
+    flex-direction: row;
+    gap: 20px;
+  }
+}
 /* ------------------------------------------------------
    CONTENU CATALOGUE
    ------------------------------------------------------ */

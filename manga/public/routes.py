@@ -132,21 +132,43 @@ def home():
 # ====================================================
 # 🔹 Route : Catalogue
 # ====================================================
-from flask import session
-
 @bp.route("/catalogue")
 def catalogue():
     db = get_db()
 
-    mangas = db.execute(
-        "SELECT * FROM articles WHERE genres = ?",
-        ("manga",)
-    ).fetchall()
+    # Récupération du paramètre de tri depuis l'URL (GET)
+    # Exemple : /catalogue?sort=price_asc
+    sort = request.args.get("sort", "date_desc")
 
+    # Base de la requête : uniquement les mangas
+    query = "SELECT * FROM articles WHERE genres = ?"
 
+    # Mapping sécurisé des options de tri
+    # On évite toute injection SQL en contrôlant les valeurs autorisées
+    sort_options = {
+        "name_asc": "name ASC",
+        "name_desc": "name DESC",
+        "price_asc": "price ASC",
+        "price_desc": "price DESC",
+        "date_asc": "created_at ASC",
+        "date_desc": "created_at DESC",
+        "random": "RANDOM()"
+    }
+
+    # On récupère la clause ORDER BY correspondante
+    order_by = sort_options.get(sort, "created_at DESC")
+
+    # Ajout du tri à la requête SQL
+    query += f" ORDER BY {order_by}"
+
+    # Exécution de la requête
+    mangas = db.execute(query, ("manga",)).fetchall()
+
+    # On renvoie aussi current_sort pour garder la sélection active dans le template
     return render_template(
         "catalogue.html",
         mangas=mangas,
+        current_sort=sort
     )
 
 
@@ -198,7 +220,7 @@ def article_detail(article_id):
 
 
 # ====================================================
-# 🔹 Route : Toggle Favoris ❤️
+# 🔹 Route : Toggle Favoris 
 # ====================================================
 @bp.route("/toggle-favorite/<int:article_id>", methods=["POST"])
 def toggle_favorite(article_id):
