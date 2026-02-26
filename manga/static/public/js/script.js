@@ -334,6 +334,25 @@ function initDropdowns() {
 
 
 /* ======================================================
+   FAQ
+====================================================== */
+
+function initFAQ() {
+  const questions = document.querySelectorAll(".faq-question");
+  if (!questions.length) return;
+
+  questions.forEach(question => {
+    question.addEventListener("click", () => {
+      const answer = question.nextElementSibling;
+      if (!answer || !answer.classList.contains("faq-answer")) return;
+
+      answer.classList.toggle("active");
+    });
+  });
+}
+
+
+/* ======================================================
    INITIALISATION UNIQUE
 ====================================================== */
 
@@ -349,6 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initForms();
   initFavorites();
   initDropdowns();
+  initFAQ();
 
   document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
     btn.addEventListener("click", () => {

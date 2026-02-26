@@ -1,0 +1,48 @@
+.article-detail-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 30px;
+
+    @include respond-to(desktop) {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+.article-detail-image {
+    position: relative;
+    max-width: 350px;
+
+    img {
+        width: 100%;
+        aspect-ratio: 2 / 3;
+        object-fit: cover;
+        border-radius: $radius-md;
+    }
+
+    .favorite-btn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+    }
+}
+
+.article-detail-info {
+    flex: 1;
+
+    .price {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .description {
+        margin-top: 20px;
+    }
+
+    .out-of-stock {
+        color: red;
+        font-weight: bold;
+    }
+}
