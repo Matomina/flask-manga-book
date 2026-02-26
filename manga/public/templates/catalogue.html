@@ -21,17 +21,76 @@
     </p>
   </section>
 
-  <!-- FILTRES -->
+  <!-- ===============================
+     FILTRES 
+================================== -->
+
   <section class="filters">
+
+    <!-- Groupe tri principal -->
     <aside class="filters-buttons">
-      <form method="get"><button name="sort" value="name_asc">Nom (A → Z)</button></form>
-      <form method="get"><button name="sort" value="price_asc">Prix croissant</button></form>
-      <form method="get"><button name="sort" value="date_desc">Plus récent</button></form>
+
+      <!-- TRI PAR NOM -->
+      <form method="get">
+        <input type="hidden" name="sort" value="name">
+        <input type="hidden" name="order"
+          value="{{ 'desc' if current_sort == 'name' and current_order == 'asc' else 'asc' }}">
+
+        <button type="submit" class="{% if current_sort == 'name' %}active{% endif %}">
+          Nom
+          {% if current_sort == 'name' %}
+          <span class="arrow">
+            {{ '↑' if current_order == 'asc' else '↓' }}
+          </span>
+          {% endif %}
+        </button>
+      </form>
+
+
+      <!-- TRI PAR PRIX -->
+      <form method="get">
+        <input type="hidden" name="sort" value="price">
+        <input type="hidden" name="order"
+          value="{{ 'desc' if current_sort == 'price' and current_order == 'asc' else 'asc' }}">
+
+        <button type="submit" class="{% if current_sort == 'price' %}active{% endif %}">
+          Prix
+          {% if current_sort == 'price' %}
+          <span class="arrow">
+            {{ '↑' if current_order == 'asc' else '↓' }}
+          </span>
+          {% endif %}
+        </button>
+      </form>
+
+
+      <!-- TRI PAR DATE -->
+      <form method="get">
+        <input type="hidden" name="sort" value="date">
+        <input type="hidden" name="order"
+          value="{{ 'desc' if current_sort == 'date' and current_order == 'asc' else 'asc' }}">
+
+        <button type="submit" class="{% if current_sort == 'date' %}active{% endif %}">
+          Date
+          {% if current_sort == 'date' %}
+          <span class="arrow">
+            {{ '↑' if current_order == 'asc' else '↓' }}
+          </span>
+          {% endif %}
+        </button>
+      </form>
+
     </aside>
 
+
+    <!-- TRI ALEATOIRE -->
     <div class="random-button">
-      <form method="get"><button name="sort" value="random">Aléatoire</button></form>
+      <form method="get">
+        <input type="hidden" name="sort" value="random">
+        <button type="submit">Aléatoire</button>
+      </form>
     </div>
+
   </section>
 
   <!-- LISTE PRODUITS DYNAMIQUE -->

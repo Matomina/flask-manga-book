@@ -136,39 +136,37 @@ def home():
 def catalogue():
     db = get_db()
 
-    # Récupération du paramètre de tri depuis l'URL (GET)
-    # Exemple : /catalogue?sort=price_asc
-    sort = request.args.get("sort", "date_desc")
+    # Récupération paramètres
+    sort = request.args.get("sort", "date")
+    order = request.args.get("order", "desc")
 
-    # Base de la requête : uniquement les mangas
-    query = "SELECT * FROM articles WHERE genres = ?"
-
-    # Mapping sécurisé des options de tri
-    # On évite toute injection SQL en contrôlant les valeurs autorisées
-    sort_options = {
-        "name_asc": "name ASC",
-        "name_desc": "name DESC",
-        "price_asc": "price ASC",
-        "price_desc": "price DESC",
-        "date_asc": "created_at ASC",
-        "date_desc": "created_at DESC",
-        "random": "RANDOM()"
+    # Colonnes autorisées
+    allowed_sorts = {
+        "name": "name",
+        "price": "price",
+        "date": "created_at"
     }
 
-    # On récupère la clause ORDER BY correspondante
-    order_by = sort_options.get(sort, "created_at DESC")
+    # Sécurité
+    column = allowed_sorts.get(sort, "created_at")
 
-    # Ajout du tri à la requête SQL
-    query += f" ORDER BY {order_by}"
+    # Toggle direction
+    if order not in ["asc", "desc"]:
+        order = "desc"
 
-    # Exécution de la requête
+    query = f"""
+        SELECT * FROM articles
+        WHERE genres = ?
+        ORDER BY {column} {order.upper()}
+    """
+
     mangas = db.execute(query, ("manga",)).fetchall()
 
-    # On renvoie aussi current_sort pour garder la sélection active dans le template
     return render_template(
         "catalogue.html",
         mangas=mangas,
-        current_sort=sort
+        current_sort=sort,
+        current_order=order
     )
 
 

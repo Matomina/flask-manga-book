@@ -103,6 +103,34 @@
 
 
 /* ------------------------------------------------------
+   ETAT ACTIF + FLECHE TRI
+------------------------------------------------------ */
+
+.filters button {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Bouton actif */
+.filters button.active {
+    @include gradient-primary;
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+/* Flèche intégrée proprement */
+.filters button span {
+    margin-left: 6px;
+    font-size: 0.9rem;
+    transition: transform 0.2s ease;
+}
+
+/* Animation légère au changement */
+.filters button.active span {
+    transform: translateY(-1px);
+}
+
+
+/* ------------------------------------------------------
    CONTENU CATALOGUE
    ------------------------------------------------------ */
 
