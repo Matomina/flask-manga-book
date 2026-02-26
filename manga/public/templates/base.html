@@ -49,7 +49,10 @@
         </div>
 
         <div class="search-bar">
-            <input type="text" placeholder="🔍 Rechercher un manga">
+            <form action="{{ url_for('public.search') }}" method="get">
+                <input type="text" name="q" placeholder="🔍 Rechercher un manga" value="{{ request.args.get('q', '') }}"
+                    required>
+            </form>
         </div>
 
         <!-- NAVIGATION DESKTOP -->

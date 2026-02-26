@@ -436,3 +436,59 @@ def panier():
 @bp.route("/aide")
 def aide():
     return render_template("aide.html")
+
+
+# ====================================================
+# 🔹 Route : Recherche Globale
+# ====================================================
+@bp.route("/search")
+def search():
+
+    query = request.args.get("q", "").strip()
+
+    if not query:
+        return redirect(url_for("public.home"))
+
+    db = get_db()
+
+    results = db.execute("""
+        SELECT *
+        FROM articles
+        WHERE LOWER(name) LIKE LOWER(?)
+           OR LOWER(genres) LIKE LOWER(?)
+        ORDER BY
+            CASE
+                WHEN LOWER(name) = LOWER(?) THEN 0
+                ELSE 1
+            END,
+            name ASC
+    """, (f"%{query}%", f"%{query}%", query)).fetchall()
+
+    results = [dict(r) for r in results]
+
+    if not results:
+        return render_template(
+            "search_results.html",
+            results=[],
+            query=query
+        )
+
+    # Si correspondance exacte en premier → redirection
+    if results and results[0]["name"].lower() == query.lower():
+        return redirect(
+            url_for("public.article_detail",
+                    article_id=results[0]["id"])
+        )
+
+    # Si un seul résultat
+    if len(results) == 1:
+        return redirect(
+            url_for("public.article_detail",
+                    article_id=results[0]["id"])
+        )
+
+    return render_template(
+        "search_results.html",
+        results=results,
+        query=query
+    )   
