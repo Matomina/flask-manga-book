@@ -19,7 +19,7 @@ from datetime import datetime
 
 
 # ====================================================
-# 🔹 Déclaration du Blueprint Public
+#  Déclaration du Blueprint Public
 # ====================================================
 bp = Blueprint(
     "public",
@@ -29,7 +29,7 @@ bp = Blueprint(
 
 
 # ====================================================
-# 🔹 Utilitaire : Récupération favoris utilisateur
+#  Utilitaire : Récupération favoris utilisateur
 # ====================================================
 def get_user_favorites():
 
@@ -48,7 +48,7 @@ def get_user_favorites():
 
 
 # ====================================================
-# 🔹 Injection globale des favoris dans Jinja
+#  Injection globale des favoris dans Jinja
 # ====================================================
 @bp.app_context_processor
 def inject_favorites():
@@ -62,7 +62,7 @@ def inject_favorites():
 
 
 # ====================================================
-# 🔹 Route : Page d'accueil
+#  Route : Page d'accueil
 # ====================================================
 @bp.route("/")
 def home():
@@ -130,7 +130,7 @@ def home():
 
 
 # ====================================================
-# 🔹 Route : Catalogue
+#  Route : Catalogue
 # ====================================================
 @bp.route("/catalogue")
 def catalogue():
@@ -171,7 +171,7 @@ def catalogue():
 
 
 # ====================================================
-# 🔹 Route : Fiche produit (Détail Article Public)
+#  Route : Fiche produit (Détail Article Public)
 # ====================================================
 @bp.route("/article/<int:article_id>")
 def article_detail(article_id):
@@ -218,7 +218,7 @@ def article_detail(article_id):
 
 
 # ====================================================
-# 🔹 Route : Toggle Favoris 
+#  Route : Toggle Favoris 
 # ====================================================
 @bp.route("/toggle-favorite/<int:article_id>", methods=["POST"])
 def toggle_favorite(article_id):
@@ -252,7 +252,7 @@ def toggle_favorite(article_id):
     
 
 # ====================================================
-# 🔹 Route : Planning (dynamique via BDD)
+#  Route : Planning
 # ====================================================
 @bp.route("/planning")
 def planning():
@@ -293,7 +293,7 @@ def planning():
 
 
 # ====================================================
-# 🔹 Route : Profil utilisateur
+#  Route : Profil utilisateur
 # ====================================================
 @bp.route("/profil")
 def profil():
@@ -334,7 +334,7 @@ def profil():
 
 
 # ====================================================
-# 🔹 Route : Forum
+#  Route : Forum
 # ====================================================
 @bp.route("/forum", methods=["GET", "POST"])
 def forum_home():
@@ -372,7 +372,7 @@ def forum_home():
 
 
 # ====================================================
-# 🔹 Route : Goodies
+#  Route : Goodies
 # ====================================================
 @bp.route("/goodies")
 def goodies():
@@ -443,7 +443,7 @@ def goodies():
 
 
 # ====================================================
-# 🔹 Route : Panier
+#  Route : Panier
 # ====================================================
 @bp.route("/panier")
 def panier():
@@ -451,7 +451,7 @@ def panier():
 
 
 # ====================================================
-# 🔹 Route : Aide
+#  Route : Aide
 # ====================================================
 @bp.route("/aide")
 def aide():
@@ -459,7 +459,7 @@ def aide():
 
 
 # ====================================================
-# 🔹 Route : Recherche Globale
+#  Route : Recherche Globale
 # ====================================================
 @bp.route("/search")
 def search():
