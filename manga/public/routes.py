@@ -414,11 +414,11 @@ def goodies():
         """
     ).fetchall()
 
-    textiles = db.execute(
+    textile = db.execute(
         """
         SELECT *
         FROM articles
-        WHERE genres = 'textiles'
+        WHERE genres = 'textile'
         ORDER BY id DESC
         """
     ).fetchall()
@@ -437,7 +437,7 @@ def goodies():
         universes=universes,
         universe_order=universe_order,
         figurines=figurines,
-        textiles=textiles,
+        textile=textile,
         vaisselle=vaisselle,
     )
 
