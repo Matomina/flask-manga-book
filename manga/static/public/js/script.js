@@ -351,6 +351,90 @@ function initFAQ() {
   });
 }
 
+/* ======================================================
+   FORUM (AJAX PUBLICATION)
+====================================================== */
+
+function initForum() {
+
+  const form = document.getElementById("forumForm");
+  const topicsContainer = document.getElementById("topicsContainer");
+
+  if (!form || !topicsContainer) return;
+
+  form.addEventListener("submit", async function (e) {
+
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    try {
+
+      const response = await fetch("/forum", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (response.status === 401) {
+        window.location.href = "/auth/login";
+        return;
+      }
+
+      if (data.status === "success") {
+
+        const topic = data.topic;
+
+        const newTopic = document.createElement("div");
+        newTopic.classList.add("topic-card");
+
+        newTopic.innerHTML = `
+          <h4>
+            <a href="/forum/${topic.id}" class="btn-view">
+              ${topic.title}
+            </a>
+          </h4>
+
+          <p class="topic-message">
+            ${topic.message}
+          </p>
+
+          <p>
+            Publié par <strong>${topic.first_name}</strong>
+            — ${topic.created_at}
+          </p>
+        `;
+
+        // Supprime le message "Aucun sujet"
+        const emptyMsg = topicsContainer.querySelector("p");
+        if (emptyMsg && emptyMsg.textContent.includes("Aucun sujet")) {
+          emptyMsg.remove();
+        }
+
+        const firstCard = topicsContainer.querySelector(".topic-card");
+
+        if (firstCard) {
+          topicsContainer.insertBefore(newTopic, firstCard);
+        } else {
+          topicsContainer.appendChild(newTopic);
+        }
+
+        form.reset();
+      }
+
+      if (data.status === "error") {
+        alert(data.message);
+      }
+
+    } catch (err) {
+      console.error("Erreur forum :", err);
+    }
+
+  });
+
+}
+
 
 /* ======================================================
    INITIALISATION UNIQUE
@@ -369,6 +453,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initFavorites();
   initDropdowns();
   initFAQ();
+  initForum();
 
   document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
     btn.addEventListener("click", () => {

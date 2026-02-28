@@ -1992,7 +1992,7 @@ nav .dropdown-menu li a.dropdown-fav:hover .fav-count-badge {
   }
 }
 /* ======================================================
-   À PARTIR DE TABLET → 2 COLONNES
+   À PARTIR DE TABLET DEUX COLONNES
    ====================================================== */
 @media (min-width: 768px) {
   #forumContent {
@@ -2004,7 +2004,6 @@ nav .dropdown-menu li a.dropdown-fav:hover .fav-count-badge {
 }
 /* ======================================================
    BLOCS COMMUNS (FORM + TOPICS)
-   Factorisation
    ====================================================== */
 .forum-form,
 .forum-topics {
@@ -2012,6 +2011,8 @@ nav .dropdown-menu li a.dropdown-fav:hover .fav-count-badge {
   padding: 2rem;
   border-radius: 12px;
   box-sizing: border-box;
+  display: grid;
+  gap: 2rem;
 }
 
 /* ======================================================

@@ -29,6 +29,30 @@ bp = Blueprint(
 
 
 # ====================================================
+#  Filtre Jinja : Format date FR
+# ====================================================
+@bp.app_template_filter("format_datetime_fr")
+def format_datetime_fr(value):
+
+    from datetime import datetime
+
+    mois_fr = [
+        "janvier", "février", "mars", "avril", "mai", "juin",
+        "juillet", "août", "septembre", "octobre", "novembre", "décembre"
+    ]
+
+    if isinstance(value, str):
+        value = datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
+
+    jour = value.day
+    mois = mois_fr[value.month - 1]
+    annee = value.year
+    heure = value.strftime("%H:%M")
+
+    return f"{jour} {mois} {annee} à {heure}"
+
+
+# ====================================================
 #  Utilitaire : Récupération favoris utilisateur
 # ====================================================
 def get_user_favorites():
@@ -45,6 +69,7 @@ def get_user_favorites():
     """, (session["user_id"],)).fetchall()
 
     return [str(row["article_id"]) for row in rows]
+
 
 
 # ====================================================
@@ -287,21 +312,34 @@ def profil():
 
 
 # ====================================================
-#  Route : Forum
+#  Route : Forum (AJAX)
 # ====================================================
 @bp.route("/forum", methods=["GET", "POST"])
 def forum_home():
+
     db = get_db()
 
+    # ====================================================
+    # CRÉATION D'UN SUJET (POST AJAX)
+    # ====================================================
     if request.method == "POST":
 
         user_id = session.get("user_id")
 
         if not user_id:
-            return redirect(url_for("auth.login"))
+            return jsonify({
+                "status": "error",
+                "message": "Vous devez être connecté."
+            }), 401
 
-        title = request.form["title"]
-        message = request.form["message"]
+        title = request.form.get("title")
+        message = request.form.get("message")
+
+        if not title or not message:
+            return jsonify({
+                "status": "error",
+                "message": "Tous les champs sont obligatoires."
+            }), 400
 
         db.execute(
             """
@@ -312,8 +350,22 @@ def forum_home():
         )
         db.commit()
 
-        return redirect(url_for("public.forum_home"))
+        # Récupération du dernier sujet inséré
+        topic = db.execute("""
+            SELECT topics.*, user.first_name
+            FROM topics
+            JOIN user ON topics.user_id = user.id
+            WHERE topics.rowid = last_insert_rowid()
+        """).fetchone()
 
+        return jsonify({
+            "status": "success",
+            "topic": dict(topic)
+        })
+
+    # ====================================================
+    # RÉCUPÉRATION DES SUJETS (GET)
+    # ====================================================
     topics = db.execute("""
         SELECT topics.*, user.first_name
         FROM topics
@@ -322,6 +374,63 @@ def forum_home():
     """).fetchall()
 
     return render_template("forum.html", topics=topics)
+
+
+# ====================================================
+#  Route : Détail sujet + Réponses
+# ====================================================
+@bp.route("/forum/<int:topic_id>", methods=["GET", "POST"])
+def forum_detail(topic_id):
+
+    db = get_db()
+
+    topic = db.execute("""
+        SELECT topics.*, user.first_name
+        FROM topics
+        JOIN user ON topics.user_id = user.id
+        WHERE topics.id = ?
+    """, (topic_id,)).fetchone()
+
+    if topic is None:
+        abort(404)
+
+    # ===============================
+    # AJOUT D'UNE RÉPONSE
+    # ===============================
+    if request.method == "POST":
+
+        user_id = session.get("user_id")
+
+        if not user_id:
+            return redirect(url_for("auth.login"))
+
+        message = request.form.get("reply_message")
+
+        if message:
+            db.execute("""
+                INSERT INTO replies (topic_id, user_id, message)
+                VALUES (?, ?, ?)
+            """, (topic_id, user_id, message))
+            db.commit()
+
+        return redirect(url_for("public.forum_detail", topic_id=topic_id))
+
+    # ===============================
+    # RÉCUPÉRATION DES RÉPONSES
+    # ===============================
+    replies = db.execute("""
+        SELECT replies.*, user.first_name
+        FROM replies
+        JOIN user ON replies.user_id = user.id
+        WHERE replies.topic_id = ?
+        ORDER BY replies.created_at ASC
+    """, (topic_id,)).fetchall()
+
+    return render_template(
+        "forum_detail.html",
+        topic=topic,
+        replies=replies
+    )
 
 
 # ====================================================

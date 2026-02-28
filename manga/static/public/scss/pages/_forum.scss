@@ -48,7 +48,7 @@
 
 
 /* ======================================================
-   À PARTIR DE TABLET → 2 COLONNES
+   À PARTIR DE TABLET DEUX COLONNES
    ====================================================== */
 
 @include respond-to(tablet) {
@@ -63,7 +63,6 @@
 
 /* ======================================================
    BLOCS COMMUNS (FORM + TOPICS)
-   Factorisation
    ====================================================== */
 
 .forum-form,
@@ -72,6 +71,8 @@
    padding: $spacing-xl;
    border-radius: $radius-xl;
    box-sizing: border-box;
+   display: grid;
+   gap: 2rem;
 }
 
 

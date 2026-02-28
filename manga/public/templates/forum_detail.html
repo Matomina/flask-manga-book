@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}{{ topic.title }}{% endblock %}
+
+{% block content %}
+
+<section class="content">
+
+    <h1>{{ topic.title }}</h1>
+
+    <div class="article-detail-wrapper">
+
+        <!-- MESSAGE ORIGINAL -->
+        <div class="article-detail-image">
+            <div class="forum-message-box">
+                <h3>Message initial</h3>
+                <p>{{ topic.message }}</p>
+            </div>
+        </div>
+
+        <!-- INFOS + RÉPONSES -->
+        <div class="article-detail-info">
+
+            <p><strong>Auteur :</strong> {{ topic.first_name }}</p>
+            <p><strong>Publié le :</strong> {{ topic.created_at | format_datetime_fr }}</p>
+
+            <!-- ================= RÉPONSES ================= -->
+            <div class="forum-replies">
+
+                <h3>Réponses</h3>
+
+                {% if replies %}
+                {% for reply in replies %}
+                <div class="reply-card">
+                    <p>{{ reply.message }}</p>
+                    <small>
+                        Par <strong>{{ reply.first_name }}</strong>
+                        — {{ reply.created_at | format_datetime_fr }}
+                    </small>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>Aucune réponse pour le moment.</p>
+                {% endif %}
+
+            </div>
+
+            <!-- ================= FORMULAIRE RÉPONSE ================= -->
+            {% if session.get("user_id") %}
+            <div class="reply-form">
+                <h3>Répondre</h3>
+
+                <form method="POST">
+                    <textarea name="reply_message" rows="4" required></textarea>
+                    <button type="submit" class="btn-submit">
+                        Envoyer la réponse
+                    </button>
+                </form>
+            </div>
+            {% endif %}
+
+            <div style="margin-top:20px;">
+                <a href="{{ url_for('public.forum_home') }}">
+                    ← Retour au forum
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -31,9 +31,9 @@
 
         <!-- FORMULAIRE -->
         <div class="forum-form">
-            <h3>Créer un nouveau sujet</h3>
+            <h3>Créer un nouveau sujet :</h3>
 
-            <form method="POST">
+            <form method="POST" id="forumForm">
                 <label for="title">Titre du sujet :</label>
                 <input type="text" name="title" id="title" required>
 
@@ -47,18 +47,26 @@
         </div>
 
         <!-- SUJETS -->
-        <div class="forum-topics">
+        <div class="forum-topics" id="topicsContainer">
             <h3>Sujets récents :</h3>
 
             {% if topics %}
             {% for topic in topics %}
             <div class="topic-card">
                 <h4>{{ topic['title'] }}</h4>
+
+                <p class="topic-message">
+                    {{ topic['message'] }}
+                </p>
+
                 <p>
                     Publié par <strong>{{ topic['first_name'] }}</strong>
-                    — {{ topic['created_at'] }}
+                    — {{ topic['created_at'] | format_datetime_fr }}
                 </p>
-                <a href="#" class="btn-view">Voir le sujet</a>
+
+                <a href="{{ url_for('public.forum_detail', topic_id=topic['id']) }}" class="btn-view">
+                    Voir le sujet
+                </a>
             </div>
             {% endfor %}
             {% else %}
