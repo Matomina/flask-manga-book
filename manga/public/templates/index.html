@@ -50,7 +50,7 @@ Accueil – Manga Book
             ❤
           </button>
 
-          <a href="{{ url_for('public.article_detail', article_id=article.id) }}">
+          <a href="{{ url_for('articles.article_detail', article_id=article.id) }}">
             <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
           </a>
           <div class="card-info">
@@ -96,7 +96,7 @@ Accueil – Manga Book
             ❤
           </button>
 
-          <a href="{{ url_for('public.article_detail', article_id=article.id) }}">
+          <a href="{{ url_for('articles.article_detail', article_id=article.id) }}">
             <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
           </a>
           <div class="card-info">
@@ -139,7 +139,7 @@ Accueil – Manga Book
           </button>
 
           <!-- IMAGE (reste en premier visuellement) -->
-          <a href="{{ url_for('public.article_detail', article_id=article.id) }}">
+          <a href="{{ url_for('articles.article_detail', article_id=article.id) }}">
             <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
           </a>
 
@@ -215,7 +215,7 @@ Accueil – Manga Book
 
         {% for article in goodies %}
         <div class="card">
-          <a href="{{ url_for('public.article_detail', article_id=article.id) }}">
+          <a href="{{ url_for('articles.article_detail', article_id=article.id) }}">
             <img src="{{ url_for('static', filename=article.image) }}" alt="{{ article.name }}">
           </a>
 

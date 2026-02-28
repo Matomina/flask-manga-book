@@ -106,7 +106,7 @@
           ❤
         </button>
 
-        <a href="{{ url_for('public.article_detail', article_id=manga['id']) }}">
+        <a href="{{ url_for('articles.article_detail', article_id=manga['id']) }}">
           <img src="{{ url_for('static', filename=manga['image']) }}" alt="{{ manga['name'] }}">
         </a>
 

@@ -24,12 +24,12 @@ from flask import Flask
 def create_app(test_config=None):
 
     # ====================================================
-    # 1️⃣ Création de l'application
+    # Création de l'application
     # ====================================================
     app = Flask(__name__, instance_relative_config=True)
 
     # ====================================================
-    # 2️⃣ Configuration
+    # Configuration
     # ====================================================
     app.config.from_mapping(
         SECRET_KEY=os.environ.get("SECRET_KEY", "dev"),
@@ -42,18 +42,18 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
 
     # ====================================================
-    # 3️⃣ Création dossier instance
+    # Création dossier instance
     # ====================================================
     os.makedirs(app.instance_path, exist_ok=True)
 
     # ====================================================
-    # 4️⃣ Extensions
+    # Extensions
     # ====================================================
     from .extensions import db
     db.init_app(app)
 
     # ====================================================
-    # 🔹 Injection utilisateur global (Navbar dynamique)
+    # Injection utilisateur global (Navbar dynamique)
     # ====================================================
     from flask import session
     from .extensions.db import get_db
@@ -85,7 +85,7 @@ def create_app(test_config=None):
         )
 
     # ====================================================
-    # 5️⃣ Filtre Jinja
+    # Filtre Jinja
     # ====================================================
     @app.template_filter("format_datetime_fr")
     def format_datetime_fr(value):
@@ -102,14 +102,18 @@ def create_app(test_config=None):
         return dt.strftime("%d %B %Y à %Hh%M")
 
     # ====================================================
-    # 6️⃣ Enregistrement des Blueprints
+    # Enregistrement des Blueprints
     # ====================================================
 
-    # 🔹 PUBLIC
+    # PUBLIC général
     from .public.routes import bp as public_bp
     app.register_blueprint(public_bp)
 
-    # 🔹 ADMIN
+    # PUBLIC articles
+    from .public.articles import bp as articles_public_bp
+    app.register_blueprint(articles_public_bp)
+
+    # ADMIN
     from .admin.admin import bp as admin_bp
     app.register_blueprint(admin_bp)
 
@@ -129,7 +133,7 @@ def create_app(test_config=None):
     app.register_blueprint(contacts_bp)
 
     # ====================================================
-    # 7️⃣ Gestion erreurs globale
+    # Gestion erreurs globale
     # ====================================================
     @app.errorhandler(404)
     def page_not_found(e):

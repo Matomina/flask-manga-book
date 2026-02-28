@@ -1,15 +1,165 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
 /* ======================================================
    PAGE – FORUM
-   Mise en page spécifique à la page forum
+   Architecture mobile-first
+   Responsive jusqu’à 2000px+
    ====================================================== */
 
 
-/* ------------------------------------------------------
-   CONTENEUR PRINCIPAL DU FORUM
-   ------------------------------------------------------ */
+/* ======================================================
+   CONTENEUR PRINCIPAL
+   Mobile = colonne
+   ====================================================== */
 
 #forumContent {
    display: flex;
-   justify-content: space-around;
-   gap: 10px;
+   flex-direction: column;
+   gap: $spacing-xl;
+   padding: $spacing-xl;
+   margin: 0 auto;
+
+   max-width: map-get($container-max-width, default);
+}
+
+
+/* ======================================================
+   CONTAINER WIDTH EVOLUTION (Large Screens)
+   ====================================================== */
+
+@include respond-to(large) {
+   #forumContent {
+      max-width: map-get($container-max-width, large);
+   }
+}
+
+@include respond-to(xl) {
+   #forumContent {
+      max-width: map-get($container-max-width, xl);
+   }
+}
+
+@include respond-to(ultra) {
+   #forumContent {
+      max-width: map-get($container-max-width, ultra);
+   }
+}
+
+
+/* ======================================================
+   À PARTIR DE TABLET → 2 COLONNES
+   ====================================================== */
+
+@include respond-to(tablet) {
+   #forumContent {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      gap: $spacing-2xl;
+   }
+}
+
+
+/* ======================================================
+   BLOCS COMMUNS (FORM + TOPICS)
+   Factorisation
+   ====================================================== */
+
+.forum-form,
+.forum-topics {
+   width: 100%;
+   padding: $spacing-xl;
+   border-radius: $radius-xl;
+   box-sizing: border-box;
+}
+
+
+/* ======================================================
+   LARGEUR RESPONSIVE DES BLOCS
+   ====================================================== */
+
+@include respond-to(tablet) {
+
+   .forum-form,
+   .forum-topics {
+      width: 50%;
+   }
+
+}
+
+@include respond-to(desktop) {
+
+   .forum-form,
+   .forum-topics {
+      width: 40%;
+   }
+
+}
+
+@include respond-to(xl) {
+
+   .forum-form,
+   .forum-topics {
+      width: 35%;
+   }
+
+}
+
+
+/* ======================================================
+   TITRES
+   ====================================================== */
+
+.forum-form h3,
+.forum-topics h3 {
+   margin-bottom: $spacing-xl;
+}
+
+
+/* ======================================================
+   FORM STRUCTURE
+   ====================================================== */
+
+.forum-form {
+
+   label {
+      display: block;
+      margin-bottom: $spacing-xs;
+      margin-top: $spacing-md;
+   }
+
+   input,
+   textarea {
+      width: 100%;
+      padding: $spacing-sm;
+      border-radius: $radius-md;
+      border: none;
+      box-sizing: border-box;
+   }
+
+}
+
+
+/* ======================================================
+   BOUTON SUBMIT
+   ====================================================== */
+
+.btn-submit {
+   display: inline-block;
+   margin-top: $spacing-lg;
+   padding: $spacing-sm $spacing-lg;
+
+   background: $color-primary;
+   color: $color-light;
+
+   border: none;
+   border-radius: $radius-md;
+
+   cursor: pointer;
+   transition: 0.2s ease;
+
+   &:hover {
+      @include gradient-primary;
+   }
 }

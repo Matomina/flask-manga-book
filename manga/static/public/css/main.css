@@ -718,29 +718,13 @@ footer .footer-links a:hover {
 .form-group select {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #ccc;
+  border: 1px solid #fff;
   border-radius: 5px;
   font-family: inherit;
 }
 .form-group textarea {
   min-height: 150px;
   resize: vertical;
-}
-
-/* ------------------------------------------------------
-   BOUTON DE SOUMISSION
-   ------------------------------------------------------ */
-.btn-submit {
-  padding: 0.75rem 1.25rem;
-  background: #9135ff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-.btn-submit:hover {
-  background: linear-gradient(135deg, #9135ff, #dc1ef7);
 }
 
 /* ------------------------------------------------------
@@ -771,28 +755,6 @@ footer .footer-links a:hover {
 }
 .tab-btn-connexion:hover {
   background: linear-gradient(135deg, #dc1ef7, #9135ff);
-}
-
-/* ======================================================
-   RESPONSIVE – FORUM FORM
-   ====================================================== */
-.forum-form {
-  width: 100%;
-}
-@media (min-width: 768px) {
-  .forum-form {
-    width: 50%;
-  }
-}
-@media (min-width: 1024px) {
-  .forum-form {
-    width: 40%;
-  }
-}
-@media (min-width: 1600px) {
-  .forum-form {
-    width: 35%;
-  }
 }
 
 /* ======================================================
@@ -1991,16 +1953,129 @@ nav .dropdown-menu li a.dropdown-fav:hover .fav-count-badge {
 }
 
 /* ======================================================
-   PAGE – FORUM
-   Mise en page spécifique à la page forum
+   ABSTRACTS – VARIABLES GLOBALES
    ====================================================== */
-/* ------------------------------------------------------
-   CONTENEUR PRINCIPAL DU FORUM
-   ------------------------------------------------------ */
+/* ======================================================
+   PAGE – FORUM
+   Architecture mobile-first
+   Responsive jusqu’à 2000px+
+   ====================================================== */
+/* ======================================================
+   CONTENEUR PRINCIPAL
+   Mobile = colonne
+   ====================================================== */
 #forumContent {
   display: flex;
-  justify-content: space-around;
-  gap: 10px;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+/* ======================================================
+   CONTAINER WIDTH EVOLUTION (Large Screens)
+   ====================================================== */
+@media (min-width: 1280px) {
+  #forumContent {
+    max-width: 1400px;
+  }
+}
+@media (min-width: 1600px) {
+  #forumContent {
+    max-width: 1600px;
+  }
+}
+@media (min-width: 1920px) {
+  #forumContent {
+    max-width: 1800px;
+  }
+}
+/* ======================================================
+   À PARTIR DE TABLET → 2 COLONNES
+   ====================================================== */
+@media (min-width: 768px) {
+  #forumContent {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+}
+/* ======================================================
+   BLOCS COMMUNS (FORM + TOPICS)
+   Factorisation
+   ====================================================== */
+.forum-form,
+.forum-topics {
+  width: 100%;
+  padding: 2rem;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+/* ======================================================
+   LARGEUR RESPONSIVE DES BLOCS
+   ====================================================== */
+@media (min-width: 768px) {
+  .forum-form,
+  .forum-topics {
+    width: 50%;
+  }
+}
+@media (min-width: 1024px) {
+  .forum-form,
+  .forum-topics {
+    width: 40%;
+  }
+}
+@media (min-width: 1600px) {
+  .forum-form,
+  .forum-topics {
+    width: 35%;
+  }
+}
+/* ======================================================
+   TITRES
+   ====================================================== */
+.forum-form h3,
+.forum-topics h3 {
+  margin-bottom: 2rem;
+}
+
+/* ======================================================
+   FORM STRUCTURE
+   ====================================================== */
+.forum-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+}
+.forum-form input,
+.forum-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 5px;
+  border: none;
+  box-sizing: border-box;
+}
+
+/* ======================================================
+   BOUTON SUBMIT
+   ====================================================== */
+.btn-submit {
+  display: inline-block;
+  margin-top: 1.25rem;
+  padding: 0.75rem 1.25rem;
+  background: #9135ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.btn-submit:hover {
+  background: linear-gradient(135deg, #9135ff, #dc1ef7);
 }
 
 /* ======================================================

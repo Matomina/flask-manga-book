@@ -67,6 +67,19 @@ CREATE TABLE articles (
 );
 
 INSERT INTO articles (name, genres, universe, image, price, release_day) VALUES
+('Lunette Gojo', 'goodies', 'jujutsu_kaisen', 'image/lunette_gojo.jpg', 57.90, NULL),
+('Pendentif Jujutsu Kaisen', 'goodies', 'jujutsu_kaisen', 'image/pendentif_jujutsu_kaisen.jpg', 57.90, NULL),
+('Support Gojo Geto', 'goodies', 'jujutsu_kaisen', 'image/support_gojo_geto.jpg', 27.90, NULL),
+('Badge Jujutsu Kaisen', 'goodies', 'jujutsu_kaisen', 'image/badge_jujutsu_kaisen.jpg', 27.90, NULL),
+('Peruque Itadori', 'goodies', 'jujutsu_kaisen', 'image/peruque_itadori.jpg', 27.90, NULL),
+('Book Itadori', 'goodies', 'jujutsu_kaisen', 'image/book_itadori.jpg', 45.90, NULL),
+('Lampe Gojo', 'goodies', 'jujutsu_kaisen', 'image/lampe_gojo.jpg', 45.90, NULL),
+('Lampe Rengoku', 'goodies', 'demon_slayer', 'image/lampe_rengoku.webp', 45.90, NULL),
+('Lampe Tanjiro', 'goodies', 'demon_slayer', 'image/lampe_tanjiro.webp', 45.90, NULL),
+('Lampe Zenitsu', 'goodies', 'demon_slayer', 'image/lampe_zenitsu.webp', 45.90, NULL),
+('Lampe Inosuke', 'goodies', 'demon_slayer', 'image/lampe_inosuke.webp', 45.90, NULL),
+('Lampe Demon Slayer', 'goodies', 'demon_slayer', 'image/lampe_demon_slayer.jpg', 45.90, NULL),
+('Box Demon Slayer', 'goodies', 'demon_slayer', 'image/box_demon_slayer.jpg', 75.90, NULL),
 ('Sekai Saisoku no Isekai Ryokouki','manga',NULL,'image/sekai_saisoku_no_isekai_ryokouki.jpg',7.80,'Lundi'),
 ('Ordeal','manga',NULL,'image/ordeal.jpg',7.80,'Lundi'),
 ('Blue Box','manga',NULL,'image/blue_box.jpg',7.80,'Lundi'),

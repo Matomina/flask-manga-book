@@ -171,53 +171,6 @@ def catalogue():
 
 
 # ====================================================
-#  Route : Fiche produit (Détail Article Public)
-# ====================================================
-@bp.route("/article/<int:article_id>")
-def article_detail(article_id):
-
-    db = get_db()
-
-    # ----------------------------------------
-    # 🔍 Récupération article + description
-    # ----------------------------------------
-    article = db.execute("""
-        SELECT articles.*, detail_articles_public.description
-        FROM articles
-        LEFT JOIN detail_articles_public
-        ON articles.id = detail_articles_public.article_id
-        WHERE articles.id = ?
-    """, (article_id,)).fetchone()
-
-    if article is None:
-        abort(404)
-
-    article = dict(article)
-
-    # ----------------------------------------
-    # 📜 Ajout historique si utilisateur connecté
-    # ----------------------------------------
-    if "user_id" in session:
-
-        db.execute("""
-            INSERT INTO history (user_id, article_id)
-            VALUES (?, ?)
-            ON CONFLICT(user_id, article_id)
-            DO UPDATE SET viewed_at = CURRENT_TIMESTAMP
-        """, (session["user_id"], article_id))
-
-        db.commit()
-
-    # ----------------------------------------
-    # Rendu template
-    # ----------------------------------------
-    return render_template(
-        "article_detail.html",
-        article=article
-    )
-
-
-# ====================================================
 #  Route : Toggle Favoris 
 # ====================================================
 @bp.route("/toggle-favorite/<int:article_id>", methods=["POST"])
