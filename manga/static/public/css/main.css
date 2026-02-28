@@ -2080,6 +2080,121 @@ nav .dropdown-menu li a.dropdown-fav:hover .fav-count-badge {
 }
 
 /* ======================================================
+   PAGE – FORUM DETAIL
+   Même logique que forum : mobile colonne, tablet+ 2 colonnes
+====================================================== */
+#forumDetailContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+/* Container responsive (comme forum) */
+@media (min-width: 1280px) {
+  #forumDetailContent {
+    max-width: 1400px;
+  }
+}
+@media (min-width: 1600px) {
+  #forumDetailContent {
+    max-width: 1600px;
+  }
+}
+@media (min-width: 1920px) {
+  #forumDetailContent {
+    max-width: 1800px;
+  }
+}
+/* Wrapper 2 colonnes */
+.forum-detail-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .forum-detail-wrapper {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+}
+/* Colonnes */
+.forum-detail-left,
+.forum-detail-right {
+  width: 100%;
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .forum-detail-left,
+  .forum-detail-right {
+    width: 50%;
+  }
+}
+@media (min-width: 1024px) {
+  .forum-detail-left,
+  .forum-detail-right {
+    width: 40%;
+  }
+}
+@media (min-width: 1600px) {
+  .forum-detail-left,
+  .forum-detail-right {
+    width: 35%;
+  }
+}
+/* Blocs visuels (alignement cohérent) */
+.forum-message-box,
+.forum-detail-meta,
+.forum-replies,
+.reply-form {
+  padding: 2rem;
+  border-radius: 12px;
+  box-sizing: border-box;
+  display: grid;
+  gap: 1rem;
+}
+
+/* Titres : espace propre (évite "Répondre" collé) */
+.forum-message-box h3,
+.forum-replies h3,
+.reply-form h3 {
+  margin: 0;
+  margin-bottom: 0.75rem;
+}
+
+/* Replies list */
+.reply-card {
+  padding: 1.25rem;
+  border-radius: 8px;
+}
+
+/* Form */
+.reply-form form {
+  display: grid;
+  gap: 1rem;
+}
+
+.reply-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 5px;
+  border: none;
+  box-sizing: border-box;
+}
+
+/* Retour */
+.forum-detail-back {
+  margin-top: 1rem;
+}
+
+/* ======================================================
    ABSTRACTS – VARIABLES GLOBALES
    ====================================================== */
 /* ======================================================

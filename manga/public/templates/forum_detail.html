@@ -4,29 +4,29 @@
 
 {% block content %}
 
-<section class="content">
+<section class="content" id="forumDetailContent">
 
-    <h1>{{ topic.title }}</h1>
+    <h1 class="page-title">{{ topic.title }}</h1>
 
-    <div class="article-detail-wrapper">
+    <div class="forum-detail-wrapper">
 
-        <!-- MESSAGE ORIGINAL -->
-        <div class="article-detail-image">
+        <!-- ================= COLONNE GAUCHE ================= -->
+        <div class="forum-detail-left">
+
+            <!-- Message -->
             <div class="forum-message-box">
                 <h3>Message initial</h3>
                 <p>{{ topic.message }}</p>
             </div>
-        </div>
 
-        <!-- INFOS + RÉPONSES -->
-        <div class="article-detail-info">
+            <!-- Infos -->
+            <div class="forum-detail-meta">
+                <p><strong>Auteur :</strong> {{ topic.first_name }}</p>
+                <p><strong>Publié le :</strong> {{ topic.created_at | format_datetime_fr }}</p>
+            </div>
 
-            <p><strong>Auteur :</strong> {{ topic.first_name }}</p>
-            <p><strong>Publié le :</strong> {{ topic.created_at | format_datetime_fr }}</p>
-
-            <!-- ================= RÉPONSES ================= -->
+            <!-- Réponses -->
             <div class="forum-replies">
-
                 <h3>Réponses</h3>
 
                 {% if replies %}
@@ -40,30 +40,34 @@
                 </div>
                 {% endfor %}
                 {% else %}
-                <p>Aucune réponse pour le moment.</p>
+                <p class="empty-replies">Aucune réponse pour le moment.</p>
                 {% endif %}
-
             </div>
 
-            <!-- ================= FORMULAIRE RÉPONSE ================= -->
+            <!-- Retour -->
+            <div class="forum-detail-back">
+                <a href="{{ url_for('public.forum_home') }}">
+                    ← Retour au forum
+                </a>
+            </div>
+
+        </div>
+
+        <!-- ================= COLONNE DROITE ================= -->
+        <div class="forum-detail-right">
+
             {% if session.get("user_id") %}
             <div class="reply-form">
                 <h3>Répondre</h3>
 
                 <form method="POST">
-                    <textarea name="reply_message" rows="4" required></textarea>
+                    <textarea name="reply_message" rows="6" required></textarea>
                     <button type="submit" class="btn-submit">
                         Envoyer la réponse
                     </button>
                 </form>
             </div>
             {% endif %}
-
-            <div style="margin-top:20px;">
-                <a href="{{ url_for('public.forum_home') }}">
-                    ← Retour au forum
-                </a>
-            </div>
 
         </div>
 

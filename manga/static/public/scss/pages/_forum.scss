@@ -164,3 +164,118 @@
       @include gradient-primary;
    }
 }
+
+/* ======================================================
+   PAGE – FORUM DETAIL
+   Même logique que forum : mobile colonne, tablet+ 2 colonnes
+====================================================== */
+
+#forumDetailContent {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+  padding: $spacing-xl;
+  margin: 0 auto;
+  max-width: map-get($container-max-width, default);
+}
+
+/* Container responsive (comme forum) */
+@include respond-to(large) {
+  #forumDetailContent { max-width: map-get($container-max-width, large); }
+}
+@include respond-to(xl) {
+  #forumDetailContent { max-width: map-get($container-max-width, xl); }
+}
+@include respond-to(ultra) {
+  #forumDetailContent { max-width: map-get($container-max-width, ultra); }
+}
+
+/* Wrapper 2 colonnes */
+.forum-detail-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+}
+
+@include respond-to(tablet) {
+  .forum-detail-wrapper {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: $spacing-2xl;
+  }
+}
+
+/* Colonnes */
+.forum-detail-left,
+.forum-detail-right {
+  width: 100%;
+  display: grid;
+  gap: $spacing-xl;
+}
+
+@include respond-to(tablet) {
+  .forum-detail-left,
+  .forum-detail-right {
+    width: 50%;
+  }
+}
+
+@include respond-to(desktop) {
+  .forum-detail-left,
+  .forum-detail-right {
+    width: 40%;
+  }
+}
+
+@include respond-to(xl) {
+  .forum-detail-left,
+  .forum-detail-right {
+    width: 35%;
+  }
+}
+
+/* Blocs visuels (alignement cohérent) */
+.forum-message-box,
+.forum-detail-meta,
+.forum-replies,
+.reply-form {
+  padding: $spacing-xl;
+  border-radius: $radius-xl;
+  box-sizing: border-box;
+  display: grid;
+  gap: $spacing-md;
+}
+
+/* Titres : espace propre (évite "Répondre" collé) */
+.forum-message-box h3,
+.forum-replies h3,
+.reply-form h3 {
+  margin: 0;
+  margin-bottom: $spacing-sm;
+}
+
+/* Replies list */
+.reply-card {
+  padding: $spacing-lg;
+  border-radius: $radius-lg;
+}
+
+/* Form */
+.reply-form form {
+  display: grid;
+  gap: $spacing-md;
+}
+
+.reply-form textarea {
+  width: 100%;
+  padding: $spacing-sm;
+  border-radius: $radius-md;
+  border: none;
+  box-sizing: border-box;
+}
+
+/* Retour */
+.forum-detail-back {
+  margin-top: $spacing-md;
+}
