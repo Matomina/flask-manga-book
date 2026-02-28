@@ -27,7 +27,6 @@ def list_articles():
     articles = [dict(a) for a in articles]
 
     # Aucun traitement sur le champ image
-    # La base contient déjà : image/nom_fichier.ext
 
     return render_template(
         "articles/articles.html",
