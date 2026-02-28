@@ -1,13 +1,13 @@
 """
 ========================================================
-AUTHENTICATION – ADMIN MODULE
+MANGABOOK – AUTHENTICATION MODULE
 --------------------------------------------------------
 Gestion :
-✔ Inscription utilisateur
-✔ Connexion
-✔ Déconnexion
-✔ Chargement utilisateur
-✔ Décorateurs login_required / admin_required
+- Inscription utilisateur
+- Connexion (user + admin)
+- Déconnexion
+- Chargement utilisateur global
+- Décorateurs login_required / admin_required
 ========================================================
 """
 
@@ -23,7 +23,7 @@ from manga.extensions.db import get_db
 
 
 # ====================================================
-# 🔹 Blueprint Auth
+# Blueprint Auth
 # ====================================================
 bp = Blueprint(
     "auth",
@@ -34,7 +34,7 @@ bp = Blueprint(
 
 
 # ====================================================
-# 🔹 REGISTER
+# REGISTER
 # ====================================================
 @bp.route("/register", methods=("GET", "POST"))
 def register():
@@ -46,9 +46,10 @@ def register():
         email = request.form.get("email")
         password = request.form.get("password")
 
-        db = get_db()
         error = None
+        db = get_db()
 
+        # Validation simple
         if not first_name:
             error = "First name is required."
         elif not last_name:
@@ -58,6 +59,7 @@ def register():
         elif not password:
             error = "Password is required."
 
+        # Insertion
         if error is None:
             try:
                 db.execute(
@@ -74,6 +76,7 @@ def register():
                     ),
                 )
                 db.commit()
+
             except sqlite3.IntegrityError:
                 error = f"User with email {email} is already registered."
             else:
@@ -90,48 +93,35 @@ def register():
 @bp.route("/login", methods=("GET", "POST"))
 def login():
 
+    next_page = request.args.get("next")
+
     if request.method == "POST":
 
-        # ----------------------------------------------
-        # Récupération des données du formulaire
-        # ----------------------------------------------
         email = request.form.get("email")
         password = request.form.get("password")
 
         db = get_db()
         error = None
 
-        # ----------------------------------------------
-        # Recherche utilisateur en base
-        # ----------------------------------------------
+        # Recherche utilisateur
         user = db.execute(
             "SELECT * FROM user WHERE email = ?",
             (email,),
         ).fetchone()
 
-        # ----------------------------------------------
         # Vérifications
-        # ----------------------------------------------
         if user is None:
             error = "Incorrect email."
         elif not check_password_hash(user["password"], password):
             error = "Incorrect password."
 
-        # ----------------------------------------------
         # Connexion réussie
-        # ----------------------------------------------
         if error is None:
 
-            # Nettoyage session précédente
             session.clear()
             session["user_id"] = user["id"]
 
-            # Récupération éventuelle du paramètre "next"
-            # Exemple : /auth/login?next=/profil
-            next_page = request.args.get("next")
-
-            # Sécurité : on autorise uniquement les URLs internes
-            # (évite les redirections vers des sites externes)
+            # Redirection sécurisée vers page demandée
             if next_page and next_page.startswith("/"):
                 return redirect(next_page)
 
@@ -139,18 +129,15 @@ def login():
             if user["role"] == "admin":
                 return redirect(url_for("admin.dashboard"))
 
-            # Redirection par défaut utilisateur
             return redirect(url_for("public.profil"))
 
-        # Si erreur → message flash
         flash(error)
 
-    # Affichage page login (GET)
     return render_template("auth/login.html")
 
 
 # ====================================================
-# 🔹 LOAD USER
+# LOAD USER (global g.user)
 # ====================================================
 @bp.before_app_request
 def load_logged_in_user():
@@ -167,23 +154,17 @@ def load_logged_in_user():
 
 
 # ====================================================
-# 🔹 LOGOUT
+# LOGOUT
 # ====================================================
 @bp.route("/logout")
 def logout():
 
-    role = g.user["role"] if g.user else None
-
     session.clear()
-
-    if role == "admin":
-        return redirect(url_for("auth.login"))
-
     return redirect(url_for("public.home"))
 
 
 # ====================================================
-# 🔹 DECORATOR LOGIN REQUIRED
+# DECORATOR – LOGIN REQUIRED
 # ====================================================
 def login_required(view):
 
@@ -191,7 +172,9 @@ def login_required(view):
     def wrapped_view(**kwargs):
 
         if g.user is None:
-            return redirect(url_for("auth.login"))
+            return redirect(
+                url_for("auth.login", next=request.path)
+            )
 
         return view(**kwargs)
 
@@ -199,7 +182,7 @@ def login_required(view):
 
 
 # ====================================================
-# 🔹 DECORATOR ADMIN REQUIRED
+# DECORATOR – ADMIN REQUIRED
 # ====================================================
 def admin_required(view):
 
@@ -207,10 +190,12 @@ def admin_required(view):
     def wrapped_view(**kwargs):
 
         if g.user is None:
-            return redirect(url_for("auth.login"))
+            return redirect(
+                url_for("auth.login", next=request.path)
+            )
 
         if g.user["role"] != "admin":
-            return redirect(url_for("public.index"))
+            return redirect(url_for("public.home"))
 
         return view(**kwargs)
 
