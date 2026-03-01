@@ -41,46 +41,92 @@ def register():
 
     if request.method == "POST":
 
-        first_name = request.form.get("first_name")
-        last_name = request.form.get("last_name")
-        email = request.form.get("email")
-        password = request.form.get("password")
+        first_name = request.form.get("first_name", "").strip()
+        last_name = request.form.get("last_name", "").strip()
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "").strip()
+        phone = request.form.get("phone", "").strip()
+        address = request.form.get("address", "").strip()
+        city = request.form.get("city", "").strip()
 
         error = None
         db = get_db()
 
-        # Validation simple
+        # =============================
+        # VALIDATIONS
+        # =============================
+
         if not first_name:
             error = "First name is required."
+
         elif not last_name:
             error = "Last name is required."
+
         elif not email:
             error = "Email is required."
+
         elif not password:
             error = "Password is required."
 
-        # Insertion
-        if error is None:
-            try:
-                db.execute(
-                    """
-                    INSERT INTO user (first_name, last_name, email, password, role)
-                    VALUES (?, ?, ?, ?, ?)
-                    """,
-                    (
-                        first_name,
-                        last_name,
-                        email,
-                        generate_password_hash(password),
-                        "user",
-                    ),
-                )
-                db.commit()
+        elif len(password) < 6:
+            error = "Password must be at least 6 characters."
 
-            except sqlite3.IntegrityError:
-                error = f"User with email {email} is already registered."
-            else:
-                return redirect(url_for("auth.login"))
+        elif db.execute(
+            "SELECT id FROM user WHERE email = ?",
+            (email,)
+        ).fetchone() is not None:
+            error = "This email is already registered."
+
+        elif phone and db.execute(
+            "SELECT id FROM user WHERE phone = ?",
+            (phone,)
+        ).fetchone() is not None:
+            error = "This phone number is already used."
+
+        # =============================
+        # INSERTION
+        # =============================
+        if error is None:
+
+            hashed_password = generate_password_hash(password)
+
+            db.execute(
+                """
+                INSERT INTO user (
+                    first_name,
+                    last_name,
+                    email,
+                    password,
+                    phone,
+                    address,
+                    city,
+                    role
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    first_name,
+                    last_name,
+                    email,
+                    hashed_password,
+                    phone if phone else None,
+                    address if address else None,
+                    city if city else None,
+                    "user",
+                ),
+            )
+
+            db.commit()
+
+            user = db.execute(
+                "SELECT * FROM user WHERE email = ?",
+                (email,)
+            ).fetchone()
+
+            session.clear()
+            session["user_id"] = user["id"]
+
+            return redirect(url_for("public.profil"))
 
         flash(error)
 
