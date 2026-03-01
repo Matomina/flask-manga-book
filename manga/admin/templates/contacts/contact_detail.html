@@ -4,6 +4,12 @@
 
 <h1>Détail message</h1>
 
+<p>
+    <a href="{{ url_for('admin_contacts.list_contacts') }}">
+        ← Retour à la liste
+    </a>
+</p>
+
 <p><strong>ID :</strong> {{ contact.id }}</p>
 
 <p>
@@ -21,18 +27,12 @@
 <p>{{ contact.message }}</p>
 
 <p><strong>Status :</strong> {{ contact.status }}</p>
-<p><strong>Date :</strong> {{ contact.created_at }}</p>
+<p><strong>Date :</strong> {{ contact.created_at | format_datetime_fr }}</p>
 
 <form action="{{ url_for('admin_contacts.delete_contact', id=contact.id) }}" method="POST">
     <button type="submit" onclick="return confirm('Confirmer la suppression ?')">
         Supprimer
     </button>
 </form>
-
-<p>
-    <a href="{{ url_for('admin_contacts.list_contacts') }}">
-        Retour
-    </a>
-</p>
 
 {% endblock %}

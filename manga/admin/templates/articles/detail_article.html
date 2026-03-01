@@ -20,7 +20,7 @@
     <strong>Genre :</strong> {{ article['genres'] }} <br>
     <strong>Prix :</strong> {{ article['price'] }} € <br>
     <strong>Stock :</strong> {{ article['stock'] }} <br>
-    <strong>Image :</strong> <br>
+    <strong>Image </strong> <br>
     <img src="{{ url_for('static', filename=article['image']) }}" width="200" alt="{{ article['name'] }}">
 </p>
 

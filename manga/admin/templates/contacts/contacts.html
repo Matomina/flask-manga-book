@@ -26,7 +26,7 @@
         </td>
         <td>{{ contact.sujet }}</td>
         <td>{{ contact.status }}</td>
-        <td>{{ contact.created_at }}</td>
+        <td>{{ contact.created_at | format_datetime_fr }}</td>
         <td>
             <a href="{{ url_for('admin_contacts.detail_contact', id=contact.id) }}">
                 Voir

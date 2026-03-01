@@ -1,17 +1,26 @@
 {% extends "admin_layout.html" %}
 
-{% block title %}Dashboard Admin{% endblock %}
+{% block title %}
+Dashboard Admin
+{% endblock %}
 
 {% block content %}
 
-<h1>Dashboard </h1>
+<!-- ===================================================== -->
+<!-- PAGE TITLE -->
+<!-- ===================================================== -->
+<h1>Dashboard Administrateur</h1>
 
-<!-- ============================= -->
-<!-- 🔹 Tableau des statistiques  -->
-<!-- ============================= -->
-<h1>Statistiques globales</h1>
+<!-- ===================================================== -->
+<!-- SECTION : STATISTIQUES GLOBALES -->
+<!-- ===================================================== -->
+<h2>Statistiques globales</h2>
 
 <table border="1" cellpadding="10" cellspacing="0">
+
+    <!-- ============================= -->
+    <!-- EN-TÊTE DU TABLEAU -->
+    <!-- ============================= -->
     <thead>
         <tr>
             <th>Module</th>
@@ -20,7 +29,12 @@
         </tr>
     </thead>
 
+    <!-- ============================= -->
+    <!-- CONTENU DU TABLEAU -->
+    <!-- ============================= -->
     <tbody>
+
+        <!-- Utilisateurs -->
         <tr>
             <td>Utilisateurs</td>
             <td>{{ stats.total_users }}</td>
@@ -31,6 +45,7 @@
             </td>
         </tr>
 
+        <!-- Commandes -->
         <tr>
             <td>Commandes</td>
             <td>{{ stats.total_orders }}</td>
@@ -41,6 +56,7 @@
             </td>
         </tr>
 
+        <!-- Articles -->
         <tr>
             <td>Articles</td>
             <td>{{ stats.total_articles }}</td>
@@ -51,17 +67,30 @@
             </td>
         </tr>
 
+        <!-- Messages Contact -->
         <tr>
             <td>Messages (Contact)</td>
             <td>{{ stats.total_messages }}</td>
             <td>
-                <!-- À adapter si tu crées un blueprint contact -->
                 <a href="{{ url_for('admin_contacts.list_contacts') }}">
                     Voir les messages
                 </a>
             </td>
         </tr>
+
+        <!-- Messages Forum -->
+        <tr>
+            <td>Messages (Forum)</td>
+            <td>{{ stats.total_forum_messages }}</td>
+            <td>
+                <a href="{{ url_for('admin_forum.list_messages') }}">
+                    Voir les messages
+                </a>
+            </td>
+        </tr>
+
     </tbody>
+
 </table>
 
 {% endblock %}

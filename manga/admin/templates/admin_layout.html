@@ -7,21 +7,22 @@
 
     <title>{% block title %}Admin{% endblock %}</title>
 
-    <!-- ✅ Bootstrap CSS (uniquement admin) -->
+    <!-- Bootstrap CSS (uniquement admin) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- ✅ Ton CSS admin -->
+    <!-- Ton CSS admin -->
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/admin.css') }}">
 </head>
 
 <body class="bg-light">
 
-    <!-- ✅ Navbar admin -->
+    <!-- Navbar admin -->
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url_for('admin.dashboard') }}">Admin</a>
 
-            {# ✅ Bouton "Retour dashboard" sur toutes les pages admin SAUF dashboard #}
+            {# Bouton "Retour dashboard" sur toutes les pages admin SAUF dashboard #}
+
             {% if request.endpoint != 'admin.dashboard' %}
             <a class="btn btn-outline-light" href="{{ url_for('admin.dashboard') }}">
                 Retour au dashboard
@@ -30,15 +31,15 @@
         </div>
     </nav>
 
-    <!-- ✅ Contenu -->
+    <!-- Contenu -->
     <main class="container py-4">
         {% block content %}{% endblock %}
     </main>
 
-    <!-- ✅ Bootstrap JS (pour dropdown, modal, etc.) -->
+    <!-- Bootstrap JS (pour dropdown, modal, etc.) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- ✅ Ton JS admin -->
+    <!-- Ton JS admin -->
     <script src="{{ url_for('static', filename='admin/admin.js') }}"></script>
 </body>
 

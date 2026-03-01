@@ -22,7 +22,7 @@
 <p><strong>Adresse :</strong> {{ user.address or 'Non renseignée' }}</p>
 <p><strong>Ville :</strong> {{ user.city or 'Non renseignée' }}</p>
 <p><strong>Rôle :</strong> {{ user.role }}</p>
-<p><strong>Créé le :</strong> {{ user.created_at }}</p>
+<p><strong>Créé le :</strong> {{ user.created_at | format_datetime_fr }}</p>
 
 <br><br>
 
@@ -61,7 +61,7 @@
         <td>{{ order.id }}</td>
         <td>{{ order.total_amount }}</td>
         <td>{{ order.status }}</td>
-        <td>{{ order.created_at }}</td>
+        <td>{{ order.created_at | format_datetime_fr }}</td>
         <td>
             <a href="{{ url_for('admin_orders.detail_order', id=order.id) }}">
                 Voir
@@ -98,7 +98,7 @@
         <td>{{ contact.id }}</td>
         <td>{{ contact.sujet }}</td>
         <td>{{ contact.status }}</td>
-        <td>{{ contact.created_at }}</td>
+        <td>{{ contact.created_at | format_datetime_fr }}</td>
         <td>
             <a href="{{ url_for('admin_contacts.detail_contact', id=contact.id) }}">
                 Voir

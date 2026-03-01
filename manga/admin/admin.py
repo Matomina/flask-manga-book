@@ -22,13 +22,32 @@ bp = Blueprint(
 @bp.route("/")
 @admin_required
 def dashboard():
+
     db = get_db()
 
     stats = {
-        "total_users": db.execute("SELECT COUNT(*) FROM user").fetchone()[0],
-        "total_orders": db.execute("SELECT COUNT(*) FROM orders").fetchone()[0],
-        "total_articles": db.execute("SELECT COUNT(*) FROM articles").fetchone()[0],
-        "total_messages": db.execute("SELECT COUNT(*) FROM contact").fetchone()[0],
+        "total_users": db.execute(
+            "SELECT COUNT(*) FROM user"
+        ).fetchone()[0],
+
+        "total_orders": db.execute(
+            "SELECT COUNT(*) FROM orders"
+        ).fetchone()[0],
+
+        "total_articles": db.execute(
+            "SELECT COUNT(*) FROM articles"
+        ).fetchone()[0],
+
+        "total_messages": db.execute(
+            "SELECT COUNT(*) FROM contact"
+        ).fetchone()[0],
+
+        "total_forum_messages": db.execute(
+            "SELECT COUNT(*) FROM topics"
+        ).fetchone()[0],
     }
 
-    return render_template("admin/dashboard.html", stats=stats)
+    return render_template(
+        "admin/dashboard.html",
+        stats=stats
+    )

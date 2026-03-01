@@ -15,7 +15,7 @@ Architecture :
 import os
 import locale
 from datetime import datetime
-from flask import Flask
+from flask import Flask, app
 
 
 # ========================================================
@@ -131,6 +131,9 @@ def create_app(test_config=None):
 
     from .admin.contacts import bp as contacts_bp
     app.register_blueprint(contacts_bp)
+
+    from .admin.forum import bp as admin_forum_bp
+    app.register_blueprint(admin_forum_bp)
 
     # ====================================================
     # Gestion erreurs globale
