@@ -4,6 +4,8 @@
 
 {% block content %}
 
+{% set active_tab = request.args.get('tab', 'inscription') %}
+
 <!-- BANNIÈRE -->
 <section class="banner">
   <img src="{{ url_for('static', filename='image/zenitsu.png') }}" alt="Profil">
@@ -117,16 +119,16 @@
   <section class="form-container" id="auth-section">
 
     <div class="form-tabs">
-      <button class="tab-btn-inscription active" data-tab="inscription">
+      <button class="tab-btn-inscription {% if active_tab == 'inscription' %}active{% endif %}" data-tab="inscription">
         📝 Inscription
       </button>
-      <button class="tab-btn-connexion" data-tab="connexion">
+      <button class="tab-btn-connexion {% if active_tab == 'connexion' %}active{% endif %}" data-tab="connexion">
         🔐 Connexion
       </button>
     </div>
 
     <!-- INSCRIPTION -->
-    <div class="form-box active" id="form-inscription">
+    <div class="form-box {% if active_tab == 'inscription' %}active{% endif %}" id="form-inscription">
       <h2>📝 Inscription</h2>
 
       <form method="POST" action="{{ url_for('auth.register') }}">
@@ -179,7 +181,7 @@
     </div>
 
     <!-- CONNEXION -->
-    <div class="form-box" id="form-connexion">
+    <div class="form-box {% if active_tab == 'connexion' %}active{% endif %}" id="form-connexion">
       <h2>🔐 Connexion</h2>
 
       <form method="POST" action="{{ url_for('auth.login', next=url_for('public.profil')) }}">

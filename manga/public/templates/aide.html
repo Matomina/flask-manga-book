@@ -121,32 +121,57 @@
   <section class="content">
     <h2>📞 Contactez-nous</h2>
 
-    <form id="contact-form" class="contact-form">
-      <div class="form-group">
-        <label for="email2">Adresse mail</label>
-        <input type="email" id="email2" required>
-      </div>
+    {% if "user_id" not in session %}
 
-      <div class="form-group">
-        <label for="confirmEmail2">Confirmation adresse mail</label>
-        <input type="email" id="confirmEmail2" required>
-        <small id="emailError2" class="error-message"></small>
-      </div>
+    <div class="login-required">
+
+      <p>
+        Contactez-nous, votre espace dédié pour échanger avec notre équipe.
+        Que vous ayez une question, un besoin d’information ou une demande spécifique, nous sommes à votre écoute.
+      </p>
+
+      <p>
+        Ce formulaire vous permet de nous contacter facilement afin d’obtenir une réponse claire et adaptée.
+        Chaque message est traité avec attention pour vous apporter une aide rapide et efficace.
+      </p>
+
+      <p>
+        N’hésitez pas à nous écrire, nous mettons tout en œuvre pour vous accompagner
+        et répondre à vos demandes dans les meilleurs délais.
+      </p>
+
+      <p class="login-warning">
+        Vous devez être connecté pour contacter le support.
+      </p>
+
+      <a href="{{ url_for('public.profil') }}?tab=connexion" class="submit-btn">
+        SE CONNECTER
+      </a>
+
+    </div>
+
+    {% else %}
+
+    <form method="POST" action="{{ url_for('public.contact') }}" class="contact-form">
 
       <div class="form-group">
         <label for="subject">Sujet</label>
-        <input type="text" id="subject" required>
+        <input type="text" id="subject" name="subject" required>
       </div>
 
       <div class="form-group">
         <label for="message">Message</label>
-        <textarea id="message" required></textarea>
+        <textarea id="message" name="message" required></textarea>
       </div>
 
       <button type="submit" class="submit-btn">
         ENVOYER VOTRE DEMANDE
       </button>
+
     </form>
+
+    {% endif %}
+
   </section>
 
 </main>

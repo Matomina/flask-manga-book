@@ -12,7 +12,7 @@ Responsabilités :
 ========================================================
 """
 
-from flask import Blueprint, render_template, abort, session, redirect, url_for, request, jsonify
+from flask import Blueprint, render_template, abort, session, redirect, url_for, request, jsonify, flash, g
 from manga.models.article_model import get_all_articles
 from manga.extensions.db import get_db
 from datetime import datetime
@@ -97,7 +97,7 @@ def home():
     articles = [dict(a) for a in get_all_articles()]
 
     # ====================================================
-    # 📜 HISTORIQUES
+    # HISTORIQUES
     # ====================================================
 
     historiques = []
@@ -116,7 +116,7 @@ def home():
         historiques = [dict(a) for a in historiques_db]
 
     # ====================================================
-    # ⭐ CLASSIQUES
+    # CLASSIQUES
     # ====================================================
 
     classiques = [
@@ -126,7 +126,7 @@ def home():
     ][:10]
 
     # ====================================================
-    # 💎 PÉPITES
+    # PÉPITES
     # ====================================================
 
     pepites = [
@@ -136,7 +136,7 @@ def home():
     ][:10]
 
     # ====================================================
-    # 🎁 GOODIES
+    # GOODIES
     # ====================================================
 
     goodies = [
@@ -518,6 +518,52 @@ def panier():
 @bp.route("/aide")
 def aide():
     return render_template("aide.html")
+
+
+# ====================================================
+#  Route : Contact (Support)
+# ====================================================
+@bp.route("/contact", methods=["POST"])
+def contact():
+
+    # ==========================================
+    # Vérification utilisateur connecté
+    # ==========================================
+    if "user_id" not in session:
+        flash("Vous devez être connecté pour envoyer un message.")
+        return redirect(url_for("auth.login"))
+
+    subject = request.form.get("subject")
+    message = request.form.get("message")
+
+    error = None
+
+    # ==========================================
+    # Validation
+    # ==========================================
+    if not subject:
+        error = "Sujet requis."
+    elif not message:
+        error = "Message requis."
+
+    if error:
+        flash(error)
+        return redirect(url_for("public.aide"))
+
+    db = get_db()
+
+    # ==========================================
+    # Insertion en base
+    # ==========================================
+    db.execute("""
+        INSERT INTO contact (user_id, sujet, message)
+        VALUES (?, ?, ?)
+    """, (session["user_id"], subject, message))
+
+    db.commit()
+
+    flash("Votre message a été envoyé au support.")
+    return redirect(url_for("public.aide"))
 
 
 # ====================================================
