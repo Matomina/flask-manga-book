@@ -476,4 +476,17 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCart("cartPageContent");
   updateCartCount();
 
+  /* FLASH AUTO HIDE */
+  const flash = document.getElementById("flashMessage");
+
+  if (flash) {
+    setTimeout(() => {
+      flash.classList.add("hide");
+
+      setTimeout(() => {
+        flash.remove();
+      }, 500);
+    }, 2000);
+  }
+
 });

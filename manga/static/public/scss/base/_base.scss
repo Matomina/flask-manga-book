@@ -100,7 +100,7 @@ main {
 }
 
 /* ======================================================
-   FLASH GLOBAL – Messages système (succès / erreur)
+   FLASH GLOBAL – Auto disparition
    ====================================================== */
 
 .flash-global {
@@ -113,9 +113,17 @@ main {
    font-weight: 500;
    text-align: center;
 
-   background-color: #e6f9ed;
+   background-color: $color-gray;
    border: 1px solid #2ecc71;
    color: #1e7e34;
 
-   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+   box-shadow: 0 2px 8px $color-dark;
+
+   opacity: 1;
+   transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.flash-global.hide {
+   opacity: 0;
+   transform: translateY(-10px);
 }

@@ -183,7 +183,7 @@
         <!-- FLASH GLOBAL -->
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-        <div class="flash-global">
+        <div class="flash-global" id="flashMessage">
             {% for message in messages %}
             <p>{{ message }}</p>
             {% endfor %}
