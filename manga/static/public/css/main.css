@@ -2262,7 +2262,7 @@ nav .dropdown-menu li a.dropdown-fav:hover .fav-count-badge {
    ------------------------------------------------------ */
 .btn-container {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 
 /* ------------------------------------------------------
@@ -2515,17 +2515,22 @@ nav .dropdown-menu li a.dropdown-fav:hover .fav-count-badge {
    BOUTON ENVOI FORMULAIRE
    ------------------------------------------------------ */
 .submit-btn {
-  background-color: #9135ff;
-  color: #fff;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
+  background: #9135ff;
+  color: #dc1ef7;
+  border: 2px solid #dc1ef7;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 16px;
+  transition: transform 0.2s ease;
   cursor: pointer;
   font-weight: bold;
   margin-top: 1rem;
 }
 .submit-btn:hover {
-  background: linear-gradient(135deg, #9135ff, #dc1ef7);
+  transform: translateY(-2px);
+  color: #9135ff;
+  background: #dc1ef7;
+  border: 2px solid #9135ff;
 }
 
 /* ======================================================

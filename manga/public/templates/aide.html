@@ -143,11 +143,11 @@
       <p class="login-warning">
         Vous devez être connecté pour contacter le support.
       </p>
-
-      <a href="{{ url_for('public.profil') }}?tab=connexion" class="submit-btn">
-        SE CONNECTER
-      </a>
-
+      <div class="btn-container">
+        <a href="{{ url_for('public.profil') }}?tab=connexion" class="submit-btn">
+          SE CONNECTER
+        </a>
+      </div>
     </div>
 
     {% else %}

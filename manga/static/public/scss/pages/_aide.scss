@@ -70,18 +70,23 @@
    ------------------------------------------------------ */
 
 .submit-btn {
-    background-color: $color-primary;
-    color: $color-light;
+    background: $color-primary;
+    color: $color-secondary;
+    border: 2px solid $color-secondary;
+    border-radius: $radius-lg;
+    padding: $spacing-md;
+    font-size: $font-size-base;
 
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: $radius-sm;
+    transition: transform 0.2s ease;
 
     cursor: pointer;
     font-weight: bold;
     margin-top: 1rem;
 
     &:hover {
-        @include gradient-primary;
+        transform: translateY(-2px);
+        color: $color-primary;
+        background: $color-secondary;
+        border: 2px solid $color-primary;
     }
 }
