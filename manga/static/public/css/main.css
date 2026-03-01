@@ -197,6 +197,22 @@ main {
 }
 
 /* ======================================================
+   FLASH GLOBAL – Messages système (succès / erreur)
+   ====================================================== */
+.flash-global {
+  max-width: 1200px;
+  margin: 1.5rem auto;
+  padding: 1rem 1.5rem;
+  border-radius: 5px;
+  font-weight: 500;
+  text-align: center;
+  background-color: #e6f9ed;
+  border: 1px solid #2ecc71;
+  color: #1e7e34;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ======================================================
    ABSTRACTS – VARIABLES GLOBALES
    ====================================================== */
 /* ======================================================
