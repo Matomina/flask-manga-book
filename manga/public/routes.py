@@ -604,14 +604,14 @@ def search():
     # Si correspondance exacte en premier → redirection
     if results and results[0]["name"].lower() == query.lower():
         return redirect(
-            url_for("public.article_detail",
+            url_for("articles.article_detail",
                     article_id=results[0]["id"])
         )
 
     # Si un seul résultat
     if len(results) == 1:
         return redirect(
-            url_for("public.article_detail",
+            url_for("articles.article_detail",
                     article_id=results[0]["id"])
         )
 
