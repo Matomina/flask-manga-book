@@ -1,24 +1,24 @@
 {
-  "name": "moi",
+  "name": "flask-manga-book",
   "version": "1.0.0",
-  "description": "��#\u0000 \u0000E\u0000c\u0000o\u0000l\u0000e\u00004\u00002\u0000\r\u0000 \u0000",
-  "main": "index.js",
+  "private": true,
+  "description": "Application web Flask MangaBook avec interface publique et espace d’administration.",
   "scripts": {
-    "dev": "sass --watch scss:css",
-    "build": "sass scss:css --style=compressed"
+    "dev:scss": "sass --watch manga/static/scss:manga/static/css",
+    "build:scss": "sass manga/static/scss:manga/static/css --style=compressed"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Matomina/Ecole42.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/Matomina/Ecole42/issues"
-  },
-  "homepage": "https://github.com/Matomina/Ecole42#readme",
+  "keywords": [
+    "flask",
+    "python",
+    "sass",
+    "scss",
+    "jinja2",
+    "sqlite",
+    "manga",
+    "webapp"
+  ],
+  "author": "Matomina",
+  "license": "MIT",
   "devDependencies": {
     "sass": "^1.97.3"
   }
