@@ -1,3 +1,65 @@
-node_modules/
-.venv/
+# =========================
+# Python
+# =========================
 __pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Packaging / build
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+
+# Test / coverage / cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# =========================
+# Flask
+# =========================
+instance/
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# =========================
+# Node / front tooling
+# =========================
+node_modules/
+
+# Optional frontend build folders
+coverage/
+.npm/
+.parcel-cache/
+.vite/
+*.tsbuildinfo
+
+# =========================
+# Editor / OS
+# =========================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
